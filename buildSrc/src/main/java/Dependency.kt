@@ -33,11 +33,6 @@ object Dependency {
             "androidx.lifecycle:lifecycle-livedata-ktx:${Versions.LIFECYCLE_KTX}"
         const val LIFECYCLE_RUNTIME =
             "androidx.lifecycle:lifecycle-runtime-ktx:${Versions.LIFECYCLE_KTX}"
-
-        const val ROOM_RUNTIME = "androidx.room:room-runtime:${Versions.ROOM}"
-        const val ROOM_KTX = "androidx.room:room-ktx:${Versions.ROOM}"
-        const val ROOM_COMPILER = "androidx.room:room-compiler:${Versions.ROOM}"
-
         const val LEGACY_SUPPORT = "androidx.legacy:legacy-support-v4:${Versions.LEGACY}"
     }
 
@@ -56,8 +51,6 @@ object Dependency {
     }
 
     object Google {
-        const val FIREBASE_ANALYTICS = "com.google.firebase:firebase-analytics-ktx"
-        const val FIREBASE_BOM = "com.google.firebase:firebase-bom:${Versions.FIREBASE_BOM}"
         const val GMS_PLAY_SERVICE_AUTH =
             "com.google.android.gms:play-services-auth:${Versions.GMS_PLAY_SERVICE_AUTH}"
         const val GMS_GOOGLE_SERVICE =
@@ -67,7 +60,6 @@ object Dependency {
         const val MATERIAL = "com.google.android.material:material:${Versions.MATERIAL}"
         const val GMS_PLAY_SERVICE_BASE =
             "com.google.android.gms:play-services-base:${Versions.GMS_PLAY_SERVICE_BASE}"
-        const val FIREBASE = "com.google.firebase:firebase-auth-ktx:${Versions.FIREBASE}"
         const val LIVEDATA = "androidx.lifecycle:lifecycle-livedata-ktx:${Versions.LIVEDATA}"
     }
 
@@ -80,7 +72,6 @@ object Dependency {
             "com.squareup.okhttp3:logging-interceptor:${Versions.OKHTTP}"
         const val MOSHI = "com.squareup.moshi:moshi-kotlin:${Versions.MOSHI}"
         const val MOSHI_COMPILER = "com.squareup.moshi:moshi-kotlin-codegen:${Versions.MOSHI}"
-        const val SHIMMER = "com.facebook.shimmer:shimmer:${Versions.SHIMMER}"
     }
 
     object UnitTest {
@@ -96,12 +87,6 @@ object Dependency {
     object BottomNav {
         const val NAV_FRAGMENT = "androidx.navigation:navigation-fragment-ktx:${Versions.NAV}"
         const val NAV_UI = "androidx.navigation:navigation-ui-ktx:${Versions.NAV}"
-    }
-
-    object Rx {
-        const val RX_BINNDING = "com.jakewharton.rxbinding4:rxbinding:${Versions.RX_BINDING}"
-        const val RX_JAVA = "io.reactivex.rxjava3:rxjava:${Versions.RX_JAVA}"
-        const val RX_ANDROID = "io.reactivex.rxjava3:rxandroid:${Versions.RX_ANDROID}"
     }
 
     object Coroutine {
