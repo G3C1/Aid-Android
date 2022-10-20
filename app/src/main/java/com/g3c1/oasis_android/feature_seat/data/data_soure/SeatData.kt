@@ -4,5 +4,5 @@ data class SeatData(
     val seatId: Int,
     val seatNumber: Int,
     val severalPeople: Int,
-    val seated: Boolean
+    val seated: Boolean,
 )
