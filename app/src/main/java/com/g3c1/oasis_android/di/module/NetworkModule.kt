@@ -1,5 +1,6 @@
 package com.g3c1.oasis_android.di.module
 
+import com.g3c1.oasis_android.remote.api.SeatApi
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -49,5 +50,12 @@ object NetworkModule {
     fun provideConverterFactory(): GsonConverterFactory {
         return GsonConverterFactory.create()
     }
+
+    @Provides
+    @Singleton
+    fun provideSeatService(retrofit: Retrofit): SeatApi {
+        return retrofit.create(SeatApi::class.java)
+    }
+
 
 }
