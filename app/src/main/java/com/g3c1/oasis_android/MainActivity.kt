@@ -10,13 +10,15 @@ import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
+import com.g3c1.oasis_android.feature_seat.presentation.seatlist.SeatListScreen
+import com.g3c1.oasis_android.feature_seat.presentation.seatlist.component.SeatSubmitButton
 import com.g3c1.oasis_android.ui.theme.OasisAndroidTheme
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContent {
-            
+            SeatListScreen()
         }
     }
 }
