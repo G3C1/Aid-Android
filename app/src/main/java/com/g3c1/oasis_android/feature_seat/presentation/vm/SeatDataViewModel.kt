@@ -19,7 +19,7 @@ class SeatDataViewModel @Inject constructor(
 
     var mSeatDataList: MutableStateFlow<ApiState<SeatData>> = MutableStateFlow(ApiState.Loading())
 
-    fun seatDataList() = viewModelScope.launch {
+    fun getSeatDataList() = viewModelScope.launch {
         mSeatDataList.value = ApiState.Loading()
         getSeatDataUseCase.getSeatDataUseCase().catch { error ->
             mSeatDataList.value = ApiState.Error("${error.message}")
