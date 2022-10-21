@@ -15,6 +15,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import com.g3c1.oasis_android.feature_seat.presentation.seatlist.SeatListScreen
 import com.g3c1.oasis_android.ui.theme.Font
 import com.g3c1.oasis_android.ui.theme.Orange
 
