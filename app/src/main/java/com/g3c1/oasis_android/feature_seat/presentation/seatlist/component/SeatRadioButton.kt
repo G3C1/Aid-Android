@@ -53,8 +53,7 @@ fun SeatRadioButton(seatDataList: List<SeatData>) {
                         color = color,
                         width = 3.dp
                     )
-                    .background(if (!item.seated && isSelectedItem(item.seatId)) Color.White else color)
-                    ,
+                    .background(if (!item.seated && isSelectedItem(item.seatId)) Color.White else color),
                 horizontalAlignment = CenterHorizontally,
                 verticalArrangement = Arrangement.Center,
 

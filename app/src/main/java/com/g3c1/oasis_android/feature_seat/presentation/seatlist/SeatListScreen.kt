@@ -3,6 +3,8 @@ package com.g3c1.oasis_android.feature_seat.presentation.seatlist
 import androidx.compose.foundation.layout.*
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.style.TextAlign
@@ -16,6 +18,7 @@ import com.g3c1.oasis_android.ui.theme.Orange
 
 @Composable
 fun SeatListScreen() {
+    val buttonVisibility = remember { mutableStateOf(false)}
     Column(Modifier.fillMaxSize()) {
         val list = listOf(
             SeatData(
@@ -62,7 +65,7 @@ fun SeatListScreen() {
             verticalArrangement = Arrangement.Bottom,
             horizontalAlignment = Alignment.Start,
         ) {
-            SeatSubmitButton({})
+            SeatSubmitButton({}, visibility = buttonVisibility.value)
         }
     }
 }
