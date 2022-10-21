@@ -31,7 +31,6 @@ fun SeatListScreen() {
     val selectedValue = remember { mutableStateOf<Int?>(null) }
     val isSelectedItem: (Int) -> Boolean = { selectedValue.value == it }
     val onChangeState: (Int) -> Unit = { selectedValue.value = it }
-    val buttonVisibility = remember { mutableStateOf(false) }
     Column(Modifier.fillMaxSize()) {
         val seatDataList = listOf(
             SeatData(
@@ -118,11 +117,43 @@ fun SeatListScreen() {
                     )
                 }
             }
-            Column(Modifier.fillMaxSize(),
-            verticalArrangement = Arrangement.Center,
-            horizontalAlignment = Alignment.CenterHorizontally) {
-                SeatSubmitButton(onClick = {}, visibility = selectedValue.value != null)
+        }
+        Row(
+            modifier = Modifier
+                .height(20.dp)
+                .fillMaxWidth(),
+            verticalAlignment = Alignment.CenterVertically,
+            horizontalArrangement = Arrangement.End
+        ) {
+            Row(verticalAlignment = Alignment.CenterVertically) {
+                Column(
+                    modifier = Modifier
+                        .size(10.dp)
+                        .background(Gray)
+                        .clip(RoundedCornerShape(3f))
+                ) {}
+                Spacer(modifier = Modifier.width(4.dp))
+                Text(text = "사용중")
             }
+            Spacer(modifier = Modifier.width(12.dp))
+            Row(verticalAlignment = Alignment.CenterVertically) {
+                Column(
+                    modifier = Modifier
+                        .size(10.dp)
+                        .background(Orange)
+                        .clip(RoundedCornerShape(3f))
+                ) {}
+                Spacer(modifier = Modifier.width(4.dp))
+                Text(text = "빈자리")
+            }
+            Spacer(modifier = Modifier.width(8.dp))
+        }
+        Column(
+            Modifier.fillMaxSize(),
+            verticalArrangement = Arrangement.Center,
+            horizontalAlignment = Alignment.CenterHorizontally
+        ) {
+            SeatSubmitButton(onClick = {}, visibility = selectedValue.value != null)
         }
     }
 }
