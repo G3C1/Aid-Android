@@ -27,7 +27,7 @@ import com.g3c1.oasis_android.ui.theme.Orange
 
 
 @Composable
-fun SeatListScreen() {
+fun SeatListScreen(onClick: () -> Unit) {
     val selectedValue = remember { mutableStateOf<Int?>(null) }
     val isSelectedItem: (Int) -> Boolean = { selectedValue.value == it }
     val onChangeState: (Int) -> Unit = { selectedValue.value = it }
@@ -150,10 +150,10 @@ fun SeatListScreen() {
         }
         Column(
             Modifier.fillMaxSize(),
-            verticalArrangement = Arrangement.Center,
+            verticalArrangement = Arrangement.Bottom,
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
-            SeatSubmitButton(onClick = {}, visibility = selectedValue.value != null)
+            SeatSubmitButton(onClick = { onClick }, visibility = selectedValue.value != null)
         }
     }
 }

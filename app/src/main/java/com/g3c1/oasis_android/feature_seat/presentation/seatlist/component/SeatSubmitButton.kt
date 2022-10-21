@@ -27,7 +27,7 @@ fun SeatSubmitButton(onClick: () -> Unit, visibility: Boolean) {
             modifier = Modifier
                 .wrapContentSize()
                 .fillMaxWidth()
-                .height(60.dp)
+                .height(80.dp)
                 .padding(8.dp, 0.dp, 8.dp, 16.dp),
             colors = ButtonDefaults.buttonColors(backgroundColor = Orange, contentColor = Color.White)
         ) {
