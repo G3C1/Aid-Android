@@ -27,7 +27,7 @@ class SeatActivity: ComponentActivity() {
         setContent {
             Surface(
                 modifier = Modifier.fillMaxSize()
-            ) {
+             ) {
                 SeatListScreen(viewModel = seatViewModel)
             }
         }
