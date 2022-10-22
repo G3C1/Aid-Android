@@ -10,16 +10,14 @@ object Utils {
     @RequiresApi(Build.VERSION_CODES.O)
     fun formattedTime(): String {
         val current = LocalDateTime.now()
-        val formattedAmPm = current.format(DateTimeFormatter.ofPattern("a", Locale("ko")))
-        val formattedMin = current.format(DateTimeFormatter.ofPattern("mm"))
-        val hour = DateTimeFormatter.ofPattern("HH").toString().toInt()
-        val formattedHour: Int
-
-        if (hour <= 12)
-            formattedHour = hour
-        else
-            formattedHour = hour - 12
-
-        return "$formattedAmPm $formattedHour:$formattedMin"
+        val formatter = DateTimeFormatter.ofPattern("a hh:mm", Locale("ko"))
+        var formatted = current.format(formatter)
+        if (current.format(DateTimeFormatter.ofPattern("a")) == "AM" && current.format(
+                DateTimeFormatter.ofPattern("hh")
+            ) == "12"
+        ) {
+            formatted = "${formatted.substring(0, 2)} 00:${formatted.substring(6, 8)}"
+        }
+        return formatted
     }
 }

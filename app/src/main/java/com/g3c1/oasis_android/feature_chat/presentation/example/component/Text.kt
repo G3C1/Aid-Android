@@ -93,9 +93,6 @@ fun ChatText(text: String) {
 @RequiresApi(Build.VERSION_CODES.O)
 @Composable
 fun TemiText(text: String) {
-    val current = LocalDateTime.now()
-    val formatter = DateTimeFormatter.ofPattern("a HH:mm", Locale("ko"))
-    val formatted = current.format(formatter)
     Row(verticalAlignment = Alignment.CenterVertically) {
         Row(
             verticalAlignment = Alignment.CenterVertically
@@ -126,7 +123,7 @@ fun TemiText(text: String) {
             }
             Spacer(modifier = Modifier.size(8.dp))
             Text(
-                text = formatted, style = TextStyle(
+                text = Utils.formattedTime(), style = TextStyle(
                     color = Gray6,
                     fontSize = 11.sp
                 )
