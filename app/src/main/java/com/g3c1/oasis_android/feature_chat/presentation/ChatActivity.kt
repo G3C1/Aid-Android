@@ -54,10 +54,11 @@ class ChatActivity : ComponentActivity() {
                         }
                         Spacer(Modifier.size(10.dp))
                         SendBtn {
-                            //TODO 모델에 텍스트 전송로직
-                            viewModel.chatList.add(text.value)
-                            viewModel.isTemiList.add(false)
-                            text.value = ""
+                            if (text.value != "") {
+                                viewModel.chatList.add(text.value)
+                                viewModel.isTemiList.add(false)
+                                text.value = ""
+                            }
                         }
                     }
                 }
