@@ -13,8 +13,7 @@ import javax.inject.Inject
 
 class SeatDataSourceImpl @Inject constructor(
     private val service: SeatApi
-): SeatDataSource {
-
+) : SeatDataSource {
     override suspend fun getSeatInfo(): Flow<ApiState<SeatData>> {
         return flow {
             try {
@@ -26,13 +25,34 @@ class SeatDataSourceImpl @Inject constructor(
                 } else {
                     try {
                         emit(ApiState.Error(response.errorBody()!!.string()))
-                    }   catch (e: IOException) {
+                    } catch (e: IOException) {
                         e.printStackTrace()
                     }
                 }
-            }   catch (e: Exception) {
+            } catch (e: Exception) {
                 emit(ApiState.Error(e.message ?: ""))
             } as Unit
         }.flowOn(Dispatchers.IO)
     }
+
+    override suspend fun patchSeatData(seatId: Int): Flow<ApiState<Unit>> {
+        return flow {
+            try {
+                val response = service.patchSeatData(seatId)
+                if (response.isSuccessful) {
+                    response.body()?.let {
+                        emit(ApiState.Success(it))
+                    }
+                } else {
+                    try {
+                        emit(ApiState.Error(response.errorBody()!!.string()))
+                    } catch (e: IOException) {
+                        e.printStackTrace()
+                    }
+                }
+            } catch(e: Exception){
+                emit(ApiState.Error(e.message ?: ""))
+            } as Unit
+        }.flowOn(Dispatchers.IO)    }
+
 }
