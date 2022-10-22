@@ -28,7 +28,7 @@ class SeatActivity: ComponentActivity() {
             Surface(
                 modifier = Modifier.fillMaxSize()
             ) {
-                SeatListScreen({})
+                SeatListScreen(viewModel = seatViewModel)
             }
         }
 //        getSeatDataList()
