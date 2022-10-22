@@ -27,10 +27,11 @@ class SeatActivity: ComponentActivity() {
         setContent {
             Surface(
                 modifier = Modifier.fillMaxSize()
-            ) {
-                SeatListScreen({})
+             ) {
+                SeatListScreen(viewModel = seatViewModel)
             }
         }
+//        patchSeatData()
 //        getSeatDataList()
     }
     private fun getSeatDataList() {
@@ -45,6 +46,24 @@ class SeatActivity: ComponentActivity() {
                     is ApiState.Error -> {
                         Log.e("TAG", it.message.toString())
                         seatViewModel.mSeatDataList.value = ApiState.Loading()
+                    }
+                    is ApiState.Loading -> {}
+                }
+            }
+        }
+    }
+
+    private fun patchSeatData() {
+        lifecycleScope.launch {
+            seatViewModel.mPatchSeatDataResult.collect {
+                when(it) {
+                    is ApiState.Success -> {
+                        Log.d("TAG", "patchSeatData: ${it.data.toString()}")
+                        seatViewModel.mPatchSeatDataResult.value = ApiState.Loading()
+                    }
+                    is ApiState.Error -> {
+                        Log.e("TAG", "patchSeatData: ${it.data.toString()}")
+                        seatViewModel.mPatchSeatDataResult.value = ApiState.Loading()
                     }
                     is ApiState.Loading -> {}
                 }

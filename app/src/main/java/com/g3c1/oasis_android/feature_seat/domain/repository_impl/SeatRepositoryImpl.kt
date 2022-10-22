@@ -10,7 +10,12 @@ import javax.inject.Inject
 class SeatRepositoryImpl @Inject constructor(
     private val dataSource: SeatDataSource
 ): SeatRepository {
-    override suspend fun getSeatDataUseCase(): Flow<ApiState<SeatData>> {
+
+    override suspend fun getSeatDataRepository(): Flow<ApiState<SeatData>> {
         return dataSource.getSeatInfo()
+    }
+
+    override suspend fun patchSeatDataRepository(seatId: Int): Flow<ApiState<Unit>> {
+        return dataSource.patchSeatData(seatId)
     }
 }

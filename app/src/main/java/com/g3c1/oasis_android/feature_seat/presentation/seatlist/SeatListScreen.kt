@@ -20,6 +20,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.g3c1.oasis_android.feature_seat.data.data_soure.SeatData
 import com.g3c1.oasis_android.feature_seat.presentation.seatlist.component.SeatSubmitButton
+import com.g3c1.oasis_android.feature_seat.presentation.vm.SeatDataViewModel
 import com.g3c1.oasis_android.ui.theme.Font
 import com.g3c1.oasis_android.ui.theme.Gray
 import com.g3c1.oasis_android.ui.theme.Gray2
@@ -27,7 +28,7 @@ import com.g3c1.oasis_android.ui.theme.Orange
 
 
 @Composable
-fun SeatListScreen(onClick: () -> Unit) {
+fun SeatListScreen(viewModel: SeatDataViewModel) {
     val selectedValue = remember { mutableStateOf<Int?>(null) }
     val isSelectedItem: (Int) -> Boolean = { selectedValue.value == it }
     val onChangeState: (Int) -> Unit = { selectedValue.value = it }
@@ -153,7 +154,9 @@ fun SeatListScreen(onClick: () -> Unit) {
             verticalArrangement = Arrangement.Bottom,
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
-            SeatSubmitButton(onClick = { onClick }, visibility = selectedValue.value != null)
+            SeatSubmitButton(onClick = {
+                viewModel.patchSeatData(selectedValue.value!!)
+            }, visibility = selectedValue.value != null)
         }
     }
 }

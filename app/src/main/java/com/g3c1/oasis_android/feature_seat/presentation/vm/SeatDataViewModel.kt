@@ -4,6 +4,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.g3c1.oasis_android.feature_seat.data.data_soure.SeatData
 import com.g3c1.oasis_android.feature_seat.domain.use_case.GetSeatDataUseCase
+import com.g3c1.oasis_android.feature_seat.domain.use_case.PatchSeatDataUseCase
 import com.g3c1.oasis_android.remote.util.ApiState
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -14,10 +15,12 @@ import javax.inject.Inject
 
 @HiltViewModel
 class SeatDataViewModel @Inject constructor(
-    private val getSeatDataUseCase: GetSeatDataUseCase
+    private val getSeatDataUseCase: GetSeatDataUseCase,
+    private val patchSeatData: PatchSeatDataUseCase
 ): ViewModel() {
 
-    var mSeatDataList: MutableStateFlow<ApiState<SeatData>> = MutableStateFlow(ApiState.Loading())
+    val mSeatDataList: MutableStateFlow<ApiState<SeatData>> = MutableStateFlow(ApiState.Loading())
+    val mPatchSeatDataResult: MutableStateFlow<ApiState<Unit>> = MutableStateFlow(ApiState.Loading())
 
     fun getSeatDataList() = viewModelScope.launch {
         mSeatDataList.value = ApiState.Loading()
@@ -25,6 +28,15 @@ class SeatDataViewModel @Inject constructor(
             mSeatDataList.value = ApiState.Error("${error.message}")
         }.collect { value ->
             mSeatDataList.value = value
+        }
+    }
+
+    fun patchSeatData(seatId: Int) = viewModelScope.launch {
+        mPatchSeatDataResult.value = ApiState.Loading()
+        patchSeatData.patchSeatDataUseCase(seatId).catch { error ->
+            mPatchSeatDataResult.value = ApiState.Error("${error.message}")
+        }.collect { value ->
+            mPatchSeatDataResult.value = value
         }
     }
 }
