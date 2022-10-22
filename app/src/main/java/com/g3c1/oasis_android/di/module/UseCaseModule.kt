@@ -2,6 +2,7 @@ package com.g3c1.oasis_android.di.module
 
 import com.g3c1.oasis_android.feature_seat.domain.repository.SeatRepository
 import com.g3c1.oasis_android.feature_seat.domain.use_case.GetSeatDataUseCase
+import com.g3c1.oasis_android.feature_seat.domain.use_case.PatchSeatDataUseCase
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -15,5 +16,9 @@ object UseCaseModule {
     @Provides
     @Singleton
     fun provideSeatUseCase(repository: SeatRepository): GetSeatDataUseCase = GetSeatDataUseCase(repository)
+
+    @Provides
+    @Singleton
+    fun provideFetchUseCase(repository: SeatRepository): PatchSeatDataUseCase = PatchSeatDataUseCase(repository)
 
 }
