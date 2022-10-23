@@ -2,7 +2,7 @@ package com.g3c1.oasis_android.feature_seat.presentation.vm
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.g3c1.oasis_android.feature_seat.data.data_soure.SeatData
+import com.g3c1.oasis_android.feature_seat.data.dto.SeatData
 import com.g3c1.oasis_android.feature_seat.domain.use_case.GetSeatDataUseCase
 import com.g3c1.oasis_android.remote.util.ApiState
 import dagger.hilt.android.lifecycle.HiltViewModel

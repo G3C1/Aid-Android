@@ -18,7 +18,7 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import com.g3c1.oasis_android.feature_seat.data.data_soure.SeatData
+import com.g3c1.oasis_android.feature_seat.data.dto.SeatData
 import com.g3c1.oasis_android.feature_seat.presentation.seatlist.component.SeatSubmitButton
 import com.g3c1.oasis_android.ui.theme.Font
 import com.g3c1.oasis_android.ui.theme.Gray
@@ -77,7 +77,7 @@ fun SeatListScreen(onClick: () -> Unit) {
             seatDataList.forEach { item ->
                 val color = if (item.seated) Gray else Orange
                 val textColor =
-                    if (item.seated) Gray2 else if (!item.seated && isSelectedItem(item.seatId)) Orange else Color.Black
+                    if (item.seated) Gray2 else if (!item.seated && isSelectedItem(item.seatId)) Orange else Color.White
                 Column(
                     Modifier
                         .size(if (item.severalPeople >= 4) 160.dp else 90.dp)
