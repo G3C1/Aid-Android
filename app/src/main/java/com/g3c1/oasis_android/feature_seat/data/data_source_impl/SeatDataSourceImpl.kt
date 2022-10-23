@@ -15,7 +15,7 @@ class SeatDataSourceImpl @Inject constructor(
     private val service: SeatApi
 ): SeatDataSource {
 
-    override suspend fun getSeatInfo(): Flow<ApiState<SeatDTO>> {
+    override suspend fun getSeatInfo(): Flow<ApiState<List<SeatDTO>>> {
         return flow {
             try {
                 val response = service.getSeatData()

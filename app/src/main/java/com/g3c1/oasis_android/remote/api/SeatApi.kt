@@ -7,5 +7,5 @@ import retrofit2.http.GET
 interface SeatApi {
 
     @GET("/seat")
-    suspend fun getSeatData(): Response<SeatDTO>
+    suspend fun getSeatData(): Response<List<SeatDTO>>
 }

@@ -17,7 +17,7 @@ class SeatDataViewModel @Inject constructor(
     private val getSeatDataUseCase: GetSeatDataUseCase
 ): ViewModel() {
 
-    var mSeatDataList: MutableStateFlow<ApiState<SeatDTO>> = MutableStateFlow(ApiState.Loading())
+    var mSeatDataList: MutableStateFlow<ApiState<List<SeatDTO>>> = MutableStateFlow(ApiState.Loading())
 
     fun getSeatDataList() = viewModelScope.launch {
         mSeatDataList.value = ApiState.Loading()
