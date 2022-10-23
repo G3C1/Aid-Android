@@ -1,14 +1,11 @@
 package com.g3c1.oasis_android.feature_menu.presentation.menu.component
 
-import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxHeight
-import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.material.Icon
 import androidx.compose.material.IconButton
 import androidx.compose.material.Text
-import androidx.compose.material.TopAppBar
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -41,7 +38,7 @@ fun TopBar() {
         )
         IconButton(onClick = {}, modifier = Modifier.align(Alignment.CenterEnd)) {
             Icon(
-                painter = painterResource(id = R.drawable.ic_baseline_arrow_back_ios_24),
+                painter = painterResource(id = R.drawable.ic_cart),
                 contentDescription = "open shopping basket",
                 tint = Gray3
             )
