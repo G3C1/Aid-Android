@@ -15,6 +15,7 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.semantics.Role
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
@@ -46,14 +47,14 @@ fun MenuScreen() {
             MenuDTO(id = 6, category = "피자", foodList = listOf()),
             MenuDTO(id = 7, category = "피자", foodList = listOf())
         )
-        LazyRow(horizontalArrangement = Arrangement.spacedBy(16.dp)) {
+        LazyRow(horizontalArrangement = Arrangement.spacedBy(10.dp)) {
             items(seatDataList.size) { index ->
 
                 val color = if (isSelectedItem(seatDataList[index].id)) Orange else Gray
                 val textColor = if (isSelectedItem(seatDataList[index].id)) Color.White else Gray2
                 Row(
                     Modifier
-                        .height(56.dp)
+                        .height(40.dp)
                         .selectable(
                             selected = isSelectedItem(seatDataList[index].id),
                             onClick = { onChangeState(seatDataList[index].id); },
@@ -73,9 +74,10 @@ fun MenuScreen() {
                     Text(
                         text = seatDataList[index].category,
                         color = textColor,
-                        fontSize = 16.sp,
+                        fontSize = 13.sp,
                         fontFamily = Font.pretendard,
-                        fontWeight = FontWeight.SemiBold
+                        fontWeight = FontWeight.SemiBold,
+                        textAlign = TextAlign.Center
                     )
                     Spacer(modifier = Modifier.width(16.dp))
 
