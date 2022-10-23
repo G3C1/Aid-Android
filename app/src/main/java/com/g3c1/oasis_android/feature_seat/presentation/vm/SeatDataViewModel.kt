@@ -2,7 +2,7 @@ package com.g3c1.oasis_android.feature_seat.presentation.vm
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.g3c1.oasis_android.feature_seat.data.dto.SeatData
+import com.g3c1.oasis_android.feature_seat.data.dto.SeatDTO
 import com.g3c1.oasis_android.feature_seat.domain.use_case.GetSeatDataUseCase
 import com.g3c1.oasis_android.remote.util.ApiState
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -17,7 +17,7 @@ class SeatDataViewModel @Inject constructor(
     private val getSeatDataUseCase: GetSeatDataUseCase
 ): ViewModel() {
 
-    var mSeatDataList: MutableStateFlow<ApiState<SeatData>> = MutableStateFlow(ApiState.Loading())
+    var mSeatDataList: MutableStateFlow<ApiState<SeatDTO>> = MutableStateFlow(ApiState.Loading())
 
     fun getSeatDataList() = viewModelScope.launch {
         mSeatDataList.value = ApiState.Loading()
