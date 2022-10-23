@@ -15,5 +15,4 @@ object UseCaseModule {
     @Provides
     @Singleton
     fun provideSeatUseCase(repository: SeatRepository): GetSeatDataUseCase = GetSeatDataUseCase(repository)
-
 }
