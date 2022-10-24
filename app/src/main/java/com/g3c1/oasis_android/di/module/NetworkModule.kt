@@ -55,5 +55,11 @@ object NetworkModule {
         return retrofit.create(SeatApi::class.java)
     }
 
+    @Provides
+    @Singleton
+    fun provideFoodService(retrofit: Retrofit): FootApi {
+        return retrofit.create(FoodApi::class.java)
+    }
+
 
 }
