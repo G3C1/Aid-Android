@@ -68,4 +68,5 @@ dependencies {
 
     implementation(Dependency.Coroutine.COROUTINE)
 
+    implementation(Dependency.ImageLoad.COIL)
 }

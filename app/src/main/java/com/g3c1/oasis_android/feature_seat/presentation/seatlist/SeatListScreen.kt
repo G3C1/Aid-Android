@@ -20,6 +20,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.g3c1.oasis_android.feature_seat.data.dto.SeatDTO
 import com.g3c1.oasis_android.feature_seat.presentation.seatlist.component.SeatSubmitButton
+import com.g3c1.oasis_android.feature_seat.presentation.vm.SeatDataViewModel
 import com.g3c1.oasis_android.ui.theme.Font
 import com.g3c1.oasis_android.ui.theme.Gray
 import com.g3c1.oasis_android.ui.theme.Gray2
@@ -57,8 +58,7 @@ fun SeatListScreen(onClick: () -> Unit) {
                 seatNumber = 4,
                 severalPeople = 4
             ),
-
-            )
+        )
         Spacer(
             modifier = Modifier
                 .fillMaxWidth()

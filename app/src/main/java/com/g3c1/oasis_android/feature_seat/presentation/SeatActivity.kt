@@ -31,7 +31,7 @@ class SeatActivity: ComponentActivity() {
                 SeatListScreen({})
             }
         }
-//        getSeatDataList()
+        getSeatDataList()
     }
     private fun getSeatDataList() {
         lifecycleScope.launch {

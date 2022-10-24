@@ -46,7 +46,9 @@ object Versions {
     const val COROUTINE = "1.3.9"
 
 
-    const val COIL_VERSION = "2.1.0"
+    const val COIL_VERSION = "1.3.2"
     const val GLIDE_VERSION = "1.4.7"
     const val LOTTIE_VERSION = "4.0.0"
+
+
 }
