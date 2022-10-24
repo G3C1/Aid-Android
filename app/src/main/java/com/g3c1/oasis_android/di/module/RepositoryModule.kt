@@ -19,4 +19,8 @@ object RepositoryModule {
     fun provideSeatRepository(dataSource: SeatDataSourceImpl): SeatRepository
         = SeatRepositoryImpl(dataSource)
 
+    @Provides
+    @Singleton
+    fun provideMenuRepository(dataSource: MenuDataSourceImpl): MenuRepository =
+        MenuRepositoryImpl(dataSource)
 }
