@@ -1,6 +1,6 @@
 package com.g3c1.oasis_android.feature_seat.data.data_source_impl
 
-import com.g3c1.oasis_android.feature_seat.data.data_soure.SeatData
+import com.g3c1.oasis_android.feature_seat.data.dto.SeatDTO
 import com.g3c1.oasis_android.feature_seat.data.data_soure.SeatDataSource
 import com.g3c1.oasis_android.remote.api.SeatApi
 import com.g3c1.oasis_android.remote.util.ApiState
@@ -14,7 +14,7 @@ import javax.inject.Inject
 class SeatDataSourceImpl @Inject constructor(
     private val service: SeatApi
 ) : SeatDataSource {
-    override suspend fun getSeatInfo(): Flow<ApiState<SeatData>> {
+    override suspend fun getSeatInfo(): Flow<ApiState<SeatDTO>> {
         return flow {
             try {
                 val response = service.getSeatData()

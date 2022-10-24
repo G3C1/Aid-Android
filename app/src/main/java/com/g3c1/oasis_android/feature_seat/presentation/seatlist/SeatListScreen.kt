@@ -18,7 +18,7 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import com.g3c1.oasis_android.feature_seat.data.data_soure.SeatData
+import com.g3c1.oasis_android.feature_seat.data.dto.SeatDTO
 import com.g3c1.oasis_android.feature_seat.presentation.seatlist.component.SeatSubmitButton
 import com.g3c1.oasis_android.feature_seat.presentation.vm.SeatDataViewModel
 import com.g3c1.oasis_android.ui.theme.Font
@@ -34,25 +34,25 @@ fun SeatListScreen(viewModel: SeatDataViewModel) {
     val onChangeState: (Int) -> Unit = { selectedValue.value = it }
     Column(Modifier.fillMaxSize()) {
         val seatDataList = listOf(
-            SeatData(
+            SeatDTO(
                 seated = true,
                 seatId = 1,
                 seatNumber = 1,
                 severalPeople = 1
             ),
-            SeatData(
+            SeatDTO(
                 seated = false,
                 seatId = 2,
                 seatNumber = 2,
                 severalPeople = 2
             ),
-            SeatData(
+            SeatDTO(
                 seated = false,
                 seatId = 3,
                 seatNumber = 3,
                 severalPeople = 4
             ),
-            SeatData(
+            SeatDTO(
                 seated = false,
                 seatId = 4,
                 seatNumber = 4,

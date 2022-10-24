@@ -2,14 +2,13 @@ package com.g3c1.oasis_android.feature_seat.presentation.vm
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.g3c1.oasis_android.feature_seat.data.data_soure.SeatData
+import com.g3c1.oasis_android.feature_seat.data.dto.SeatDTO
 import com.g3c1.oasis_android.feature_seat.domain.use_case.GetSeatDataUseCase
 import com.g3c1.oasis_android.feature_seat.domain.use_case.PatchSeatDataUseCase
 import com.g3c1.oasis_android.remote.util.ApiState
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.catch
-import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
@@ -19,7 +18,7 @@ class SeatDataViewModel @Inject constructor(
     private val patchSeatData: PatchSeatDataUseCase
 ): ViewModel() {
 
-    val mSeatDataList: MutableStateFlow<ApiState<SeatData>> = MutableStateFlow(ApiState.Loading())
+    val mSeatDataList: MutableStateFlow<ApiState<SeatDTO>> = MutableStateFlow(ApiState.Loading())
     val mPatchSeatDataResult: MutableStateFlow<ApiState<Unit>> = MutableStateFlow(ApiState.Loading())
 
     fun getSeatDataList() = viewModelScope.launch {
