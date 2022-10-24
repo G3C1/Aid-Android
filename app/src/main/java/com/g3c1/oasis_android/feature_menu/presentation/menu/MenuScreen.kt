@@ -165,7 +165,7 @@ fun MenuScreen() {
                             fontWeight = FontWeight.Bold
                         )
                         Text(
-                            text = "${seatDataList[selectedValue.value!! - 1].foodList[index].servings} : ${seatDataList[selectedValue.value!! - 1].foodList[index].price}원",
+                            text = "${seatDataList[selectedValue.value!! - 1].foodList[index].servings}인분 : ${seatDataList[selectedValue.value!! - 1].foodList[index].price}원",
                             fontFamily = Font.pretendard,
                             fontSize = 14.sp
                         )
