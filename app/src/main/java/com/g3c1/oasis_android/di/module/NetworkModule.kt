@@ -1,5 +1,6 @@
 package com.g3c1.oasis_android.di.module
 
+import com.g3c1.oasis_android.remote.api.FoodApi
 import com.g3c1.oasis_android.remote.api.SeatApi
 import dagger.Module
 import dagger.Provides
@@ -53,6 +54,12 @@ object NetworkModule {
     @Singleton
     fun provideSeatService(retrofit: Retrofit): SeatApi {
         return retrofit.create(SeatApi::class.java)
+    }
+
+    @Provides
+    @Singleton
+    fun provideFoodService(retrofit: Retrofit): FoodApi {
+        return retrofit.create(FoodApi::class.java)
     }
 
 

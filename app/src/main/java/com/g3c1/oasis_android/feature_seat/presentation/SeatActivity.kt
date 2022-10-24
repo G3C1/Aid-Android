@@ -32,7 +32,7 @@ class SeatActivity: ComponentActivity() {
             }
         }
 //        patchSeatData()
-//        getSeatDataList()
+        getSeatDataList()
     }
     private fun getSeatDataList() {
         lifecycleScope.launch {
