@@ -5,9 +5,6 @@ import android.util.Log
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.viewModels
-import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.material.Surface
-import androidx.compose.ui.Modifier
 import androidx.lifecycle.lifecycleScope
 import com.g3c1.oasis_android.feature_seat.presentation.seatlist.SeatListScreen
 import com.g3c1.oasis_android.feature_seat.presentation.vm.SeatDataViewModel
@@ -24,15 +21,10 @@ class SeatActivity: ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        setContent {
-            Surface(
-                modifier = Modifier.fillMaxSize()
-             ) {
-                SeatListScreen(viewModel = seatViewModel)
-            }
-        }
-//        patchSeatData()
         getSeatDataList()
+        setContent {
+
+        }
     }
     private fun getSeatDataList() {
         lifecycleScope.launch {
@@ -42,28 +34,13 @@ class SeatActivity: ComponentActivity() {
                     is ApiState.Success -> {
                         Log.d("TAG", it.data.toString())
                         seatViewModel.mSeatDataList.value = ApiState.Loading()
+                        setContent {
+                            SeatListScreen(it.data!! ,viewModel = seatViewModel)
+                        }
                     }
                     is ApiState.Error -> {
                         Log.e("TAG", it.message.toString())
                         seatViewModel.mSeatDataList.value = ApiState.Loading()
-                    }
-                    is ApiState.Loading -> {}
-                }
-            }
-        }
-    }
-
-    private fun patchSeatData() {
-        lifecycleScope.launch {
-            seatViewModel.mPatchSeatDataResult.collect {
-                when(it) {
-                    is ApiState.Success -> {
-                        Log.d("TAG", "patchSeatData: ${it.data.toString()}")
-                        seatViewModel.mPatchSeatDataResult.value = ApiState.Loading()
-                    }
-                    is ApiState.Error -> {
-                        Log.e("TAG", "patchSeatData: ${it.data.toString()}")
-                        seatViewModel.mPatchSeatDataResult.value = ApiState.Loading()
                     }
                     is ApiState.Loading -> {}
                 }

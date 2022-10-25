@@ -28,38 +28,13 @@ import com.g3c1.oasis_android.ui.theme.Orange
 
 
 @Composable
-fun SeatListScreen(viewModel: SeatDataViewModel) {
+fun SeatListScreen(seatDataList: List<SeatDTO>, viewModel: SeatDataViewModel) {
     val selectedValue = remember { mutableStateOf<Int?>(null) }
     val isSelectedItem: (Int) -> Boolean = { selectedValue.value == it }
     val onChangeState: (Int) -> Unit = { selectedValue.value = it }
-    Column(Modifier.fillMaxSize()) {
-        val seatDataList = listOf(
-            SeatDTO(
-                seated = true,
-                seatId = 1,
-                seatNumber = 1,
-                severalPeople = 1
-            ),
-            SeatDTO(
-                seated = false,
-                seatId = 2,
-                seatNumber = 2,
-                severalPeople = 2
-            ),
-            SeatDTO(
-                seated = false,
-                seatId = 3,
-                seatNumber = 3,
-                severalPeople = 4
-            ),
-            SeatDTO(
-                seated = false,
-                seatId = 4,
-                seatNumber = 4,
-                severalPeople = 4
-            ),
 
-            )
+
+    Column(Modifier.fillMaxSize()) {
         Spacer(
             modifier = Modifier
                 .fillMaxWidth()
@@ -75,7 +50,7 @@ fun SeatListScreen(viewModel: SeatDataViewModel) {
                 .height(56.dp)
         )
         Column {
-            seatDataList.forEach { item ->
+            seatDataList?.forEach { item ->
                 val color = if (item.seated) Gray else Orange
                 val textColor =
                     if (item.seated) Gray2 else if (!item.seated && isSelectedItem(item.seatId)) Orange else Color.White
