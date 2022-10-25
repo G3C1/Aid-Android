@@ -50,7 +50,7 @@ fun SeatListScreen(seatDataList: List<SeatDTO>, viewModel: SeatDataViewModel) {
                 .height(56.dp)
         )
         Column {
-            seatDataList?.forEach { item ->
+            seatDataList.forEach { item ->
                 val color = if (item.seated) Gray else Orange
                 val textColor =
                     if (item.seated) Gray2 else if (!item.seated && isSelectedItem(item.seatId)) Orange else Color.White
