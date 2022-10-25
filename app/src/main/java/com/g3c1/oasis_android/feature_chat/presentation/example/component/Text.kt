@@ -65,7 +65,7 @@ fun ChatText(text: String) {
             modifier = Modifier
                 .clip(RoundedCornerShape(10.dp))
                 .background(Gray5)
-                .widthIn(0.dp, 250.dp)
+                .widthIn(0.dp, 210.dp)
         ) {
             Text(text = text, modifier = Modifier.padding(8.dp))
         }
@@ -119,7 +119,7 @@ fun TemiText(text: String) {
                 modifier = Modifier
                     .clip(RoundedCornerShape(10.dp))
                     .background(Gray5)
-                    .widthIn(0.dp, 250.dp)
+                    .widthIn(0.dp, 210.dp)
             ) {
                 Text(text = text, modifier = Modifier.padding(8.dp))
             }
