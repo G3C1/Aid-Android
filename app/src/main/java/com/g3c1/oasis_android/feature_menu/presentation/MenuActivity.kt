@@ -20,9 +20,7 @@ class MenuActivity: ComponentActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-
         getMenuList()
-
     }
 
     private fun getMenuList() {
