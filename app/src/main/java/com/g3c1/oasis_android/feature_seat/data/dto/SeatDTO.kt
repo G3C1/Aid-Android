@@ -4,5 +4,5 @@ data class SeatDTO(
     val seatId: Int,
     val seatNumber: Int,
     val severalPeople: Int,
-    val seated: Boolean,
+    val enabled: Boolean,
 )

@@ -6,6 +6,6 @@ import javax.inject.Inject
 
 class MenuRepositoryImpl @Inject constructor(
     private val datasource: MenuDataSource
-): MenuRepository {
+) : MenuRepository {
     override suspend fun getMenuList() = datasource.getMenuList()
 }
