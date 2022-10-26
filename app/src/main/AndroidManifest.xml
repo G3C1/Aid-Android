@@ -20,11 +20,11 @@
             android:theme="@style/Theme.OasisAndroid"></activity>
         <activity
             android:name=".feature_seat.presentation.SeatActivity"
-            android:exported="true"></activity>
+            android:exported="true" />
 
         <activity
             android:name=".feature_chat.presentation.ChatActivity"
-            android:exported="true"></activity>
+            android:exported="true" />
 
         <activity
             android:name=".feature_menu.presentation.MenuActivity"

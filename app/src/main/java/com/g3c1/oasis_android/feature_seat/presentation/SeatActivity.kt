@@ -31,7 +31,7 @@ class SeatActivity: ComponentActivity() {
                 SeatListScreen(viewModel = seatViewModel)
             }
         }
-//        patchSeatData()
+        patchSeatData()
         getSeatDataList()
     }
     private fun getSeatDataList() {
