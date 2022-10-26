@@ -1,5 +1,6 @@
 package com.g3c1.oasis_android.feature_seat.presentation.seatlist
 
+import android.util.Log
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.*
@@ -25,41 +26,17 @@ import com.g3c1.oasis_android.ui.theme.Font
 import com.g3c1.oasis_android.ui.theme.Gray
 import com.g3c1.oasis_android.ui.theme.Gray2
 import com.g3c1.oasis_android.ui.theme.Orange
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.launch
 
 
 @Composable
-fun SeatListScreen(viewModel: SeatDataViewModel) {
+fun SeatListScreen(seatDataList: List<SeatDTO>, viewModel: SeatDataViewModel, scope: CoroutineScope) {
     val selectedValue = remember { mutableStateOf<Int?>(null) }
     val isSelectedItem: (Int) -> Boolean = { selectedValue.value == it }
     val onChangeState: (Int) -> Unit = { selectedValue.value = it }
-    Column(Modifier.fillMaxSize()) {
-        val seatDataList = listOf(
-            SeatDTO(
-                seated = true,
-                seatId = 1,
-                seatNumber = 1,
-                severalPeople = 1
-            ),
-            SeatDTO(
-                seated = false,
-                seatId = 2,
-                seatNumber = 2,
-                severalPeople = 2
-            ),
-            SeatDTO(
-                seated = false,
-                seatId = 3,
-                seatNumber = 3,
-                severalPeople = 4
-            ),
-            SeatDTO(
-                seated = false,
-                seatId = 4,
-                seatNumber = 4,
-                severalPeople = 4
-            ),
 
-            )
+    Column(Modifier.fillMaxSize()) {
         Spacer(
             modifier = Modifier
                 .fillMaxWidth()
@@ -76,16 +53,16 @@ fun SeatListScreen(viewModel: SeatDataViewModel) {
         )
         Column {
             seatDataList.forEach { item ->
-                val color = if (item.seated) Gray else Orange
+                val color = if (!item.enabled) Gray else Orange
                 val textColor =
-                    if (item.seated) Gray2 else if (!item.seated && isSelectedItem(item.seatId)) Orange else Color.White
+                    if (!item.enabled) Gray2 else if (item.enabled && isSelectedItem(item.seatId)) Orange else Color.White
                 Column(
                     Modifier
                         .size(if (item.severalPeople >= 4) 160.dp else 90.dp)
                         .selectable(
                             selected = isSelectedItem(item.seatId),
                             onClick = { onChangeState(item.seatId); },
-                            enabled = !item.seated,
+                            enabled = item.enabled,
                             role = Role.RadioButton,
                         )
                         .padding(8.dp)
@@ -97,7 +74,7 @@ fun SeatListScreen(viewModel: SeatDataViewModel) {
                             color = color,
                             width = 3.dp
                         )
-                        .background(if (!item.seated && isSelectedItem(item.seatId)) Color.White else color),
+                        .background(if (item.enabled && isSelectedItem(item.seatId)) Color.White else color),
                     horizontalAlignment = Alignment.CenterHorizontally,
                     verticalArrangement = Arrangement.Center,
 
@@ -110,7 +87,7 @@ fun SeatListScreen(viewModel: SeatDataViewModel) {
                         fontWeight = FontWeight.SemiBold
                     )
                     Text(
-                        text = "${item.seatNumber}인용",
+                        text = "${item.severalPeople}인용",
                         color = textColor,
                         fontSize = 16.sp,
                         fontFamily = Font.pretendard,
@@ -155,7 +132,9 @@ fun SeatListScreen(viewModel: SeatDataViewModel) {
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
             SeatSubmitButton(onClick = {
-                viewModel.patchSeatData(selectedValue.value!!)
+                scope.launch {
+                    viewModel.patchSeatData(selectedValue.value!!)
+                }
             }, visibility = selectedValue.value != null)
         }
     }
