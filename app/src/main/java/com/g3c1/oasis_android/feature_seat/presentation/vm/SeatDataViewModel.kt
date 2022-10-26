@@ -1,5 +1,6 @@
 package com.g3c1.oasis_android.feature_seat.presentation.vm
 
+import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.g3c1.oasis_android.feature_seat.data.dto.SeatDTO
@@ -32,6 +33,7 @@ class SeatDataViewModel @Inject constructor(
     }
 
     fun patchSeatData(seatId: Int) = viewModelScope.launch {
+        Log.d("TAG", "PathSeatData - seatId: $seatId")
         mPatchSeatDataResult.value = ApiState.Loading()
         patchSeatData.patchSeatDataUseCase(seatId).catch { error ->
             mPatchSeatDataResult.value = ApiState.Error("${error.message}")

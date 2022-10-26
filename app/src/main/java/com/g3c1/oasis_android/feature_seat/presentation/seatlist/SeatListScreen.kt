@@ -1,5 +1,6 @@
 package com.g3c1.oasis_android.feature_seat.presentation.seatlist
 
+import android.util.Log
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.*
@@ -25,14 +26,15 @@ import com.g3c1.oasis_android.ui.theme.Font
 import com.g3c1.oasis_android.ui.theme.Gray
 import com.g3c1.oasis_android.ui.theme.Gray2
 import com.g3c1.oasis_android.ui.theme.Orange
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.launch
 
 
 @Composable
-fun SeatListScreen(seatDataList: List<SeatDTO>, viewModel: SeatDataViewModel) {
+fun SeatListScreen(seatDataList: List<SeatDTO>, viewModel: SeatDataViewModel, scope: CoroutineScope) {
     val selectedValue = remember { mutableStateOf<Int?>(null) }
     val isSelectedItem: (Int) -> Boolean = { selectedValue.value == it }
     val onChangeState: (Int) -> Unit = { selectedValue.value = it }
-
 
     Column(Modifier.fillMaxSize()) {
         Spacer(
@@ -85,7 +87,7 @@ fun SeatListScreen(seatDataList: List<SeatDTO>, viewModel: SeatDataViewModel) {
                         fontWeight = FontWeight.SemiBold
                     )
                     Text(
-                        text = "${item.seatNumber}인용",
+                        text = "${item.severalPeople}인용",
                         color = textColor,
                         fontSize = 16.sp,
                         fontFamily = Font.pretendard,
@@ -130,7 +132,10 @@ fun SeatListScreen(seatDataList: List<SeatDTO>, viewModel: SeatDataViewModel) {
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
             SeatSubmitButton(onClick = {
-                viewModel.patchSeatData(selectedValue.value!!)
+                scope.launch {
+                    Log.d("TAG", "onclick")
+                    viewModel.patchSeatData(selectedValue.value!!)
+                }
             }, visibility = selectedValue.value != null)
         }
     }

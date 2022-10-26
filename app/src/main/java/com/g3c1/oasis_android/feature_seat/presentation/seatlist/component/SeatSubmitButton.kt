@@ -2,6 +2,7 @@ package com.g3c1.oasis_android.feature_seat.presentation.seatlist.component
 
 
 import androidx.compose.animation.AnimatedVisibility
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
@@ -15,7 +16,6 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import com.g3c1.oasis_android.feature_seat.presentation.seatlist.SeatListScreen
 import com.g3c1.oasis_android.ui.theme.Font
 import com.g3c1.oasis_android.ui.theme.Orange
 
@@ -23,9 +23,8 @@ import com.g3c1.oasis_android.ui.theme.Orange
 fun SeatSubmitButton(onClick: () -> Unit, visibility: Boolean) {
     AnimatedVisibility(visible = visibility) {
         Button(
-            onClick = { onClick },
+            onClick = onClick,
             modifier = Modifier
-                .wrapContentSize()
                 .fillMaxWidth()
                 .height(80.dp)
                 .padding(8.dp, 0.dp, 8.dp, 16.dp),

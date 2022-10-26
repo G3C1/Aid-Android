@@ -2,14 +2,15 @@ package com.g3c1.oasis_android.feature_seat.presentation
 
 import android.os.Bundle
 import android.util.Log
+import android.widget.Toast
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.viewModels
-import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.size
 import androidx.compose.material.Icon
+import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.painterResource
@@ -29,6 +30,7 @@ class SeatActivity : ComponentActivity() {
 
     private val seatViewModel by viewModels<SeatDataViewModel>()
 
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
@@ -36,13 +38,17 @@ class SeatActivity : ComponentActivity() {
         setContent {
             Box(modifier = Modifier.fillMaxSize()) {
                 Icon(
-                    modifier = Modifier.size(200.dp).align(Alignment.Center),
+                    modifier = Modifier
+                        .size(200.dp)
+                        .align(Alignment.Center),
                     painter = painterResource(id = R.drawable.ic_aid),
                     contentDescription = "logo",
                     tint = Orange,
                 )
             }
         }
+        patchSeatData()
+
     }
 
     private fun getSeatDataList() {
@@ -54,12 +60,30 @@ class SeatActivity : ComponentActivity() {
                         Log.d("TAG", it.data.toString())
                         seatViewModel.mSeatDataList.value = ApiState.Loading()
                         setContent {
-                            SeatListScreen(it.data!!, viewModel = seatViewModel)
+                            SeatListScreen(it.data!!, viewModel = seatViewModel, scope = rememberCoroutineScope())
                         }
                     }
                     is ApiState.Error -> {
                         Log.e("TAG", it.message.toString())
                         seatViewModel.mSeatDataList.value = ApiState.Loading()
+                    }
+                    is ApiState.Loading -> {}
+                }
+            }
+        }
+    }
+
+    private fun patchSeatData() {
+        lifecycleScope.launch {
+            seatViewModel.mPatchSeatDataResult.collect {
+                when (it) {
+                    is ApiState.Success -> {
+                        Toast.makeText(applicationContext, "자리 선택이 완료되었습니다.", Toast.LENGTH_SHORT)
+                            .show()
+                    }
+                    is ApiState.Error -> {
+                        Log.e("TAG", it.message.toString())
+                        seatViewModel.mPatchSeatDataResult.value = ApiState.Loading()
                     }
                     is ApiState.Loading -> {}
                 }
