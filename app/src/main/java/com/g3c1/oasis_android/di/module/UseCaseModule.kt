@@ -25,5 +25,6 @@ object UseCaseModule {
 
     @Provides
     @Singleton
-    fun provideGetMenuListUseCase(repository: MenuRepository): GetMenuListUseCase = GetMenuListUseCase(repository)
+    fun provideGetUseCase(repository: MenuRepository): GetMenuListUseCase = GetMenuListUseCase(repository)
+
 }
