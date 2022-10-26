@@ -133,7 +133,6 @@ fun SeatListScreen(seatDataList: List<SeatDTO>, viewModel: SeatDataViewModel, sc
         ) {
             SeatSubmitButton(onClick = {
                 scope.launch {
-                    Log.d("TAG", "onclick")
                     viewModel.patchSeatData(selectedValue.value!!)
                 }
             }, visibility = selectedValue.value != null)
