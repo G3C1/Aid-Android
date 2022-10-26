@@ -53,16 +53,16 @@ fun SeatListScreen(seatDataList: List<SeatDTO>, viewModel: SeatDataViewModel, sc
         )
         Column {
             seatDataList.forEach { item ->
-                val color = if (item.seated) Gray else Orange
+                val color = if (item.enabled) Gray else Orange
                 val textColor =
-                    if (item.seated) Gray2 else if (!item.seated && isSelectedItem(item.seatId)) Orange else Color.White
+                    if (item.enabled) Gray2 else if (!item.enabled && isSelectedItem(item.seatId)) Orange else Color.White
                 Column(
                     Modifier
                         .size(if (item.severalPeople >= 4) 160.dp else 90.dp)
                         .selectable(
                             selected = isSelectedItem(item.seatId),
                             onClick = { onChangeState(item.seatId); },
-                            enabled = !item.seated,
+                            enabled = !item.enabled,
                             role = Role.RadioButton,
                         )
                         .padding(8.dp)
@@ -74,7 +74,7 @@ fun SeatListScreen(seatDataList: List<SeatDTO>, viewModel: SeatDataViewModel, sc
                             color = color,
                             width = 3.dp
                         )
-                        .background(if (!item.seated && isSelectedItem(item.seatId)) Color.White else color),
+                        .background(if (!item.enabled && isSelectedItem(item.seatId)) Color.White else color),
                     horizontalAlignment = Alignment.CenterHorizontally,
                     verticalArrangement = Arrangement.Center,
 
