@@ -1,6 +1,7 @@
 package com.g3c1.oasis_android.feature_menu.presentation.menu
 
 import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.LazyRow
@@ -33,7 +34,7 @@ fun MenuScreen(seatDataList: List<MenuDTO>) {
             .fillMaxSize()
             .background(Color.White)
     ) {
-        TopBar()
+        TopBar(text = "메뉴판")
         val selectedValue = remember { mutableStateOf<Int?>(1) }
         val isSelectedItem: (Int) -> Boolean = { selectedValue.value == it }
         val painter = rememberImagePainter(
@@ -91,11 +92,13 @@ fun MenuScreen(seatDataList: List<MenuDTO>) {
                 end = 8.dp,
                 top = 16.dp,
                 bottom = 16.dp
-            )
+            ),
         ) {
             items(seatDataList[selectedValue.value!! - 1].foodList.size) { index ->
                 Spacer(modifier = Modifier.height(16.dp))
-                Row {
+                Row (modifier = Modifier.clickable {
+
+                }){
                     ThumbNail(painter = painter)
                     Spacer(modifier = Modifier.width(12.dp))
                     Column {

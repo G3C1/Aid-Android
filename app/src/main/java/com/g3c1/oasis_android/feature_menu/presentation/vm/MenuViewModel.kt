@@ -2,7 +2,6 @@ package com.g3c1.oasis_android.feature_menu.presentation.vm
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.g3c1.oasis_android.feature_menu.data.dto.FoodDTO
 import com.g3c1.oasis_android.feature_menu.data.dto.MenuDTO
 import com.g3c1.oasis_android.feature_menu.domain.use_case.GetMenuListUseCase
 import com.g3c1.oasis_android.remote.util.ApiState

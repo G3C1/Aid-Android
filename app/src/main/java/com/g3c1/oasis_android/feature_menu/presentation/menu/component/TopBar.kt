@@ -17,7 +17,7 @@ import com.g3c1.oasis_android.ui.theme.Gray3
 import com.g3c1.oasis_android.ui.theme.Orange
 
 @Composable
-fun TopBar() {
+fun TopBar(text: String) {
 
     Box(modifier = Modifier.fillMaxWidth()
         .fillMaxHeight(0.076f)
@@ -30,7 +30,7 @@ fun TopBar() {
             )
         }
         Text(
-            text = "메뉴판",
+            text = text,
             modifier = Modifier.align(Alignment.Center),
             fontFamily = Font.pretendard,
             fontSize = 20.sp,
