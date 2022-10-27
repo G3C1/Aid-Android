@@ -25,7 +25,7 @@ fun FoodDetailScreen(data: FoodDTO) {
     })
 
     Column(modifier = Modifier.fillMaxSize()) {
-        TopBar(text = "")
+        TopBar(text = "", clickShoppingBasketButton = {}, clickBackButton = {})
         Spacer(modifier = Modifier.height(8.dp))
         Image(
             modifier = Modifier

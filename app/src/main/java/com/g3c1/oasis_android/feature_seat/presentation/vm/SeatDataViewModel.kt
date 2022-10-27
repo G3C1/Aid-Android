@@ -1,6 +1,5 @@
 package com.g3c1.oasis_android.feature_seat.presentation.vm
 
-import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.g3c1.oasis_android.feature_seat.data.dto.SeatDTO
