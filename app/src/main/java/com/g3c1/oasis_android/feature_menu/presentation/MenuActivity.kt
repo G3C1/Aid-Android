@@ -69,7 +69,8 @@ class MenuActivity: ComponentActivity() {
                                         )
                                         Text(text = "고르신 메뉴 리스트 입니다.")
                                     }
-                                }
+                                },
+                                sheetPeekHeight = 0.dp
                             ) {
                                 MenuScreen(data.data!!, viewModel = menuViewModel, scope = rememberCoroutineScope(), bottomSheetScaffoldState)
                             }
