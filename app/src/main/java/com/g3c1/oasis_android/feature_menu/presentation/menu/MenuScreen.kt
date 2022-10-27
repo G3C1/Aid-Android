@@ -35,9 +35,9 @@ import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.launch
 
 
-@OptIn(ExperimentalCoilApi::class, ExperimentalMaterialApi::class)
+@OptIn(ExperimentalMaterialApi::class)
 @Composable
-fun MenuScreen(menuDataList: List<MenuDTO>, viewModel: MenuViewModel, scope: CoroutineScope) {
+fun MenuScreen(menuDataList: List<MenuDTO>, viewModel: MenuViewModel, scope: CoroutineScope, bottomSheetScaffoldState: BottomSheetScaffoldState) {
     val allMenuList = mutableListOf<FoodDTO>()
 
     menuDataList.forEach { category ->
@@ -46,31 +46,10 @@ fun MenuScreen(menuDataList: List<MenuDTO>, viewModel: MenuViewModel, scope: Cor
         }
     }
 
-    val afterMenuList = listOf(MenuDTO(id = 0, category = "전체보기", allMenuList)) + menuDataList
+    val afterMenuList = listOf(MenuDTO(id = 0, category = "전체", allMenuList)) + menuDataList
 
     val menuList = remember { mutableStateOf<List<FoodDTO>>(allMenuList) }
-    val bottomSheetScaffoldState = rememberBottomSheetScaffoldState(
-        bottomSheetState = BottomSheetState(BottomSheetValue.Collapsed)
-    )
-    BottomSheetScaffold(
-        scaffoldState = bottomSheetScaffoldState,
-        sheetShape = RoundedCornerShape(topEnd = 30.dp, topStart = 30.dp),
-        sheetContent = {
-            Column(
-                modifier = Modifier.fillMaxSize(),
-                horizontalAlignment = Alignment.CenterHorizontally
-            ) {
-                Image(
-                    painter = painterResource(id = R.drawable.receipt),
-                    contentDescription = "receipt image",
-                    modifier = Modifier
-                        .width(100.dp)
-                        .height(90.dp)
-                )
-                Text(text = "고르신 메뉴 리스트 입니다.")
-            }
-        }
-    ) {}
+
 
     fun clickShoppingBasketButton() {
         scope.launch {

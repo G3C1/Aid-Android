@@ -36,7 +36,7 @@ fun TopBar(clickBackButton: () -> Unit, clickShoppingBasketButton: () -> Unit) {
             fontSize = 20.sp,
             color = Orange
         )
-        IconButton(onClick = {clickShoppingBasketButton}, modifier = Modifier.align(Alignment.CenterEnd)) {
+        IconButton(onClick = clickShoppingBasketButton, modifier = Modifier.align(Alignment.CenterEnd)) {
             Icon(
                 painter = painterResource(id = R.drawable.ic_cart),
                 contentDescription = "open shopping basket",
