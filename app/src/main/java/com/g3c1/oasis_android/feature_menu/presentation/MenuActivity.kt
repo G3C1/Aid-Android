@@ -35,7 +35,7 @@ class MenuActivity: ComponentActivity() {
                         Log.d("TAG", it.data.toString())
                         menuViewModel.mMenuList.value = ApiState.Loading()
                         setContent {
-                            MenuScreen(it.data!!, viewModel = menuViewModel)
+                            MenuScreen(it.data!!, viewModel = menuViewModel, scope = rememberCoroutineScope())
                         }
                     }
                     is ApiState.Error -> {
