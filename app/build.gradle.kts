@@ -49,6 +49,7 @@ android {
 
 dependencies {
     implementation(Dependency.AndroidX.CORE_KTX)
+    implementation(Dependency.AndroidX.APP_COMPAT)
     implementation(Dependency.Compose.COMPOSE)
     implementation(Dependency.Compose.COMPOSE_MATERAIL)
     implementation(Dependency.Compose.COMPOSE_PREVIEW)
@@ -69,4 +70,8 @@ dependencies {
     implementation(Dependency.Coroutine.COROUTINE)
 
     implementation(Dependency.ImageLoad.COIL)
+
+    //pytorch
+    implementation(Dependency.Pytorch.LITE)
+    implementation(Dependency.Pytorch.TORCH_VISION)
 }
