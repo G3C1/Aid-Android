@@ -9,6 +9,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.painter.Painter
+import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.unit.dp
 
 @Composable
@@ -17,6 +18,7 @@ fun ThumbNail(painter: Painter) {
         modifier = Modifier.size(86.dp).clip(shape = RoundedCornerShape(30f)),
         painter = painter,
         contentDescription = "thumbNail",
+        contentScale = ContentScale.Crop,
         alignment = Alignment.CenterStart
     )
 }

@@ -1,12 +1,14 @@
 package com.g3c1.oasis_android.feature_menu.presentation.menu
 
+import android.util.Log
+import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.LazyRow
 import androidx.compose.foundation.selection.selectable
 import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.material.Text
+import androidx.compose.material.*
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
@@ -14,51 +16,80 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.semantics.Role
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import coil.annotation.ExperimentalCoilApi
 import coil.compose.rememberImagePainter
 import com.g3c1.oasis_android.R
+import com.g3c1.oasis_android.feature_menu.data.dto.FoodDTO
 import com.g3c1.oasis_android.feature_menu.data.dto.MenuDTO
 import com.g3c1.oasis_android.feature_menu.presentation.menu.component.ThumbNail
 import com.g3c1.oasis_android.feature_menu.presentation.menu.component.TopBar
+import com.g3c1.oasis_android.feature_menu.presentation.vm.MenuViewModel
 import com.g3c1.oasis_android.ui.theme.*
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.launch
 
+
+@OptIn(ExperimentalMaterialApi::class)
 @Composable
-fun MenuScreen(seatDataList: List<MenuDTO>) {
+fun MenuScreen(menuDataList: List<MenuDTO>, viewModel: MenuViewModel, scope: CoroutineScope, bottomSheetScaffoldState: BottomSheetScaffoldState) {
+    val allMenuList = mutableListOf<FoodDTO>()
+
+    menuDataList.forEach { category ->
+        category.foodList.forEach { menu ->
+            allMenuList.add(menu)
+        }
+    }
+
+    val afterMenuList = listOf(MenuDTO(id = 0, category = "전체", allMenuList)) + menuDataList
+
+    val menuList = remember { mutableStateOf<List<FoodDTO>>(allMenuList) }
+
+
+    fun clickShoppingBasketButton() {
+        scope.launch {
+            if(bottomSheetScaffoldState.bottomSheetState.isCollapsed) {
+                bottomSheetScaffoldState.bottomSheetState.expand()
+            } else {
+                bottomSheetScaffoldState.bottomSheetState.collapse()
+            }
+        }
+    }
     Column(
         modifier = Modifier
             .fillMaxSize()
             .background(Color.White)
     ) {
-        TopBar()
-        val selectedValue = remember { mutableStateOf<Int?>(1) }
+        TopBar(clickBackButton = {}, clickShoppingBasketButton = { clickShoppingBasketButton() })
+        val selectedValue = remember { mutableStateOf<Int?>(0) }
         val isSelectedItem: (Int) -> Boolean = { selectedValue.value == it }
-        val painter = rememberImagePainter(
-            data = "https://avatars.githubusercontent.com/u/82383983?v=4",
-            builder = {
-                placeholder(R.drawable.ic_cart)
-            })
+
         val onChangeState: (Int) -> Unit = {
             selectedValue.value = it
+            menuList.value = afterMenuList.filter { item -> item.id == selectedValue.value!!}[0].foodList.toMutableList()
+            Log.d("TAG", "MenuScreen: $menuList")
         }
+
         LazyRow(
             horizontalArrangement = Arrangement.spacedBy(10.dp),
             modifier = Modifier.padding(start = 8.dp)
         ) {
-            items(seatDataList.size) { index ->
+            items(afterMenuList.size) { index ->
 
-                val color = if (isSelectedItem(seatDataList[index].id)) Orange else Gray
+                val color = if (isSelectedItem(afterMenuList[index].id)) Orange else Gray
                 val textColor =
-                    if (isSelectedItem(seatDataList[index].id)) Color.White else Gray2
+                    if (isSelectedItem(afterMenuList[index].id)) Color.White else Gray2
                 Row(
                     Modifier
                         .height(40.dp)
                         .selectable(
-                            selected = isSelectedItem(seatDataList[index].id),
-                            onClick = { onChangeState(seatDataList[index].id); },
+                            selected = isSelectedItem(afterMenuList[index].id),
+                            onClick = { onChangeState(afterMenuList[index].id) },
                             role = Role.RadioButton,
                         )
                         .padding(0.dp, 6.dp, 0.dp, 6.dp)
@@ -73,7 +104,7 @@ fun MenuScreen(seatDataList: List<MenuDTO>) {
                     Spacer(modifier = Modifier.width(16.dp))
 
                     Text(
-                        text = seatDataList[index].category,
+                        text = afterMenuList[index].category,
                         color = textColor,
                         fontSize = 13.sp,
                         fontFamily = Font.pretendard,
@@ -93,25 +124,34 @@ fun MenuScreen(seatDataList: List<MenuDTO>) {
                 bottom = 16.dp
             )
         ) {
-            items(seatDataList[selectedValue.value!! - 1].foodList.size) { index ->
+            items(menuList.value.size) { index ->
+
+                val itemList = menuList.value[index]
+
+                val painter = rememberImagePainter(
+                    data = itemList.img,
+                    builder = {
+                        placeholder(R.drawable.ic_cart)
+                    })
+
                 Spacer(modifier = Modifier.height(16.dp))
                 Row {
                     ThumbNail(painter = painter)
                     Spacer(modifier = Modifier.width(12.dp))
                     Column {
                         Text(
-                            text = seatDataList[selectedValue.value!! - 1].foodList[index].name,
+                            text = itemList.name,
                             fontSize = 16.sp,
                             fontFamily = Font.pretendard,
                             fontWeight = FontWeight.Bold
                         )
                         Text(
-                            text = "${seatDataList[selectedValue.value!! - 1].foodList[index].servings}인분 : ${seatDataList[selectedValue.value!! - 1].foodList[index].price}원",
+                            text = "${itemList.servings}인분 : ${itemList.price}원",
                             fontFamily = Font.pretendard,
                             fontSize = 14.sp
                         )
                         Text(
-                            text = seatDataList[selectedValue.value!! - 1].foodList[index].description,
+                            text = itemList.description,
                             fontFamily = Font.pretendard,
                             color = DarkGray
                         )
