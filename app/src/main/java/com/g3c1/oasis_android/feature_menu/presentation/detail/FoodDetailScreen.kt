@@ -1,5 +1,6 @@
 package com.g3c1.oasis_android.feature_menu.presentation.detail
 
+import android.util.Log
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.RoundedCornerShape
@@ -11,14 +12,21 @@ import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.navigation.NavController
 import coil.compose.rememberImagePainter
 import com.g3c1.oasis_android.R
-import com.g3c1.oasis_android.feature_menu.data.dto.FoodDTO
 import com.g3c1.oasis_android.feature_menu.presentation.menu.component.TopBar
+import com.g3c1.oasis_android.feature_menu.presentation.vm.MenuViewModel
 import com.g3c1.oasis_android.ui.theme.Font
 
 @Composable
-fun FoodDetailScreen(data: FoodDTO) {
+fun FoodDetailScreen(navController: NavController, viewModel: MenuViewModel, menuId: Int?) {
+
+    Log.d("TAG", "FoodDetailScreen: $menuId")
+
+    val data = viewModel.mAllMenuList.filter { it.id == menuId }[0]
+    Log.d("TAG", "FoodDetailScreen: ${viewModel.mAllMenuList.filter { it.id == menuId }[0]}")
+
 
     val painter = rememberImagePainter(data = data.img, builder = {
         R.drawable.ic_cart
