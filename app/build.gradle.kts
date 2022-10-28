@@ -70,8 +70,4 @@ dependencies {
     implementation(Dependency.Coroutine.COROUTINE)
 
     implementation(Dependency.ImageLoad.COIL)
-
-    //pytorch
-    implementation(Dependency.Pytorch.LITE)
-    implementation(Dependency.Pytorch.TORCH_VISION)
 }

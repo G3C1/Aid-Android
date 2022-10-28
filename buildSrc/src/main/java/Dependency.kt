@@ -104,8 +104,8 @@ object Dependency {
     }
 
     object Pytorch {
-        const val LITE = "org.pytorch:pytorch_android_lite:1.9.0"
-        const val TORCH_VISION = "org.pytorch:pytorch_android_torchvision:1.9.0"
+        const val LITE = "org.pytorch:pytorch_android_lite:1.10.0"
+        const val TORCH_VISION = "org.pytorch:pytorch_android_torchvision_lite:1.10.0"
         const val PYTORCH = "org.pytorch:pytorch_android:1.9.0"
     }
 }
