@@ -2,6 +2,7 @@ plugins {
     id("com.android.application")
     id("org.jetbrains.kotlin.android")
     id("dagger.hilt.android.plugin")
+    id("com.google.gms.google-services")
     kotlin("kapt")
 }
 
@@ -55,6 +56,7 @@ dependencies {
     implementation(Dependency.Compose.COMPOSE_PREVIEW)
     implementation(Dependency.AndroidX.LIFECYCLE_RUNTIME)
     implementation(Dependency.AndroidX.ACTIVITY_COMPOSE)
+    implementation(Dependency.FireBase.FIRESTORE)
     testImplementation(Dependency.UnitTest.JUNIT)
     implementation(Dependency.Google.HILT_ANDROID)
     kapt(Dependency.Google.HILT_ANDROID_COMPILER)
@@ -70,4 +72,7 @@ dependencies {
     implementation(Dependency.Coroutine.COROUTINE)
 
     implementation(Dependency.ImageLoad.COIL)
+
+    implementation(Dependency.FireBase.FIREBASE_ANALYTICS)
+    implementation(platform(Dependency.FireBase.FIREBASE_BOM))
 }

@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "898389920617",
+    "project_id": "aide-e11d5",
+    "storage_bucket": "aide-e11d5.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:898389920617:android:8e522c0410c3a6094acbf8",
+        "android_client_info": {
+          "package_name": "com.g3c1.oasis_android"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "898389920617-4fhtu2m2knhhooc3np2lv3s0in9lt375.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCX85Bv_v9mhS2sTFrnF3OcvtWJ7rAY_U8"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "898389920617-4fhtu2m2knhhooc3np2lv3s0in9lt375.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

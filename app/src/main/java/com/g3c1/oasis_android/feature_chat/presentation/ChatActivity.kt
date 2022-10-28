@@ -1,5 +1,6 @@
 package com.g3c1.oasis_android.feature_chat.presentation
 
+import android.content.Intent
 import android.os.Build
 import android.os.Bundle
 import androidx.activity.ComponentActivity
@@ -16,15 +17,20 @@ import com.g3c1.oasis_android.feature_chat.presentation.example.component.ChatLi
 import com.g3c1.oasis_android.feature_chat.presentation.example.component.ChatTextField
 import com.g3c1.oasis_android.feature_chat.presentation.example.component.Menu
 import com.g3c1.oasis_android.feature_chat.presentation.example.component.SendBtn
+import com.g3c1.oasis_android.feature_chat.presentation.util.FireStoreDTO
 import com.g3c1.oasis_android.feature_chat.presentation.vm.ChatViewModel
+import com.g3c1.oasis_android.feature_menu.presentation.MenuActivity
+import com.google.firebase.firestore.FirebaseFirestore
 
 class ChatActivity : ComponentActivity() {
 
     private val viewModel by viewModels<ChatViewModel>()
+    private val db = FirebaseFirestore.getInstance()
 
     @RequiresApi(Build.VERSION_CODES.O)
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        observe()
         setContent {
             val text = remember {
                 mutableStateOf("")
@@ -40,7 +46,15 @@ class ChatActivity : ComponentActivity() {
                 )
                 Column {
                     Row {
-                        Menu(onClick = {})
+                        Menu(onClick = {
+                            val data = FireStoreDTO(
+                                sentence = "#메뉴판",
+                                valid = true
+                            )
+                            viewModel.chatList.add("#메뉴판")
+                            viewModel.isTemiList.add(false)
+                            viewModel.chattingManager(db = db, data)
+                        })
                     }
                     Row(
                         modifier = Modifier
@@ -54,15 +68,28 @@ class ChatActivity : ComponentActivity() {
                         }
                         Spacer(Modifier.size(10.dp))
                         SendBtn {
+                            val data = FireStoreDTO(
+                                sentence = text.value,
+                                valid = true
+                            )
                             if (text.value != "") {
                                 viewModel.chatList.add(text.value)
                                 viewModel.isTemiList.add(false)
                                 text.value = ""
                             }
+                            viewModel.chattingManager(db = db, data)
                         }
                     }
                 }
                 Spacer(modifier = Modifier.size(10.dp))
+            }
+        }
+    }
+
+    private fun observe() {
+        viewModel.temiAns.observe(this) {
+            if (it == "0") {
+                startActivity(Intent(this, MenuActivity::class.java))
             }
         }
     }

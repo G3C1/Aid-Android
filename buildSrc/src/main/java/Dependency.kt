@@ -63,6 +63,12 @@ object Dependency {
         const val LIVEDATA = "androidx.lifecycle:lifecycle-livedata-ktx:${Versions.LIVEDATA}"
     }
 
+    object FireBase {
+        const val FIREBASE_ANALYTICS = "com.google.firebase:firebase-analytics-ktx"
+        const val FIREBASE_BOM = "com.google.firebase:firebase-bom:31.0.2"
+        const val FIRESTORE = "com.google.firebase:firebase-firestore-ktx:24.0.2"
+    }
+
     object Libraries {
         const val RETROFIT = "com.squareup.retrofit2:retrofit:${Versions.RETROFIT}"
         const val RETROFIT_CONVERTER_GSON =
@@ -101,11 +107,5 @@ object Dependency {
 
     object Lottie {
         const val LOTTIE = "com.airbnb.android:lottie-compose:${Versions.LOTTIE_VERSION}"
-    }
-
-    object Pytorch {
-        const val LITE = "org.pytorch:pytorch_android_lite:1.10.0"
-        const val TORCH_VISION = "org.pytorch:pytorch_android_torchvision_lite:1.10.0"
-        const val PYTORCH = "org.pytorch:pytorch_android:1.9.0"
     }
 }
