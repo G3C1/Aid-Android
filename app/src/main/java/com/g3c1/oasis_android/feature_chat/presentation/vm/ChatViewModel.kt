@@ -32,7 +32,7 @@ class ChatViewModel @Inject constructor(
         db.collection("android").document("chat").set(data)
 
         viewModelScope.launch {
-            delay(if (isFirst) 1500 else 300)
+            delay(1500)
             isFirst = true
             db.collection("result").document("model").get()
                 .addOnSuccessListener { result ->

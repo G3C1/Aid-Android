@@ -1,33 +1,33 @@
 {
   "project_info": {
-    "project_number": "898389920617",
-    "project_id": "aide-e11d5",
-    "storage_bucket": "aide-e11d5.appspot.com"
+    "project_number": "533166534682",
+    "project_id": "aide-ceea5",
+    "storage_bucket": "aide-ceea5.appspot.com"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:898389920617:android:8e522c0410c3a6094acbf8",
+        "mobilesdk_app_id": "1:533166534682:android:a9c3bc637acf7cae4fe1a3",
         "android_client_info": {
           "package_name": "com.g3c1.oasis_android"
         }
       },
       "oauth_client": [
         {
-          "client_id": "898389920617-4fhtu2m2knhhooc3np2lv3s0in9lt375.apps.googleusercontent.com",
+          "client_id": "533166534682-5jbg0ubv6likcup5l45688pgt63lldus.apps.googleusercontent.com",
           "client_type": 3
         }
       ],
       "api_key": [
         {
-          "current_key": "AIzaSyCX85Bv_v9mhS2sTFrnF3OcvtWJ7rAY_U8"
+          "current_key": "AIzaSyCYzo8rR1R8iYiwNrRtkAkBx_SPN2Y---Y"
         }
       ],
       "services": {
         "appinvite_service": {
           "other_platform_oauth_client": [
             {
-              "client_id": "898389920617-4fhtu2m2knhhooc3np2lv3s0in9lt375.apps.googleusercontent.com",
+              "client_id": "533166534682-5jbg0ubv6likcup5l45688pgt63lldus.apps.googleusercontent.com",
               "client_type": 3
             }
           ]
