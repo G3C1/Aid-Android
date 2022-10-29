@@ -17,7 +17,7 @@ import com.g3c1.oasis_android.ui.theme.Gray2
 import com.g3c1.oasis_android.ui.theme.Orange
 
 @Composable
-fun TopBar(clickBackButton: () -> Unit, clickShoppingBasketButton: () -> Unit) {
+fun TopBar(clickBackButton: () -> Unit, clickShoppingBasketButton: () -> Unit, text: String) {
 
     Box(modifier = Modifier.fillMaxWidth()
         .fillMaxHeight(0.076f)
@@ -30,7 +30,7 @@ fun TopBar(clickBackButton: () -> Unit, clickShoppingBasketButton: () -> Unit) {
             )
         }
         Text(
-            text = "메뉴판",
+            text = text,
             modifier = Modifier.align(Alignment.Center),
             fontFamily = Font.pretendard,
             fontSize = 20.sp,
