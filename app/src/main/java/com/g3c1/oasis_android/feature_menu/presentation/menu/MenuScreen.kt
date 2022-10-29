@@ -23,6 +23,7 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
+import coil.annotation.ExperimentalCoilApi
 import coil.compose.rememberImagePainter
 import com.g3c1.oasis_android.R
 import com.g3c1.oasis_android.feature_menu.data.dto.FoodDTO
@@ -33,6 +34,7 @@ import com.g3c1.oasis_android.feature_menu.presentation.vm.MenuViewModel
 import com.g3c1.oasis_android.ui.theme.*
 
 
+@OptIn(ExperimentalCoilApi::class)
 @SuppressLint("StateFlowValueCalledInComposition")
 @Composable
 fun MenuScreen(
@@ -59,8 +61,7 @@ fun MenuScreen(
     val onChangeState: (Int) -> Unit = {
         selectedValue.value = it
         menuList.value =
-            afterMenuList.filter { item -> item.id == selectedValue.value!! }[0].foodList.toMutableList()
-        Log.d("TAG", "MenuScreen: $menuList")
+            afterMenuList.first { item -> item.id == selectedValue.value!! }.foodList.toMutableList()
     }
 
     LazyRow(
@@ -99,7 +100,6 @@ fun MenuScreen(
                     textAlign = TextAlign.Center
                 )
                 Spacer(modifier = Modifier.width(16.dp))
-
             }
         }
     }
@@ -123,7 +123,8 @@ fun MenuScreen(
 
             Spacer(modifier = Modifier.height(16.dp))
             Row(modifier = Modifier.clickable {
-                navController.navigate(Screen.DetailScreen.withArgs(menuList.value[index].id.toString()))
+                Log.d("TAG", "MenuScreen_: ${itemList.id}")
+                navController.navigate(Screen.DetailScreen.withArgs(itemList.id.toString()))
             }) {
                 ThumbNail(painter = painter)
                 Spacer(modifier = Modifier.width(12.dp))

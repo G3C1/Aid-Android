@@ -73,9 +73,11 @@ fun BottomSheet(viewModel: MenuViewModel, list: List<MenuDTO>) {
                         } else {
                             bottomSheetScaffoldState.bottomSheetState.collapse()
                         }
-                    } },
+                    }
+                },
                 text = "메뉴판"
             )
+            Spacer(modifier = Modifier.height(20.dp))
             MenuNavigation(viewModel = viewModel, menuDataList = list)
         }
     }

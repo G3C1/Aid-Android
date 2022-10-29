@@ -24,7 +24,7 @@ fun MenuNavigation(viewModel: MenuViewModel, menuDataList: List<MenuDTO>) {
             route = Screen.DetailScreen.route + "/{menuId}",
             arguments = listOf(
                 navArgument("menuId") {
-                    type = NavType.StringType
+                    type = NavType.IntType
                     nullable = false
                 }
             )
@@ -32,7 +32,8 @@ fun MenuNavigation(viewModel: MenuViewModel, menuDataList: List<MenuDTO>) {
             FoodDetailScreen(
                 navController = navController,
                 viewModel = viewModel,
-                menuId = entry.arguments?.getInt("menuId")
+                menuId = entry.arguments?.getInt("menuId"),
+                menuList = menuDataList
             )
         }
     }
