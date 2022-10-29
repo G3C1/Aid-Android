@@ -63,6 +63,12 @@ object Dependency {
         const val LIVEDATA = "androidx.lifecycle:lifecycle-livedata-ktx:${Versions.LIVEDATA}"
     }
 
+    object FireBase {
+        const val FIREBASE_ANALYTICS = "com.google.firebase:firebase-analytics-ktx"
+        const val FIREBASE_BOM = "com.google.firebase:firebase-bom:31.0.2"
+        const val FIRESTORE = "com.google.firebase:firebase-firestore-ktx:24.0.2"
+    }
+
     object Libraries {
         const val RETROFIT = "com.squareup.retrofit2:retrofit:${Versions.RETROFIT}"
         const val RETROFIT_CONVERTER_GSON =
