@@ -1,5 +1,8 @@
 package com.g3c1.oasis_android.feature_menu.presentation.vm
 
+import androidx.compose.runtime.MutableState
+import androidx.compose.runtime.mutableStateListOf
+import androidx.compose.runtime.mutableStateMapOf
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.g3c1.oasis_android.feature_menu.data.dto.FoodDTO
@@ -9,16 +12,20 @@ import com.g3c1.oasis_android.remote.util.ApiState
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.catch
-import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
 import javax.inject.Inject
+
 
 @HiltViewModel
 class MenuViewModel @Inject constructor(
     private val getMenuListUseCase: GetMenuListUseCase
-) : ViewModel() {
+): ViewModel() {
 
     val mMenuList: MutableStateFlow<ApiState<List<MenuDTO>>> = MutableStateFlow(ApiState.Loading())
+
+    val orderMenuList = mutableStateMapOf<Int, Int>()
+
+    val mAllMenuList= mutableStateListOf<FoodDTO>()
 
     fun getMenuList() = viewModelScope.launch {
         mMenuList.value = ApiState.Loading()
@@ -28,4 +35,18 @@ class MenuViewModel @Inject constructor(
             mMenuList.value = value
         }
     }
+
+    fun increaseCount(itemId: Int, count: Int) {
+        orderMenuList[itemId] = orderMenuList[itemId]!!.plus(count)
+    }
+
+    fun addItem(itemId: Int) {
+        orderMenuList[itemId] = 1
+    }
+
+    fun deleteItem(itemId: Int) {
+        orderMenuList.remove(itemId)
+    }
+
+
 }

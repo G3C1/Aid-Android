@@ -30,7 +30,6 @@ class SeatActivity : ComponentActivity() {
 
     private val seatViewModel by viewModels<SeatDataViewModel>()
 
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 

@@ -64,6 +64,7 @@ dependencies {
     androidTestImplementation(Dependency.AndroidTest.ESPRESSO_CORE)
     androidTestImplementation(Dependency.ComposeTest.COMPOSE_TEST)
     debugImplementation(Dependency.Compose.COMPOSE_TOOLING)
+    implementation(Dependency.Compose.COMPOSE_NAV)
 
     implementation(Dependency.Libraries.RETROFIT)
     implementation(Dependency.Libraries.RETROFIT_CONVERTER_GSON)

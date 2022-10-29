@@ -5,19 +5,20 @@ import android.util.Log
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.viewModels
+import androidx.compose.material.ExperimentalMaterialApi
 import androidx.lifecycle.lifecycleScope
-import com.g3c1.oasis_android.feature_menu.presentation.menu.MenuScreen
+import com.g3c1.oasis_android.feature_menu.presentation.shopping_basket.BottomSheet
 import com.g3c1.oasis_android.feature_menu.presentation.vm.MenuViewModel
 import com.g3c1.oasis_android.remote.util.ApiState
 import dagger.hilt.android.AndroidEntryPoint
-import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
 
 @AndroidEntryPoint
-class MenuActivity: ComponentActivity() {
+class MenuActivity : ComponentActivity() {
 
-    private val viewModel by viewModels<MenuViewModel>()
+    private val menuViewModel by viewModels<MenuViewModel>()
 
+    @OptIn(ExperimentalMaterialApi::class)
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         getMenuList()
@@ -25,16 +26,19 @@ class MenuActivity: ComponentActivity() {
 
     private fun getMenuList() {
         lifecycleScope.launch {
-            viewModel.getMenuList()
-            viewModel.mMenuList.collect {
-                when(it) {
+            menuViewModel.getMenuList()
+            menuViewModel.mMenuList.collect { data ->
+                when (data) {
                     is ApiState.Success -> {
-                        Log.d("TAG", "getMenuList: ${it.data}")
-                        setContent { MenuScreen(it.data!!) }
-                        viewModel.mMenuList.value = ApiState.Loading()
+                        Log.d("TAG", data.data.toString())
+                        menuViewModel.mMenuList.value = ApiState.Loading()
+                        setContent {
+                            BottomSheet(viewModel = menuViewModel, list = data.data!!)
+                        }
                     }
                     is ApiState.Error -> {
-                        viewModel.mMenuList.value = ApiState.Loading()
+                        Log.e("TAG", data.message.toString())
+                        menuViewModel.mMenuList.value = ApiState.Loading()
                     }
                     is ApiState.Loading -> {}
                 }
