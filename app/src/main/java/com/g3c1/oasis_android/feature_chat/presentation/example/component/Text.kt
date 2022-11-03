@@ -2,7 +2,6 @@ package com.g3c1.oasis_android.feature_chat.presentation.example.component
 
 import android.os.Build
 import androidx.annotation.RequiresApi
-import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.CircleShape
@@ -14,21 +13,25 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
-import androidx.compose.ui.draw.rotate
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.TextStyle
+import androidx.compose.ui.text.font.Font
+import androidx.compose.ui.text.font.FontFamily
+import androidx.compose.ui.text.font.FontStyle
+import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.g3c1.oasis_android.R
 import com.g3c1.oasis_android.feature_chat.presentation.util.Utils
 import com.g3c1.oasis_android.ui.theme.*
-import java.time.LocalDateTime
-import java.time.format.DateTimeFormatter
-import java.util.*
 
 @Composable
 fun ChatTextField(text: String, onValueChange: (String) -> Unit) {
+
+    val pretendrad = FontFamily(
+        Font(R.font.pretendard_medium, FontWeight.Medium, FontStyle.Normal)
+    )
+
     TextField(
         value = text,
         onValueChange = onValueChange,
@@ -42,9 +45,18 @@ fun ChatTextField(text: String, onValueChange: (String) -> Unit) {
             disabledIndicatorColor = Color.Transparent,
             cursorColor = Orange
         ),
-        placeholder = { Text(text = "질문을 입력해주세요.") },
+        placeholder = {
+            Text(
+                text = "질문을 입력해주세요.",
+                fontFamily = pretendrad,
+                fontWeight = FontWeight.Medium,
+                color = Gray7
+            )
+        },
         textStyle = TextStyle(
-            fontSize = 16.sp
+            fontSize = 16.sp,
+            fontFamily = pretendrad,
+            fontWeight = FontWeight.Medium
         ),
         maxLines = 5,
     )
@@ -53,39 +65,54 @@ fun ChatTextField(text: String, onValueChange: (String) -> Unit) {
 @RequiresApi(Build.VERSION_CODES.O)
 @Composable
 fun ChatText(text: String) {
-    Row(verticalAlignment = Alignment.CenterVertically) {
+
+    val pretendrad = FontFamily(
+        Font(R.font.pretendard_medium, FontWeight.Medium, FontStyle.Normal),
+        Font(R.font.pretendard_regular, FontWeight.Normal, FontStyle.Normal)
+    )
+
+    Row(
+        verticalAlignment = Alignment.Bottom
+    ) {
         Text(
-            text = Utils.formattedTime() , style = TextStyle(
+            text = Utils.formattedTime(), style = TextStyle(
                 color = Gray6,
-                fontSize = 11.sp
+                fontSize = 11.sp,
+                fontFamily = pretendrad,
+                fontWeight = FontWeight.Medium
             )
         )
-        Spacer(modifier = Modifier.size(8.dp))
-        Box(
-            modifier = Modifier
-                .clip(RoundedCornerShape(10.dp))
-                .background(Gray5)
-                .widthIn(0.dp, 250.dp)
+        Row(
+            verticalAlignment = Alignment.CenterVertically
         ) {
-            Text(text = text, modifier = Modifier.padding(8.dp))
-        }
-        Spacer(modifier = Modifier.size(5.dp))
-        Image(
-            painter = painterResource(id = R.drawable.chat_text_shape),
-            contentDescription = "",
-            modifier = Modifier.rotate(180f)
-        )
-        Spacer(modifier = Modifier.size(5.dp))
-        Box(
-            modifier = Modifier
-                .clip(CircleShape)
-                .background(Orage2)
-                .width(40.dp)
-                .height(40.dp),
-            contentAlignment = Alignment.Center
-        )
-        {
-            Text(text = "")
+            Spacer(modifier = Modifier.size(8.dp))
+            Box(
+                modifier = Modifier
+                    .clip(RoundedCornerShape(10.dp))
+                    .background(Gray5)
+                    .widthIn(0.dp, 250.dp)
+            ) {
+                Text(
+                    text = text, modifier = Modifier.padding(8.dp), style = TextStyle(
+                        color = Color.Black,
+                        fontFamily = pretendrad,
+                        fontWeight = FontWeight.Normal,
+                        fontSize = 15.sp
+                    )
+                )
+            }
+            Spacer(modifier = Modifier.size(8.dp))
+            Box(
+                modifier = Modifier
+                    .clip(CircleShape)
+                    .background(Orage2)
+                    .width(40.dp)
+                    .height(40.dp),
+                contentAlignment = Alignment.Center
+            )
+            {
+                Text(text = "")
+            }
         }
     }
 }
@@ -94,9 +121,17 @@ fun ChatText(text: String) {
 @RequiresApi(Build.VERSION_CODES.O)
 @Composable
 fun TemiText(text: String) {
-    Row(verticalAlignment = Alignment.CenterVertically) {
+
+    val pretendrad = FontFamily(
+        Font(R.font.pretendard_medium, FontWeight.Medium, FontStyle.Normal),
+        Font(R.font.pretendard_regular, FontWeight.Normal, FontStyle.Normal)
+    )
+
+    Row(
+        verticalAlignment = Alignment.Bottom
+    ) {
         Row(
-            verticalAlignment = Alignment.CenterVertically
+            verticalAlignment = Alignment.Top
         ) {
             Box(
                 modifier = Modifier
@@ -109,27 +144,41 @@ fun TemiText(text: String) {
             {
                 Text(text = "")
             }
-            Spacer(modifier = Modifier.size(5.dp))
-            Image(
-                painter = painterResource(id = R.drawable.chat_text_shape),
-                contentDescription = ""
-            )
-            Spacer(modifier = Modifier.size(5.dp))
-            Box(
-                modifier = Modifier
-                    .clip(RoundedCornerShape(10.dp))
-                    .background(Gray5)
-                    .widthIn(0.dp, 250.dp)
-            ) {
-                Text(text = text, modifier = Modifier.padding(8.dp))
+            Spacer(modifier = Modifier.size(8.dp))
+            Column {
+                Text(
+                    text = "에이드", style = TextStyle(
+                        fontSize = 15.sp,
+                        fontFamily = pretendrad,
+                        fontWeight = FontWeight.Medium
+                    )
+                )
+                Spacer(modifier = Modifier.size(4.dp))
+                Box(
+                    modifier = Modifier
+                        .clip(RoundedCornerShape(10.dp))
+                        .background(Gray5)
+                        .widthIn(0.dp, 250.dp)
+                ) {
+                    Text(
+                        text = text, modifier = Modifier.padding(8.dp), style = TextStyle(
+                            color = Color.Black,
+                            fontFamily = pretendrad,
+                            fontWeight = FontWeight.Normal,
+                            fontSize = 15.sp
+                        )
+                    )
+                }
             }
             Spacer(modifier = Modifier.size(8.dp))
-            Text(
-                text = Utils.formattedTime(), style = TextStyle(
-                    color = Gray6,
-                    fontSize = 11.sp
-                )
-            )
         }
+        Text(
+            text = Utils.formattedTime(), style = TextStyle(
+                color = Gray6,
+                fontSize = 11.sp,
+                fontFamily = pretendrad,
+                fontWeight = FontWeight.Medium
+            )
+        )
     }
 }

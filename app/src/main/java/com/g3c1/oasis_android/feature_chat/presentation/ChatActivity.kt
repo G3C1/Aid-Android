@@ -3,7 +3,6 @@ package com.g3c1.oasis_android.feature_chat.presentation
 import android.content.Intent
 import android.os.Build
 import android.os.Bundle
-import android.util.Log
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.viewModels

@@ -26,7 +26,7 @@ fun Menu(onClick: () -> Unit) {
             backgroundColor = Orange,
             contentColor = Color.White
         ),
-        shape = RoundedCornerShape(20.dp)
+        shape = RoundedCornerShape(10.dp)
     ) {
         Text(text = "#메뉴판")
     }
