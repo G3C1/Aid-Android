@@ -53,7 +53,7 @@ class ChatActivity : ComponentActivity() {
                             )
                             viewModel.chatList.add("#메뉴판")
                             viewModel.isTemiList.add(false)
-                            //viewModel.chattingManager(db = db, data)
+                            viewModel.chattingManager(db = db, data)
                         })
                     }
                     Row(
@@ -76,7 +76,7 @@ class ChatActivity : ComponentActivity() {
                                 viewModel.isTemiList.add(false)
                                 text.value = ""
                             }
-                            //viewModel.chattingManager(db = db, data)
+                            viewModel.chattingManager(db = db, data)
                         }
                     }
                 }
