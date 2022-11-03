@@ -7,8 +7,11 @@ import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.viewModels
 import androidx.annotation.RequiresApi
+import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.background
+import androidx.compose.foundation.gestures.LocalOverScrollConfiguration
 import androidx.compose.foundation.layout.*
+import androidx.compose.runtime.CompositionLocalProvider
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
@@ -26,6 +29,7 @@ class ChatActivity : ComponentActivity() {
     private val viewModel by viewModels<ChatViewModel>()
     private val db = FirebaseFirestore.getInstance()
 
+    @OptIn(ExperimentalFoundationApi::class)
     @RequiresApi(Build.VERSION_CODES.O)
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -42,9 +46,13 @@ class ChatActivity : ComponentActivity() {
                 horizontalAlignment = Alignment.Start
             ) {
                 TopBar(tableNum = "4")
-                ChatList(
-                    chatList = viewModel.chatList, isTemi = viewModel.isTemiList
-                )
+                CompositionLocalProvider(
+                    LocalOverScrollConfiguration provides null
+                ) {
+                    ChatList(
+                        chatList = viewModel.chatList, isTemi = viewModel.isTemiList
+                    )
+                }
                 Column {
                     Row {
                         Menu(onClick = {
