@@ -2,6 +2,7 @@ package com.g3c1.oasis_android.feature_chat.presentation.example.component
 
 import android.os.Build
 import androidx.annotation.RequiresApi
+import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.CircleShape
@@ -14,6 +15,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.Font
 import androidx.compose.ui.text.font.FontFamily
@@ -142,7 +144,7 @@ fun TemiText(text: String) {
                 contentAlignment = Alignment.Center
             )
             {
-                Text(text = "")
+                Image(painterResource(id = R.drawable.aide), contentDescription = null)
             }
             Spacer(modifier = Modifier.size(8.dp))
             Column {
