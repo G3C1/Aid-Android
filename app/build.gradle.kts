@@ -76,4 +76,6 @@ dependencies {
 
     implementation(Dependency.FireBase.FIREBASE_ANALYTICS)
     implementation(platform(Dependency.FireBase.FIREBASE_BOM))
+
+    implementation(Dependency.Google.SYSTEM_UI_CONTROLLER)
 }
