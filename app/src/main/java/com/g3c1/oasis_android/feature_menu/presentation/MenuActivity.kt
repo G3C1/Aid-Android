@@ -6,7 +6,9 @@ import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.viewModels
 import androidx.compose.material.ExperimentalMaterialApi
+import androidx.compose.ui.platform.LocalContext
 import androidx.lifecycle.lifecycleScope
+import androidx.lifecycle.viewmodel.compose.viewModel
 import com.g3c1.oasis_android.feature_menu.presentation.shopping_basket.BottomSheet
 import com.g3c1.oasis_android.feature_menu.presentation.vm.MenuViewModel
 import com.g3c1.oasis_android.remote.util.ApiState
@@ -33,7 +35,7 @@ class MenuActivity : ComponentActivity() {
                         Log.d("TAG", data.data.toString())
                         menuViewModel.mMenuList.value = ApiState.Loading()
                         setContent {
-                            BottomSheet(viewModel = menuViewModel, list = data.data!!)
+                            BottomSheet(viewModel = viewModel(LocalContext.current as MenuActivity), list = data.data!!)
                         }
                     }
                     is ApiState.Error -> {

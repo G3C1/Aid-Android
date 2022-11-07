@@ -1,6 +1,5 @@
 package com.g3c1.oasis_android.feature_menu.presentation.detail
 
-import android.util.Log
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.RoundedCornerShape
@@ -14,6 +13,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
@@ -45,11 +45,7 @@ fun FoodDetailScreen(
             allMenuList.add(menu)
         }
     }
-    Log.d("TAG", "FoodDetailScreen: $allMenuList")
-    Log.d("TAG", menuId.toString())
-
     val data = allMenuList.first { it.id == menuId }
-
 
     val painter = rememberImagePainter(data = data.img, builder = {
         R.drawable.ic_cart
@@ -115,6 +111,7 @@ fun FoodDetailScreen(
         ) {
             ShoppingBasketButton (onClick = {
                 scope.launch {
+                    viewModel.increaseCount(itemId = menuId!!, count = count.value)
                     navController.popBackStack()
                 }
             },
