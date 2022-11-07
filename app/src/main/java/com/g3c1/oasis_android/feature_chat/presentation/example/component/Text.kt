@@ -113,7 +113,7 @@ fun ChatText(text: String) {
                 contentAlignment = Alignment.Center
             )
             {
-                Text(text = "")
+                Image(painterResource(id = R.drawable.ic_user_profile), contentDescription = "UserProfile")
             }
         }
     }
@@ -144,7 +144,7 @@ fun TemiText(text: String) {
                 contentAlignment = Alignment.Center
             )
             {
-                Image(painterResource(id = R.drawable.aide), contentDescription = null)
+                Image(painterResource(id = R.drawable.aide), contentDescription = "TemiProfile")
             }
             Spacer(modifier = Modifier.size(8.dp))
             Column {
