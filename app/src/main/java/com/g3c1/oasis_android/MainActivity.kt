@@ -36,11 +36,11 @@ class MainActivity: ComponentActivity() {
             ) {
                 Image(painterResource(id = R.drawable.aide_logo), contentDescription = "AideLogo")
             }
-            goQr()
+            goSelectStore()
         }
     }
 
-    private fun goQr() {
+    private fun goSelectStore() {
         lifecycleScope.launch {
             delay(1500)
             startActivity(Intent(this@MainActivity, ChatActivity::class.java))
