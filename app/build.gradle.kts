@@ -57,8 +57,16 @@ dependencies {
     implementation(Dependency.AndroidX.LIFECYCLE_RUNTIME)
     implementation(Dependency.AndroidX.ACTIVITY_COMPOSE)
     implementation(Dependency.FireBase.FIRESTORE)
+    implementation("androidx.lifecycle:lifecycle-runtime-ktx:2.3.1")
+    implementation("androidx.activity:activity-compose:1.3.1")
+    implementation("androidx.compose.ui:ui:${rootProject.extra["compose_ui_version"]}")
+    implementation("androidx.compose.ui:ui-tooling-preview:${rootProject.extra["compose_ui_version"]}")
+    implementation("androidx.compose.material:material:1.1.1")
     testImplementation(Dependency.UnitTest.JUNIT)
     implementation(Dependency.Google.HILT_ANDROID)
+    androidTestImplementation("androidx.compose.ui:ui-test-junit4:${rootProject.extra["compose_ui_version"]}")
+    debugImplementation("androidx.compose.ui:ui-tooling:${rootProject.extra["compose_ui_version"]}")
+    debugImplementation("androidx.compose.ui:ui-test-manifest:${rootProject.extra["compose_ui_version"]}")
     kapt(Dependency.Google.HILT_ANDROID_COMPILER)
     androidTestImplementation(Dependency.AndroidTest.ANDROID_JUNIT)
     androidTestImplementation(Dependency.AndroidTest.ESPRESSO_CORE)
@@ -78,4 +86,9 @@ dependencies {
     implementation(platform(Dependency.FireBase.FIREBASE_BOM))
 
     implementation(Dependency.Google.SYSTEM_UI_CONTROLLER)
+
+    implementation(Dependency.AndroidX.CAMERA)
+    implementation(Dependency.AndroidX.CAMERA_LIFECYCLE)
+    implementation(Dependency.AndroidX.CAMERA_VIEW)
+    implementation(Dependency.Google.ZXING)
 }

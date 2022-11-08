@@ -34,6 +34,10 @@ object Dependency {
         const val LIFECYCLE_RUNTIME =
             "androidx.lifecycle:lifecycle-runtime-ktx:${Versions.LIFECYCLE_KTX}"
         const val LEGACY_SUPPORT = "androidx.legacy:legacy-support-v4:${Versions.LEGACY}"
+
+        const val CAMERA = "androidx.camera:camera-camera2:1.1.0"
+        const val CAMERA_LIFECYCLE = "androidx.camera:camera-lifecycle:1.1.0"
+        const val CAMERA_VIEW = "androidx.camera:camera-view:1.1.0"
     }
 
     object Compose {
@@ -61,7 +65,9 @@ object Dependency {
         const val GMS_PLAY_SERVICE_BASE =
             "com.google.android.gms:play-services-base:${Versions.GMS_PLAY_SERVICE_BASE}"
         const val LIVEDATA = "androidx.lifecycle:lifecycle-livedata-ktx:${Versions.LIVEDATA}"
-        const val SYSTEM_UI_CONTROLLER = "com.google.accompanist:accompanist-systemuicontroller:0.23.1"
+        const val SYSTEM_UI_CONTROLLER =
+            "com.google.accompanist:accompanist-systemuicontroller:0.23.1"
+        const val ZXING = "com.google.zxing:core:3.3.3"
     }
 
     object FireBase {
