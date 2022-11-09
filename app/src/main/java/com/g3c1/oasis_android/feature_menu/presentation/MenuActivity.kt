@@ -24,6 +24,11 @@ class MenuActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         getMenuList()
+        setContent {
+            BottomSheet(
+                viewModel = viewModel(LocalContext.current as MenuActivity),
+            )
+        }
     }
 
     private fun getMenuList() {
@@ -35,12 +40,7 @@ class MenuActivity : ComponentActivity() {
                         Log.d("TAG", data.data.toString())
                         menuViewModel.insertAllMenuListItems(data.data!!)
                         menuViewModel.mMenuList.value = ApiState.Loading()
-                        setContent {
-                            BottomSheet(
-                                viewModel = viewModel(LocalContext.current as MenuActivity),
-                                list = data.data
-                            )
-                        }
+                        menuViewModel.saveTheReceivedMenuList(data.data)
                     }
                     is ApiState.Error -> {
                         Log.e("TAG", data.message.toString())

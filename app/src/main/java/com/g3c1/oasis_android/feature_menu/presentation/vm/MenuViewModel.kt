@@ -24,6 +24,9 @@ class MenuViewModel @Inject constructor(
 
     val mMenuList: MutableStateFlow<ApiState<List<MenuDTO>>> = MutableStateFlow(ApiState.Loading())
 
+    private val _menuList = mutableStateListOf<MenuDTO>()
+    val menuList: List<MenuDTO> = _menuList
+
     private val _orderMenuList = mutableStateListOf<OrderFoodDTO>()
     val orderMenuList: List<OrderFoodDTO> = _orderMenuList
 
@@ -86,4 +89,8 @@ class MenuViewModel @Inject constructor(
 
     private fun getFoodPosition(itemId: Int) = _orderMenuList.indexOfFirst { it.id == itemId }
 
+    fun saveTheReceivedMenuList(data: List<MenuDTO>) {
+        _menuList.clear()
+        data.forEach { _menuList.add(it) }
+    }
 }

@@ -14,8 +14,6 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.g3c1.oasis_android.R
-import com.g3c1.oasis_android.feature_menu.data.dto.MenuDTO
-import com.g3c1.oasis_android.feature_menu.data.dto.OrderFoodDTO
 import com.g3c1.oasis_android.feature_menu.presentation.menu.component.TopBar
 import com.g3c1.oasis_android.feature_menu.presentation.menu.navigation.MenuNavigation
 import com.g3c1.oasis_android.feature_menu.presentation.shopping_basket.component.OrderedMenuComponent
@@ -25,18 +23,19 @@ import kotlinx.coroutines.launch
 
 @OptIn(ExperimentalMaterialApi::class)
 @Composable
-fun BottomSheet(viewModel: MenuViewModel, list: List<MenuDTO>) {
+fun BottomSheet(viewModel: MenuViewModel) {
     val scope = rememberCoroutineScope()
     val sheetState =
         rememberBottomSheetState(initialValue = BottomSheetValue.Collapsed)
     val bottomSheetScaffoldState = rememberBottomSheetScaffoldState(
         bottomSheetState = sheetState
     )
+    val list = remember { viewModel.menuList }
     BottomSheetScaffold(
         scaffoldState = bottomSheetScaffoldState,
         sheetShape = RoundedCornerShape(topEnd = 30.dp, topStart = 30.dp),
         sheetContent = {
-            val orderMenuList = remember{viewModel.orderMenuList}
+            val orderMenuList = remember{ viewModel.orderMenuList }
             Log.d("TAG", "BottomSheet: orderMenuList = $orderMenuList")
             Column(
                 modifier = Modifier.fillMaxSize(),
