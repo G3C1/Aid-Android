@@ -18,6 +18,7 @@ import com.g3c1.oasis_android.feature_menu.data.dto.MenuDTO
 import com.g3c1.oasis_android.feature_menu.data.dto.OrderFoodDTO
 import com.g3c1.oasis_android.feature_menu.presentation.menu.component.TopBar
 import com.g3c1.oasis_android.feature_menu.presentation.menu.navigation.MenuNavigation
+import com.g3c1.oasis_android.feature_menu.presentation.shopping_basket.component.OrderedMenuComponent
 import com.g3c1.oasis_android.feature_menu.presentation.vm.MenuViewModel
 import com.g3c1.oasis_android.ui.theme.Font
 import kotlinx.coroutines.launch
@@ -62,7 +63,7 @@ fun BottomSheet(viewModel: MenuViewModel, list: List<MenuDTO>) {
                         .height(72.dp),
                 ) {
                     items(orderMenuList.size) {
-                        Log.d("TAG", "orderItem = ${orderMenuList.map { it.id }}, ${orderMenuList.map { it.amount }}")
+                        OrderedMenuComponent(data = orderMenuList[it], )
                     }
                 }
             }
