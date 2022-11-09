@@ -35,6 +35,16 @@ class MenuViewModel @Inject constructor(
         }
     }
 
+    fun checkIfFoodIsOnTheList(itemId: Int, amount: Int) {
+        if (orderMenuList.filter { it.id == itemId }.equals(null)) {
+            Log.d("TAG", "the food is not contain the list")
+            addFoodToTheFoodToOrderList(itemId = itemId, amount = amount)
+        } else {
+            Log.d("TAG", "the food is already contain the list ")
+            increaseFoodAmount(itemId = itemId, count = amount)
+        }
+    }
+
     private fun increaseFoodAmount(itemId: Int, count: Int) {
         val (id, name, img, price, amount) = orderMenuList[getFoodPosition(itemId = itemId)]
         orderMenuList[getFoodPosition(itemId = itemId)] =
@@ -64,23 +74,6 @@ class MenuViewModel @Inject constructor(
         )
     }
 
-
-    fun checkIfFoodIsOnTheList(itemId: Int, amount: Int) {
-        if (orderMenuList.filter { it.id == itemId }.equals(null)) {
-            Log.d("TAG", "the food is not contain the list")
-            addFoodToTheFoodToOrderList(itemId = itemId, amount = amount)
-        } else {
-            Log.d("TAG", "the food is already contain the list ")
-            increaseFoodAmount(itemId = itemId, count = amount)
-        }
-    }
-
-
     private fun getFoodPosition(itemId: Int) = orderMenuList.indexOfFirst { it.id == itemId }
-
-    fun deleteItem(itemId: Int) {
-        orderMenuList.remove(orderMenuList.filter { it.id == itemId }[0])
-    }
-
 
 }
