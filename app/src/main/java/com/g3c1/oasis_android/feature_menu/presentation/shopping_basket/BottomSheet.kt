@@ -1,12 +1,12 @@
 package com.g3c1.oasis_android.feature_menu.presentation.shopping_basket
 
+import android.util.Log
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyRow
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.*
-import androidx.compose.runtime.Composable
-import androidx.compose.runtime.rememberCoroutineScope
+import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.painterResource
@@ -15,6 +15,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.g3c1.oasis_android.R
 import com.g3c1.oasis_android.feature_menu.data.dto.MenuDTO
+import com.g3c1.oasis_android.feature_menu.data.dto.OrderFoodDTO
 import com.g3c1.oasis_android.feature_menu.presentation.menu.component.TopBar
 import com.g3c1.oasis_android.feature_menu.presentation.menu.navigation.MenuNavigation
 import com.g3c1.oasis_android.feature_menu.presentation.vm.MenuViewModel
@@ -34,6 +35,8 @@ fun BottomSheet(viewModel: MenuViewModel, list: List<MenuDTO>) {
         scaffoldState = bottomSheetScaffoldState,
         sheetShape = RoundedCornerShape(topEnd = 30.dp, topStart = 30.dp),
         sheetContent = {
+            val orderMenuList = remember{viewModel.orderMenuList}
+            Log.d("TAG", "BottomSheet: orderMenuList = $orderMenuList")
             Column(
                 modifier = Modifier.fillMaxSize(),
                 horizontalAlignment = Alignment.CenterHorizontally
@@ -58,9 +61,8 @@ fun BottomSheet(viewModel: MenuViewModel, list: List<MenuDTO>) {
                         .fillMaxWidth()
                         .height(72.dp),
                 ) {
-                    val orderMenuList = viewModel.orderMenuList
                     items(orderMenuList.size) {
-
+                        Log.d("TAG", "orderItem = ${orderMenuList.map { it.id }}, ${orderMenuList.map { it.amount }}")
                     }
                 }
             }

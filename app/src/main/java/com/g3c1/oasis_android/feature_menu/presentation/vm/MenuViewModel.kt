@@ -24,7 +24,8 @@ class MenuViewModel @Inject constructor(
 
     val mMenuList: MutableStateFlow<ApiState<List<MenuDTO>>> = MutableStateFlow(ApiState.Loading())
 
-    val orderMenuList = mutableStateListOf<OrderFoodDTO>()
+    private val _orderMenuList = mutableStateListOf<OrderFoodDTO>()
+    val orderMenuList: List<OrderFoodDTO> = _orderMenuList
 
     fun getMenuList() = viewModelScope.launch {
         mMenuList.value = ApiState.Loading()
@@ -36,7 +37,7 @@ class MenuViewModel @Inject constructor(
     }
 
     fun checkIfFoodIsOnTheList(itemId: Int, amount: Int) {
-        if (orderMenuList.none { it.id == amount }) {
+        if (_orderMenuList.none { it.id == itemId }) {
             Log.d("TAG", "the food is not contain the list")
             addFoodToTheFoodToOrderList(itemId = itemId, amount = amount)
         } else {
@@ -55,24 +56,24 @@ class MenuViewModel @Inject constructor(
     }
 
     private fun increaseFoodAmount(itemId: Int, count: Int) {
-        val (id, name, img, price, amount) = orderMenuList[getFoodPosition(itemId = itemId)]
-        orderMenuList[getFoodPosition(itemId = itemId)] =
+        val (id, name, img, price, amount) = _orderMenuList[getFoodPosition(itemId = itemId)]
+        _orderMenuList[getFoodPosition(itemId = itemId)] =
             OrderFoodDTO(id = id, name = name, img = img, price = price, amount = count + amount)
 
-        Log.d("TAG", "orderMenuList: $orderMenuList")
+        Log.d("TAG", "orderMenuList: $_orderMenuList")
     }
 
     fun decreaseFoodAmount(itemId: Int, count: Int) {
-        val (id, name, img, price, amount) = orderMenuList[getFoodPosition(itemId = itemId)]
-        orderMenuList[getFoodPosition(itemId = itemId)] =
+        val (id, name, img, price, amount) = _orderMenuList[getFoodPosition(itemId = itemId)]
+        _orderMenuList[getFoodPosition(itemId = itemId)] =
             OrderFoodDTO(id = id, name = name, img = img, price = price, amount = amount - count)
 
-        Log.d("TAG", "orderMenuList: $orderMenuList")
+        Log.d("TAG", "orderMenuList: $_orderMenuList")
     }
 
     private fun addFoodToTheFoodToOrderList(itemId: Int, amount: Int) {
         val food = mAllMenuList.first { it.id == itemId }
-        orderMenuList.add(
+        _orderMenuList.add(
             OrderFoodDTO(
                 id = food.id,
                 name = food.name,
@@ -83,6 +84,6 @@ class MenuViewModel @Inject constructor(
         )
     }
 
-    private fun getFoodPosition(itemId: Int) = orderMenuList.indexOfFirst { it.id == itemId }
+    private fun getFoodPosition(itemId: Int) = _orderMenuList.indexOfFirst { it.id == itemId }
 
 }
