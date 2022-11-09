@@ -28,7 +28,12 @@ class QrScanActivity : ComponentActivity() {
                 QrScanScreen(code = code, analyer = QrCodeAnalyer {
                     code = it
                 })
-                TopStoreInfoBar(code = code)
+                TopStoreInfoBar(
+                    code = code,
+                    storeName = "카승이 치킨집",
+                    storeIntroduce = "후라이드가 맛집인 광주 대표 치킨집!!",
+                    storeLogoUrl = ""
+                )
             }
         }
     }
