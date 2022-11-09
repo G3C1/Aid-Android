@@ -51,6 +51,19 @@ class MenuViewModel @Inject constructor(
         Log.d("TAG", "orderMenuList: $orderMenuList")
     }
 
+    fun addFoodToTheFoodToOrderList(itemId: Int, amount: Int) {
+        val food = mAllMenuList.first { it.id == itemId }
+        orderMenuList.add(
+            OrderFoodDTO(
+                id = food.id,
+                name = food.name,
+                price = food.price,
+                img = food.img,
+                amount = amount
+            )
+        )
+    }
+
     private fun getFoodPosition(itemId: Int) = orderMenuList.indexOfFirst { it.id == itemId }
 
     fun deleteItem(itemId: Int) {
