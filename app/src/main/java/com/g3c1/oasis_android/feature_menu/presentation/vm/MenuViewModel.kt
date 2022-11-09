@@ -20,11 +20,11 @@ class MenuViewModel @Inject constructor(
     private val getMenuListUseCase: GetMenuListUseCase
 ) : ViewModel() {
 
+    private val mAllMenuList = mutableStateListOf<FoodDTO>()
+
     val mMenuList: MutableStateFlow<ApiState<List<MenuDTO>>> = MutableStateFlow(ApiState.Loading())
 
     val orderMenuList = mutableStateListOf<OrderFoodDTO>()
-
-    val mAllMenuList = mutableStateListOf<FoodDTO>()
 
     fun getMenuList() = viewModelScope.launch {
         mMenuList.value = ApiState.Loading()
@@ -40,7 +40,7 @@ class MenuViewModel @Inject constructor(
             Log.d("TAG", "the food is not contain the list")
             addFoodToTheFoodToOrderList(itemId = itemId, amount = amount)
         } else {
-            Log.d("TAG", "the food is already contain the list ")
+            Log.d("TAG", "the food is already contain the list")
             increaseFoodAmount(itemId = itemId, count = amount)
         }
     }
