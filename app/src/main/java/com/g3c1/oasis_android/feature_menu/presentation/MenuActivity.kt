@@ -33,11 +33,12 @@ class MenuActivity : ComponentActivity() {
                 when (data) {
                     is ApiState.Success -> {
                         Log.d("TAG", data.data.toString())
+                        menuViewModel.insertAllMenuListItems(data.data!!)
                         menuViewModel.mMenuList.value = ApiState.Loading()
                         setContent {
                             BottomSheet(
                                 viewModel = viewModel(LocalContext.current as MenuActivity),
-                                list = data.data!!
+                                list = data.data
                             )
                         }
                     }

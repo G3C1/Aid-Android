@@ -36,12 +36,21 @@ class MenuViewModel @Inject constructor(
     }
 
     fun checkIfFoodIsOnTheList(itemId: Int, amount: Int) {
-        if (orderMenuList.filter { it.id == itemId }.equals(null)) {
+        if (orderMenuList.none { it.id == amount }) {
             Log.d("TAG", "the food is not contain the list")
             addFoodToTheFoodToOrderList(itemId = itemId, amount = amount)
         } else {
             Log.d("TAG", "the food is already contain the list")
             increaseFoodAmount(itemId = itemId, count = amount)
+        }
+    }
+
+    fun insertAllMenuListItems(menuList: List<MenuDTO>) {
+        mAllMenuList.clear()
+        menuList.forEach {
+            it.foodList.forEach { menu ->
+                mAllMenuList.add(menu)
+            }
         }
     }
 

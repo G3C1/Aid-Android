@@ -43,8 +43,7 @@ fun MenuScreen(
     menuDataList: List<MenuDTO>
 ) {
     val allMenuList = mutableListOf<FoodDTO>()
-    Log.d("TAG", "MenuScreen: ${viewModel.mMenuList.value.data}")
-    Log.d("TAG", "orderMenuList - MenuActivity: ${viewModel.orderMenuList}")
+    Log.d("TAG", "orderMenuList - MenuScreen: ${viewModel.orderMenuList}")
 
     menuDataList.forEach { category ->
         category.foodList.forEach { menu ->
