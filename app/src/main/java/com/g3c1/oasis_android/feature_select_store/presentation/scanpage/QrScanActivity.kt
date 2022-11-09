@@ -25,7 +25,7 @@ class QrScanActivity : ComponentActivity() {
                 modifier = Modifier
                     .fillMaxSize()
             ) {
-                QrScanScreen(analyer = QrCodeAnalyer {
+                QrScanScreen(code = code, analyer = QrCodeAnalyer {
                     code = it
                 })
                 TopStoreInfoBar(code = code)
