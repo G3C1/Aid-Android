@@ -19,6 +19,12 @@
             android:exported="true"
             android:label="@string/app_name"
             android:theme="@style/Theme.OasisAndroid">
+            <intent-filter>
+
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+
+            </intent-filter>
         </activity>
         <activity
             android:name=".feature_seat.presentation.SeatActivity"
@@ -27,12 +33,7 @@
         <activity
             android:name=".feature_chat.presentation.ChatActivity"
             android:exported="true" >
-            <intent-filter>
 
-                <action android:name="android.intent.action.MAIN" />
-                <category android:name="android.intent.category.LAUNCHER" />
-
-            </intent-filter>
         </activity>
 
         <activity

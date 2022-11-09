@@ -17,7 +17,7 @@ class ChatViewModel @Inject constructor(
 ) : ViewModel() {
     private val TAG = "ChatViewModel"
 
-    private val _chatList = mutableStateListOf("챗봇에게 무엇이던 질문해보세요!")
+    private val _chatList = mutableStateListOf("안녕하세요 저는 ai 챗봇 AiD에요. 저에게 가게에 대해 궁금하신거를 문의하면 답변해드려요.")
     val chatList: MutableList<String> get() = _chatList
 
     private val _isTemiList = mutableStateListOf(true)
