@@ -58,6 +58,10 @@ fun BottomSheet(viewModel: MenuViewModel, list: List<MenuDTO>) {
                         .fillMaxWidth()
                         .height(72.dp),
                 ) {
+                    val orderMenuList = viewModel.orderMenuList
+                    items(orderMenuList.size) {
+
+                    }
                 }
             }
         },

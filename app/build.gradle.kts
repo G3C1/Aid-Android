@@ -76,4 +76,5 @@ dependencies {
 
     implementation(Dependency.FireBase.FIREBASE_ANALYTICS)
     implementation(platform(Dependency.FireBase.FIREBASE_BOM))
+    implementation(Dependency.Compose.COMPOSE_LIVEDATA)
 }
