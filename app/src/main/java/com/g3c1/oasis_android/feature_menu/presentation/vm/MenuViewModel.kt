@@ -35,7 +35,7 @@ class MenuViewModel @Inject constructor(
         }
     }
 
-    fun increaseFoodAmount(itemId: Int, count: Int) {
+    private fun increaseFoodAmount(itemId: Int, count: Int) {
         val (id, name, img, price, amount) = orderMenuList[getFoodPosition(itemId = itemId)]
         orderMenuList[getFoodPosition(itemId = itemId)] =
             OrderFoodDTO(id = id, name = name, img = img, price = price, amount = count + amount)
@@ -51,7 +51,7 @@ class MenuViewModel @Inject constructor(
         Log.d("TAG", "orderMenuList: $orderMenuList")
     }
 
-    fun addFoodToTheFoodToOrderList(itemId: Int, amount: Int) {
+    private fun addFoodToTheFoodToOrderList(itemId: Int, amount: Int) {
         val food = mAllMenuList.first { it.id == itemId }
         orderMenuList.add(
             OrderFoodDTO(
@@ -63,6 +63,18 @@ class MenuViewModel @Inject constructor(
             )
         )
     }
+
+
+    fun checkIfFoodIsOnTheList(itemId: Int, amount: Int) {
+        if (orderMenuList.filter { it.id == itemId }.equals(null)) {
+            Log.d("TAG", "the food is not contain the list")
+            addFoodToTheFoodToOrderList(itemId = itemId, amount = amount)
+        } else {
+            Log.d("TAG", "the food is already contain the list ")
+            increaseFoodAmount(itemId = itemId, count = amount)
+        }
+    }
+
 
     private fun getFoodPosition(itemId: Int) = orderMenuList.indexOfFirst { it.id == itemId }
 

@@ -110,7 +110,7 @@ fun FoodDetailScreen(
         ) {
             ShoppingBasketButton (onClick = {
                 scope.launch {
-                    viewModel.increaseFoodAmount(itemId = menuId!!, count = count.value)
+                    viewModel.checkIfFoodIsOnTheList(itemId = menuId!!, amount = count.value)
                     navController.popBackStack()
                 }
             },
