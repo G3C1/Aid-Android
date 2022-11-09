@@ -43,6 +43,14 @@ class MenuViewModel @Inject constructor(
         Log.d("TAG", "orderMenuList: $orderMenuList")
     }
 
+    fun decreaseFoodAmount(itemId: Int, count: Int) {
+        val (id, name, img, price, amount) = orderMenuList[getFoodPosition(itemId = itemId)]
+        orderMenuList[getFoodPosition(itemId = itemId)] =
+            OrderFoodDTO(id = id, name = name, img = img, price = price, amount = amount - count)
+
+        Log.d("TAG", "orderMenuList: $orderMenuList")
+    }
+
     private fun getFoodPosition(itemId: Int) = orderMenuList.indexOfFirst { it.id == itemId }
 
     fun deleteItem(itemId: Int) {
