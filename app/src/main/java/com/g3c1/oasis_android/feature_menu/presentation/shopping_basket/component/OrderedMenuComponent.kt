@@ -5,6 +5,7 @@ import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.material.IconButton
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
@@ -12,18 +13,22 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import coil.annotation.ExperimentalCoilApi
 import coil.compose.rememberImagePainter
 import com.g3c1.oasis_android.feature_menu.data.dto.OrderFoodDTO
+import com.g3c1.oasis_android.feature_menu.presentation.vm.MenuViewModel
 import com.g3c1.oasis_android.ui.theme.Font
-import com.g3c1.oasis_android.ui.theme.Gray4
 import com.g3c1.oasis_android.ui.theme.Gray5
 
 @OptIn(ExperimentalCoilApi::class)
 @Composable
-fun OrderedMenuComponent(data: OrderFoodDTO) {
+fun OrderedMenuComponent(
+    data: OrderFoodDTO,
+    viewModel: MenuViewModel
+) {
     Column {
         Row(
             modifier = Modifier
@@ -65,15 +70,34 @@ fun OrderedMenuComponent(data: OrderFoodDTO) {
                     modifier = Modifier
                         .clip(RoundedCornerShape(20.dp))
                         .background(Gray5)
-                        .padding(10.dp, 0.dp, 10.dp, 0.dp),
+                        .padding(10.dp, 0.dp, 10.dp, 0.dp)
+                        .width(80.dp),
                     verticalAlignment = Alignment.CenterVertically,
                     horizontalArrangement = Arrangement.End
                 ) {
-                    Text(text = "-", fontSize = 23.sp)
-                    Spacer(modifier = Modifier.width(11.dp))
+                    IconButton(
+                        onClick = { viewModel.decreaseFoodAmount(data.id) },
+                        modifier = Modifier.size(28.dp)
+                    ) {
+                        Text(
+                            text = "-",
+                            fontSize = 18.sp,
+                            textAlign = TextAlign.Center,
+                            modifier = Modifier.fillMaxSize()
+                        )
+                    }
                     Text(text = "${data.amount}개", fontSize = 13.sp)
-                    Spacer(modifier = Modifier.width(11.dp))
-                    Text(text = "+", fontSize = 16.sp)
+                    IconButton(
+                        onClick = { viewModel.increaseOnlyOneAmount(data.id) },
+                        modifier = Modifier.size(28.dp)
+                    ) {
+                        Text(
+                            text = "+",
+                            fontSize = 18.sp,
+                            textAlign = TextAlign.Center,
+                            modifier = Modifier.fillMaxSize()
+                        )
+                    }
                 }
                 Spacer(modifier = Modifier.width(31.dp))
                 Text(text = "삭제", fontSize = 14.sp, fontFamily = Font.pretendard)
