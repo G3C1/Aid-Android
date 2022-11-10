@@ -9,7 +9,10 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.draw.shadow
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
+import com.g3c1.oasis_android.ui.theme.Gray9
 
 @Composable
 fun TopStoreInfoBar(storeName: String, storeIntroduce: String, storeLogoUrl: String) {
@@ -32,8 +35,18 @@ fun TopStoreInfoBar(storeName: String, storeIntroduce: String, storeLogoUrl: Str
             StoreLogo(url = storeLogoUrl)
             Spacer(modifier = Modifier.size(10.dp))
             Column {
-                StoreName(storeName = storeName)
-                StoreIntroduce(storeIntroduce = storeIntroduce)
+                DefalutText(
+                    text = storeName,
+                    fontSize = 16.sp,
+                    fontWeight = FontWeight.Bold,
+                    color = Color.Black
+                )
+                DefalutText(
+                    text = storeIntroduce,
+                    fontSize = 14.sp,
+                    fontWeight = FontWeight.Normal,
+                    color = Gray9
+                )
             }
         }
     }

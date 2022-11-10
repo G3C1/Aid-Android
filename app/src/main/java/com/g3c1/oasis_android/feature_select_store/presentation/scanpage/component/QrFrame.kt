@@ -9,11 +9,9 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 
 @Composable
-fun QrFrame(code: String) {
+fun QrFrame() {
     Column(horizontalAlignment = Alignment.CenterHorizontally) {
         Spacer(modifier = Modifier.size(15.dp))
         QrImageFrame()
-        Spacer(modifier = Modifier.size(15.dp))
-        TakeQrPicture(code = code)
     }
 }

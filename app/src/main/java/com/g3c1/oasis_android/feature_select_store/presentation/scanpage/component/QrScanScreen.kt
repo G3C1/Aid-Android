@@ -22,7 +22,7 @@ import androidx.core.content.ContextCompat
 import com.g3c1.oasis_android.feature_select_store.presentation.util.QrCodeAnalyer
 
 @Composable
-fun QrScanScreen(code: String, analyer: QrCodeAnalyer) {
+fun QrScanScreen(analyer: QrCodeAnalyer) {
 
     val context = LocalContext.current
     val lifecycleOwner = LocalLifecycleOwner.current
@@ -86,7 +86,7 @@ fun QrScanScreen(code: String, analyer: QrCodeAnalyer) {
                 },
                 modifier = Modifier.fillMaxSize()
             )
-            QrFrame(code = code)
+            QrFrame()
         }
     }
 }
