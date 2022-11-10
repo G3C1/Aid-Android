@@ -1,6 +1,5 @@
 package com.g3c1.oasis_android.feature_menu.presentation.detail
 
-import android.util.Log
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.RoundedCornerShape
@@ -19,6 +18,7 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
+import coil.annotation.ExperimentalCoilApi
 import coil.compose.rememberImagePainter
 import com.g3c1.oasis_android.R
 import com.g3c1.oasis_android.feature_menu.data.dto.FoodDTO
@@ -28,6 +28,7 @@ import com.g3c1.oasis_android.feature_menu.presentation.vm.MenuViewModel
 import com.g3c1.oasis_android.ui.theme.Font
 import kotlinx.coroutines.launch
 
+@OptIn(ExperimentalCoilApi::class)
 @Composable
 fun FoodDetailScreen(
     navController: NavController,
@@ -45,11 +46,7 @@ fun FoodDetailScreen(
             allMenuList.add(menu)
         }
     }
-    Log.d("TAG", "FoodDetailScreen: $allMenuList")
-    Log.d("TAG", menuId.toString())
-
     val data = allMenuList.first { it.id == menuId }
-
 
     val painter = rememberImagePainter(data = data.img, builder = {
         R.drawable.ic_cart
@@ -115,6 +112,7 @@ fun FoodDetailScreen(
         ) {
             ShoppingBasketButton (onClick = {
                 scope.launch {
+                    viewModel.checkIfFoodIsOnTheList(itemId = menuId!!, amount = count.value)
                     navController.popBackStack()
                 }
             },

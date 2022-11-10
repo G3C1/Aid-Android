@@ -1,39 +1,45 @@
 package com.g3c1.oasis_android.feature_menu.presentation.shopping_basket
 
+import android.util.Log
 import androidx.compose.foundation.Image
+import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.LazyRow
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.*
-import androidx.compose.runtime.Composable
-import androidx.compose.runtime.rememberCoroutineScope
+import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.g3c1.oasis_android.R
-import com.g3c1.oasis_android.feature_menu.data.dto.MenuDTO
 import com.g3c1.oasis_android.feature_menu.presentation.menu.component.TopBar
 import com.g3c1.oasis_android.feature_menu.presentation.menu.navigation.MenuNavigation
+import com.g3c1.oasis_android.feature_menu.presentation.shopping_basket.component.OrderedMenuComponent
 import com.g3c1.oasis_android.feature_menu.presentation.vm.MenuViewModel
 import com.g3c1.oasis_android.ui.theme.Font
 import kotlinx.coroutines.launch
 
 @OptIn(ExperimentalMaterialApi::class)
 @Composable
-fun BottomSheet(viewModel: MenuViewModel, list: List<MenuDTO>) {
+fun BottomSheet(viewModel: MenuViewModel) {
     val scope = rememberCoroutineScope()
     val sheetState =
         rememberBottomSheetState(initialValue = BottomSheetValue.Collapsed)
     val bottomSheetScaffoldState = rememberBottomSheetScaffoldState(
         bottomSheetState = sheetState
     )
+    val list = remember { viewModel.menuList }
     BottomSheetScaffold(
         scaffoldState = bottomSheetScaffoldState,
         sheetShape = RoundedCornerShape(topEnd = 30.dp, topStart = 30.dp),
         sheetContent = {
+            val orderMenuList = remember{ viewModel.orderMenuList }
+            Log.d("TAG", "BottomSheet: orderMenuList = $orderMenuList")
             Column(
                 modifier = Modifier.fillMaxSize(),
                 horizontalAlignment = Alignment.CenterHorizontally
@@ -53,11 +59,14 @@ fun BottomSheet(viewModel: MenuViewModel, list: List<MenuDTO>) {
                     fontWeight = FontWeight.Bold
                 )
                 Spacer(modifier = Modifier.height(66.dp))
-                LazyRow(
+                LazyColumn(
                     modifier = Modifier
                         .fillMaxWidth()
                         .height(72.dp),
                 ) {
+                    items(orderMenuList.size) {
+                        OrderedMenuComponent(data = orderMenuList[it])
+                    }
                 }
             }
         },
