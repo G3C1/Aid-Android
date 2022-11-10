@@ -64,7 +64,10 @@ fun BottomSheet(viewModel: MenuViewModel) {
                         .height(72.dp),
                 ) {
                     items(orderMenuList.size) {
-                        OrderedMenuComponent(data = orderMenuList[it])
+                        OrderedMenuComponent(
+                            data = orderMenuList[it],
+                            viewModel = viewModel
+                        )
                     }
                 }
             }
@@ -89,4 +92,5 @@ fun BottomSheet(viewModel: MenuViewModel) {
             MenuNavigation(viewModel = viewModel, menuDataList = list)
         }
     }
+
 }

@@ -81,12 +81,14 @@ class MenuViewModel @Inject constructor(
         Log.d("TAG", "orderMenuList: $_orderMenuList")
     }
 
-    fun decreaseFoodAmount(itemId: Int, count: Int) {
+    fun decreaseFoodAmount(itemId: Int) {
         val (id, name, img, price, amount) = _orderMenuList[getFoodPosition(itemId = itemId)]
-        _orderMenuList[getFoodPosition(itemId = itemId)] =
-            OrderFoodDTO(id = id, name = name, img = img, price = price, amount = amount - count)
+        if(amount > 1) {
+            _orderMenuList[getFoodPosition(itemId = itemId)] =
+                OrderFoodDTO(id = id, name = name, img = img, price = price, amount = amount - 1)
 
-        Log.d("TAG", "orderMenuList: $_orderMenuList")
+            Log.d("TAG", "orderMenuList: $_orderMenuList")
+        }
     }
 
     private fun addFoodToTheFoodToOrderList(itemId: Int, amount: Int) {
@@ -108,4 +110,11 @@ class MenuViewModel @Inject constructor(
         _menuList.clear()
         data.forEach { _menuList.add(it) }
     }
+
+    fun increaseOnlyOneAmount(itemId: Int) {
+        val (id, name, img, price, amount) = _orderMenuList[getFoodPosition(itemId = itemId)]
+        _orderMenuList[getFoodPosition(itemId = itemId)] =
+            OrderFoodDTO(id = id, name = name, img = img, price = price, amount = amount + 1)
+    }
+
 }
