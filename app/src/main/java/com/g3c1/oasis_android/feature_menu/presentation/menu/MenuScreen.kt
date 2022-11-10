@@ -42,118 +42,126 @@ fun MenuScreen(
     viewModel: MenuViewModel,
     menuDataList: List<MenuDTO>
 ) {
-    val allMenuList = mutableListOf<FoodDTO>()
-    Log.d("TAG", "orderMenuList - MenuScreen: ${viewModel.orderMenuList}")
+    Column(modifier = Modifier.fillMaxSize()) {
+        val allMenuList = mutableListOf<FoodDTO>()
+        Log.d("TAG", "orderMenuList - MenuScreen: ${viewModel.orderMenuList}")
 
-    menuDataList.forEach { category ->
-        category.foodList.forEach { menu ->
-            allMenuList.add(menu)
-        }
-    }
-
-    val afterMenuList = listOf(MenuDTO(id = 0, category = "전체", allMenuList)) + menuDataList
-
-    val menuList = remember { mutableStateOf<List<FoodDTO>>(allMenuList) }
-
-    val selectedValue = remember { mutableStateOf<Int?>(0) }
-    val isSelectedItem: (Int) -> Boolean = { selectedValue.value == it }
-
-    val onChangeState: (Int) -> Unit = {
-        selectedValue.value = it
-        menuList.value =
-            afterMenuList.first { item -> item.id == selectedValue.value!! }.foodList.toMutableList()
-    }
-
-    LazyRow(
-        horizontalArrangement = Arrangement.spacedBy(10.dp),
-        modifier = Modifier.padding(start = 8.dp)
-    ) {
-        items(afterMenuList.size) { index ->
-
-            val color = if (isSelectedItem(afterMenuList[index].id)) Orange else Gray
-            val textColor =
-                if (isSelectedItem(afterMenuList[index].id)) Color.White else Gray2
-            Row(
-                Modifier
-                    .height(40.dp)
-                    .selectable(
-                        selected = isSelectedItem(afterMenuList[index].id),
-                        onClick = { onChangeState(afterMenuList[index].id) },
-                        role = Role.RadioButton,
-                    )
-                    .padding(0.dp, 6.dp, 0.dp, 6.dp)
-                    .clip(
-                        shape = RoundedCornerShape(99999f),
-                    )
-                    .background(color),
-                verticalAlignment = Alignment.CenterVertically,
-                horizontalArrangement = Arrangement.Start
-
-            ) {
-                Spacer(modifier = Modifier.width(16.dp))
-                Text(
-                    text = afterMenuList[index].category,
-                    color = textColor,
-                    fontSize = 13.sp,
-                    fontFamily = Font.pretendard,
-                    fontWeight = FontWeight.SemiBold,
-                    textAlign = TextAlign.Center
-                )
-                Spacer(modifier = Modifier.width(16.dp))
+        menuDataList.forEach { category ->
+            category.foodList.forEach { menu ->
+                allMenuList.add(menu)
             }
         }
-    }
-    LazyColumn(
-        modifier = Modifier.padding(
-            start = 8.dp,
-            end = 8.dp,
-            top = 16.dp,
-            bottom = 16.dp
-        )
-    ) {
-        items(menuList.value.size) { index ->
 
-            val itemList = menuList.value[index]
+        val afterMenuList = listOf(MenuDTO(id = 0, category = "전체", allMenuList)) + menuDataList
 
-            val painter = rememberImagePainter(
-                data = itemList.img,
-                builder = {
-                    placeholder(R.drawable.ic_cart)
-                })
+        val menuList = remember { mutableStateOf<List<FoodDTO>>(allMenuList) }
 
-            Spacer(modifier = Modifier.height(16.dp))
-            Row(modifier = Modifier.clickable {
-                Log.d("TAG", "MenuScreen_: ${itemList.id}")
-                navController.navigate(Screen.DetailScreen.withArgs(itemList.id.toString()))
-            }) {
-                ThumbNail(painter = painter)
-                Spacer(modifier = Modifier.width(12.dp))
-                Column {
+        val selectedValue = remember { mutableStateOf<Int?>(0) }
+        val isSelectedItem: (Int) -> Boolean = { selectedValue.value == it }
+
+        val onChangeState: (Int) -> Unit = {
+            selectedValue.value = it
+            menuList.value =
+                afterMenuList.first { item -> item.id == selectedValue.value!! }.foodList.toMutableList()
+        }
+
+        LazyRow(
+            horizontalArrangement = Arrangement.spacedBy(10.dp),
+            modifier = Modifier.padding(start = 8.dp)
+        ) {
+            items(afterMenuList.size) { index ->
+
+                val color = if (isSelectedItem(afterMenuList[index].id)) Orange else Gray
+                val textColor =
+                    if (isSelectedItem(afterMenuList[index].id)) Color.White else Gray2
+                Row(
+                    Modifier
+                        .height(40.dp)
+                        .selectable(
+                            selected = isSelectedItem(afterMenuList[index].id),
+                            onClick = { onChangeState(afterMenuList[index].id) },
+                            role = Role.RadioButton,
+                        )
+                        .padding(0.dp, 6.dp, 0.dp, 6.dp)
+                        .clip(
+                            shape = RoundedCornerShape(99999f),
+                        )
+                        .background(color),
+                    verticalAlignment = Alignment.CenterVertically,
+                    horizontalArrangement = Arrangement.Start
+
+                ) {
+                    Spacer(modifier = Modifier.width(16.dp))
                     Text(
-                        text = itemList.name,
-                        fontSize = 16.sp,
+                        text = afterMenuList[index].category,
+                        color = textColor,
+                        fontSize = 13.sp,
                         fontFamily = Font.pretendard,
-                        fontWeight = FontWeight.Bold
+                        fontWeight = FontWeight.SemiBold,
+                        textAlign = TextAlign.Center
                     )
-                    Text(
-                        text = "${itemList.servings}인분 : ${itemList.price}원",
-                        fontFamily = Font.pretendard,
-                        fontSize = 14.sp
-                    )
-                    Text(
-                        text = itemList.description,
-                        fontFamily = Font.pretendard,
-                        color = DarkGray
-                    )
+                    Spacer(modifier = Modifier.width(16.dp))
                 }
             }
-            Spacer(modifier = Modifier.height(16.dp))
-            Box(
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .height(2.dp)
-                    .background(Gray)
+        }
+        Spacer(
+            modifier = Modifier
+                .fillMaxWidth()
+                .height(10.dp)
+        )
+        LazyColumn(
+            modifier = Modifier.padding(
+                start = 8.dp,
+                end = 8.dp,
+                top = 16.dp,
+                bottom = 16.dp
             )
+        ) {
+            items(menuList.value.size) { index ->
+
+                val itemList = menuList.value[index]
+
+                val painter = rememberImagePainter(
+                    data = itemList.img,
+                    builder = {
+                        placeholder(R.drawable.ic_cart)
+                    })
+
+                Spacer(modifier = Modifier.height(16.dp))
+                Row(modifier = Modifier.clickable {
+                    Log.d("TAG", "MenuScreen_: ${itemList.id}")
+                    navController.navigate(Screen.DetailScreen.withArgs(itemList.id.toString()))
+                }) {
+                    ThumbNail(painter = painter)
+                    Spacer(modifier = Modifier.width(12.dp))
+                    Column {
+                        Text(
+                            text = itemList.name,
+                            fontSize = 16.sp,
+                            fontFamily = Font.pretendard,
+                            fontWeight = FontWeight.Bold
+                        )
+                        Text(
+                            text = "${itemList.servings}인분 : ${itemList.price}원",
+                            fontFamily = Font.pretendard,
+                            fontSize = 14.sp
+                        )
+                        Text(
+                            text = itemList.description,
+                            fontFamily = Font.pretendard,
+                            color = DarkGray
+                        )
+                    }
+                }
+                Spacer(modifier = Modifier.height(16.dp))
+                Box(
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .height(2.dp)
+                        .background(Gray)
+                )
+            }
         }
     }
+
 }

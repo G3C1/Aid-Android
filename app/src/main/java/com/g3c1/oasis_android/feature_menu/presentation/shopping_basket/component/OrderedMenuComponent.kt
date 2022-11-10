@@ -26,12 +26,14 @@ import com.g3c1.oasis_android.ui.theme.Gray5
 fun OrderedMenuComponent(data: OrderFoodDTO) {
     Row(
         modifier = Modifier
-            .fillMaxWidth(1f)
-            .background(Color.Yellow)
+            .fillMaxWidth()
             .padding(8.dp),
         verticalAlignment = Alignment.CenterVertically
     ) {
-        Row(modifier = Modifier.fillMaxWidth(0.5f).background(Color.Blue)) {
+        Row(modifier = Modifier
+            .weight(1f)
+            .fillMaxHeight()
+        ) {
             Image(
                 painter = rememberImagePainter(data = data.img),
                 contentDescription = "imageThumbnail",
@@ -40,7 +42,7 @@ fun OrderedMenuComponent(data: OrderFoodDTO) {
                     .clip(RoundedCornerShape(5.dp)),
                 contentScale = ContentScale.Crop,
             )
-            
+
             Spacer(modifier = Modifier.width(12.dp))
 
             Column(horizontalAlignment = Alignment.CenterHorizontally) {
@@ -51,14 +53,16 @@ fun OrderedMenuComponent(data: OrderFoodDTO) {
         }
 
         Row(
-            modifier = Modifier.fillMaxWidth(0.5f).background(Color.Red),
+            modifier = Modifier
+                .weight(1f)
+                .fillMaxHeight(),
             horizontalArrangement = Arrangement.End,
             verticalAlignment = Alignment.CenterVertically
         ) {
             Row(
                 modifier = Modifier
                     .background(Gray5)
-                    .clip(RoundedCornerShape(100.dp))
+                    .clip(RoundedCornerShape(20.dp))
                     .padding(10.dp, 8.dp, 10.dp, 8.dp),
                 verticalAlignment = Alignment.CenterVertically,
                 horizontalArrangement = Arrangement.End

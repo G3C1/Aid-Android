@@ -4,6 +4,7 @@ import android.util.Log
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.LazyRow
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.*
@@ -37,7 +38,7 @@ fun BottomSheet(viewModel: MenuViewModel) {
         scaffoldState = bottomSheetScaffoldState,
         sheetShape = RoundedCornerShape(topEnd = 30.dp, topStart = 30.dp),
         sheetContent = {
-            val orderMenuList = remember{ viewModel.orderMenuList}
+            val orderMenuList = remember{ viewModel.orderMenuList }
             Log.d("TAG", "BottomSheet: orderMenuList = $orderMenuList")
             Column(
                 modifier = Modifier.fillMaxSize(),
@@ -58,7 +59,7 @@ fun BottomSheet(viewModel: MenuViewModel) {
                     fontWeight = FontWeight.Bold
                 )
                 Spacer(modifier = Modifier.height(66.dp))
-                LazyRow(
+                LazyColumn(
                     modifier = Modifier
                         .fillMaxWidth()
                         .height(72.dp),
