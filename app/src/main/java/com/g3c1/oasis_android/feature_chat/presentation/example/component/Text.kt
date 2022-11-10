@@ -17,9 +17,6 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.TextStyle
-import androidx.compose.ui.text.font.Font
-import androidx.compose.ui.text.font.FontFamily
-import androidx.compose.ui.text.font.FontStyle
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
@@ -29,10 +26,6 @@ import com.g3c1.oasis_android.ui.theme.*
 
 @Composable
 fun ChatTextField(text: String, onValueChange: (String) -> Unit) {
-
-    val pretendrad = FontFamily(
-        Font(R.font.pretendard_medium, FontWeight.Medium, FontStyle.Normal)
-    )
 
     TextField(
         value = text,
@@ -50,14 +43,14 @@ fun ChatTextField(text: String, onValueChange: (String) -> Unit) {
         placeholder = {
             Text(
                 text = "질문을 입력해주세요.",
-                fontFamily = pretendrad,
+                fontFamily = Font.pretendard,
                 fontWeight = FontWeight.Medium,
                 color = Gray7
             )
         },
         textStyle = TextStyle(
             fontSize = 16.sp,
-            fontFamily = pretendrad,
+            fontFamily = Font.pretendard,
             fontWeight = FontWeight.Medium
         ),
         maxLines = 5,
@@ -67,12 +60,6 @@ fun ChatTextField(text: String, onValueChange: (String) -> Unit) {
 @RequiresApi(Build.VERSION_CODES.O)
 @Composable
 fun ChatText(text: String) {
-
-    val pretendrad = FontFamily(
-        Font(R.font.pretendard_medium, FontWeight.Medium, FontStyle.Normal),
-        Font(R.font.pretendard_regular, FontWeight.Normal, FontStyle.Normal)
-    )
-
     Row(
         verticalAlignment = Alignment.Bottom
     ) {
@@ -80,7 +67,7 @@ fun ChatText(text: String) {
             text = Utils.formattedTime(), style = TextStyle(
                 color = Gray6,
                 fontSize = 11.sp,
-                fontFamily = pretendrad,
+                fontFamily = Font.pretendard,
                 fontWeight = FontWeight.Medium
             )
         )
@@ -97,7 +84,7 @@ fun ChatText(text: String) {
                 Text(
                     text = text, modifier = Modifier.padding(8.dp), style = TextStyle(
                         color = Color.Black,
-                        fontFamily = pretendrad,
+                        fontFamily = Font.pretendard,
                         fontWeight = FontWeight.Normal,
                         fontSize = 15.sp
                     )
@@ -123,12 +110,6 @@ fun ChatText(text: String) {
 @RequiresApi(Build.VERSION_CODES.O)
 @Composable
 fun TemiText(text: String) {
-
-    val pretendrad = FontFamily(
-        Font(R.font.pretendard_medium, FontWeight.Medium, FontStyle.Normal),
-        Font(R.font.pretendard_regular, FontWeight.Normal, FontStyle.Normal)
-    )
-
     Row(
         verticalAlignment = Alignment.Bottom
     ) {
@@ -151,7 +132,7 @@ fun TemiText(text: String) {
                 Text(
                     text = "에이드", style = TextStyle(
                         fontSize = 15.sp,
-                        fontFamily = pretendrad,
+                        fontFamily = Font.pretendard,
                         fontWeight = FontWeight.Medium
                     )
                 )
@@ -165,7 +146,7 @@ fun TemiText(text: String) {
                     Text(
                         text = text, modifier = Modifier.padding(8.dp), style = TextStyle(
                             color = Color.Black,
-                            fontFamily = pretendrad,
+                            fontFamily = Font.pretendard,
                             fontWeight = FontWeight.Normal,
                             fontSize = 15.sp
                         )
@@ -178,7 +159,7 @@ fun TemiText(text: String) {
             text = Utils.formattedTime(), style = TextStyle(
                 color = Gray6,
                 fontSize = 11.sp,
-                fontFamily = pretendrad,
+                fontFamily = Font.pretendard,
                 fontWeight = FontWeight.Medium
             )
         )

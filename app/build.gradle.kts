@@ -79,4 +79,9 @@ dependencies {
     implementation(Dependency.Compose.COMPOSE_LIVEDATA)
 
     implementation(Dependency.Google.SYSTEM_UI_CONTROLLER)
+
+    implementation(Dependency.AndroidX.CAMERA)
+    implementation(Dependency.AndroidX.CAMERA_LIFECYCLE)
+    implementation(Dependency.AndroidX.CAMERA_VIEW)
+    implementation(Dependency.Google.ZXING)
 }

@@ -13,7 +13,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.painterResource
 import androidx.lifecycle.lifecycleScope
-import com.g3c1.oasis_android.feature_chat.presentation.ChatActivity
+import com.g3c1.oasis_android.feature_select_store.presentation.scanpage.QrScanActivity
 import com.g3c1.oasis_android.ui.theme.Orange
 import com.google.accompanist.systemuicontroller.rememberSystemUiController
 import dagger.hilt.android.AndroidEntryPoint
@@ -43,7 +43,7 @@ class MainActivity: ComponentActivity() {
     private fun goSelectStore() {
         lifecycleScope.launch {
             delay(1500)
-            startActivity(Intent(this@MainActivity, ChatActivity::class.java))
+            startActivity(Intent(this@MainActivity, QrScanActivity::class.java))
         }
     }
 }

@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">Oasis-Android</string>
+    <string name="title_activity_qr_scan">QrScanActivity</string>
 </resources>

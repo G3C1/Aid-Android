@@ -13,24 +13,17 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.TextStyle
-import androidx.compose.ui.text.font.Font
-import androidx.compose.ui.text.font.FontFamily
-import androidx.compose.ui.text.font.FontStyle
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.g3c1.oasis_android.R
+import com.g3c1.oasis_android.ui.theme.Font
 import com.g3c1.oasis_android.ui.theme.Orange
 
 @Composable
 fun Menu(onClick: () -> Unit) {
-
-    val pretendrad = FontFamily(
-        Font(R.font.pretendard_semi_bold, FontWeight.SemiBold, FontStyle.Normal)
-    )
-
     Button(
-        onClick = { onClick() },
+        onClick = onClick,
         modifier = Modifier.padding(start = 13.dp, end = 13.dp, top = 5.dp, bottom = 5.dp),
         colors = ButtonDefaults.buttonColors(
             backgroundColor = Orange,
@@ -40,7 +33,7 @@ fun Menu(onClick: () -> Unit) {
     ) {
         Text(
             text = "#메뉴판", style = TextStyle(
-                fontFamily = pretendrad,
+                fontFamily = Font.pretendard,
                 fontWeight = FontWeight.SemiBold,
                 color = Color.White,
                 fontSize = 15.sp
@@ -52,7 +45,7 @@ fun Menu(onClick: () -> Unit) {
 @Composable
 fun SendBtn(onClick: () -> Unit) {
     Button(
-        onClick = { onClick() },
+        onClick = onClick,
         modifier = Modifier
             .width(50.dp)
             .height(50.dp),
