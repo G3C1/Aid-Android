@@ -35,16 +35,16 @@ class MenuActivity : ComponentActivity() {
     private fun getMenuList() {
         lifecycleScope.launch {
             menuViewModel.getMenuList()
-            menuViewModel.mMenuList.collect { data ->
-                when (data) {
+            menuViewModel.mMenuList.collect { response ->
+                when (response) {
                     is ApiState.Success -> {
-                        Log.d("TAG", data.data.toString())
-                        menuViewModel.insertAllMenuListItems(data.data!!)
+                        Log.d("TAG", response.data.toString())
+                        menuViewModel.insertAllMenuListItems(response.data!!)
                         menuViewModel.mMenuList.value = ApiState.Loading()
-                        menuViewModel.saveTheReceivedMenuList(data.data)
+                        menuViewModel.saveTheReceivedMenuList(response.data)
                     }
                     is ApiState.Error -> {
-                        Log.e("TAG", data.message.toString())
+                        Log.e("TAG", response.message.toString())
                         menuViewModel.mMenuList.value = ApiState.Loading()
                     }
                     is ApiState.Loading -> {}
