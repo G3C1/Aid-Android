@@ -117,4 +117,8 @@ class MenuViewModel @Inject constructor(
             OrderFoodDTO(id = id, name = name, img = img, price = price, amount = amount + 1)
     }
 
+    fun removeItemInOrderList(itemId: Int) {
+        _orderMenuList.removeAt(getFoodPosition(itemId = itemId))
+    }
+
 }
