@@ -14,11 +14,11 @@ fun AnimatiedStoreSelectButton(visible: Boolean, onClick: () -> Unit) {
         visible = visible,
         enter = slideInVertically(
             initialOffsetY = { 400 },
-            animationSpec = tween(durationMillis = 1000, easing = LinearOutSlowInEasing)
+            animationSpec = tween(durationMillis = 600, easing = LinearOutSlowInEasing)
         ),
         exit = slideOutVertically(
             targetOffsetY = { 400 },
-            animationSpec = tween(durationMillis = 1000, easing = FastOutLinearInEasing)
+            animationSpec = tween(durationMillis = 600, easing = FastOutLinearInEasing)
         )
     ) {
         StoreSelectButton {
@@ -38,11 +38,11 @@ fun AnimatiedTopStoreInfoBar(
         visible = visible,
         enter = slideInVertically(
             initialOffsetY = { -400 },
-            animationSpec = tween(durationMillis = 1000, easing = LinearOutSlowInEasing)
+            animationSpec = tween(durationMillis = 600, easing = LinearOutSlowInEasing)
         ),
         exit = slideOutVertically(
             targetOffsetY = { -400 },
-            animationSpec = tween(durationMillis = 1000, easing = FastOutLinearInEasing)
+            animationSpec = tween(durationMillis = 600, easing = FastOutLinearInEasing)
         )
     ) {
         TopStoreInfoBar(
