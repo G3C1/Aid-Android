@@ -18,6 +18,7 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
+import coil.annotation.ExperimentalCoilApi
 import coil.compose.rememberImagePainter
 import com.g3c1.oasis_android.R
 import com.g3c1.oasis_android.feature_menu.data.dto.FoodDTO
@@ -27,6 +28,7 @@ import com.g3c1.oasis_android.feature_menu.presentation.vm.MenuViewModel
 import com.g3c1.oasis_android.ui.theme.Font
 import kotlinx.coroutines.launch
 
+@OptIn(ExperimentalCoilApi::class)
 @Composable
 fun FoodDetailScreen(
     navController: NavController,

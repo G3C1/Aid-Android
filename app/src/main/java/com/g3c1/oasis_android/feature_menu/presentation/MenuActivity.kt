@@ -23,7 +23,8 @@ class MenuActivity : ComponentActivity() {
     @OptIn(ExperimentalMaterialApi::class)
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        getMenuList()
+//        getMenuList()
+        menuViewModel.insertAllMenuListItems(menuViewModel.menuList)
         setContent {
             BottomSheet(
                 viewModel = viewModel(LocalContext.current as MenuActivity),
