@@ -1,12 +1,11 @@
 package com.g3c1.oasis_android.feature_menu.presentation.vm
 
-import androidx.compose.runtime.MutableState
+import android.util.Log
 import androidx.compose.runtime.mutableStateListOf
-import androidx.compose.runtime.mutableStateMapOf
-import androidx.lifecycle.ViewModel
-import androidx.lifecycle.viewModelScope
+import androidx.lifecycle.*
 import com.g3c1.oasis_android.feature_menu.data.dto.FoodDTO
 import com.g3c1.oasis_android.feature_menu.data.dto.MenuDTO
+import com.g3c1.oasis_android.feature_menu.data.dto.OrderFoodDTO
 import com.g3c1.oasis_android.feature_menu.domain.use_case.GetMenuListUseCase
 import com.g3c1.oasis_android.remote.util.ApiState
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -19,13 +18,32 @@ import javax.inject.Inject
 @HiltViewModel
 class MenuViewModel @Inject constructor(
     private val getMenuListUseCase: GetMenuListUseCase
-): ViewModel() {
+) : ViewModel() {
+
+    private val mAllMenuList = mutableStateListOf<FoodDTO>()
 
     val mMenuList: MutableStateFlow<ApiState<List<MenuDTO>>> = MutableStateFlow(ApiState.Loading())
 
-    val orderMenuList = mutableStateMapOf<Int, Int>()
+    private val _menuList = mutableStateListOf<MenuDTO>(
+        MenuDTO(
+            id = 1,
+            category = "테스트",
+            foodList = listOf(
+                FoodDTO(
+                    id = 1,
+                    name = "김현승",
+                    img = "https://avatars.githubusercontent.com/u/80810303?v=4",
+                    description = "오잇",
+                    servings = 99,
+                    price = 500
+                )
+            )
+        )
+    )
+    val menuList: List<MenuDTO> = _menuList
 
-    val mAllMenuList= mutableStateListOf<FoodDTO>()
+    private val _orderMenuList = mutableStateListOf<OrderFoodDTO>()
+    val orderMenuList: List<OrderFoodDTO> = _orderMenuList
 
     fun getMenuList() = viewModelScope.launch {
         mMenuList.value = ApiState.Loading()
@@ -36,17 +54,58 @@ class MenuViewModel @Inject constructor(
         }
     }
 
-    fun increaseCount(itemId: Int, count: Int) {
-        orderMenuList[itemId] = orderMenuList[itemId]!!.plus(count)
+    fun checkIfFoodIsOnTheList(itemId: Int, amount: Int) {
+        if (_orderMenuList.none { it.id == itemId }) {
+            Log.d("TAG", "the food is not contain the list")
+            addFoodToTheFoodToOrderList(itemId = itemId, amount = amount)
+        } else {
+            Log.d("TAG", "the food is already contain the list")
+            increaseFoodAmount(itemId = itemId, count = amount)
+        }
     }
 
-    fun addItem(itemId: Int) {
-        orderMenuList[itemId] = 1
+    fun insertAllMenuListItems(menuList: List<MenuDTO>) {
+        mAllMenuList.clear()
+        menuList.forEach {
+            it.foodList.forEach { menu ->
+                mAllMenuList.add(menu)
+            }
+        }
     }
 
-    fun deleteItem(itemId: Int) {
-        orderMenuList.remove(itemId)
+    private fun increaseFoodAmount(itemId: Int, count: Int) {
+        val (id, name, img, price, amount) = _orderMenuList[getFoodPosition(itemId = itemId)]
+        _orderMenuList[getFoodPosition(itemId = itemId)] =
+            OrderFoodDTO(id = id, name = name, img = img, price = price, amount = count + amount)
+
+        Log.d("TAG", "orderMenuList: $_orderMenuList")
     }
 
+    fun decreaseFoodAmount(itemId: Int, count: Int) {
+        val (id, name, img, price, amount) = _orderMenuList[getFoodPosition(itemId = itemId)]
+        _orderMenuList[getFoodPosition(itemId = itemId)] =
+            OrderFoodDTO(id = id, name = name, img = img, price = price, amount = amount - count)
 
+        Log.d("TAG", "orderMenuList: $_orderMenuList")
+    }
+
+    private fun addFoodToTheFoodToOrderList(itemId: Int, amount: Int) {
+        val food = mAllMenuList.first { it.id == itemId }
+        _orderMenuList.add(
+            OrderFoodDTO(
+                id = food.id,
+                name = food.name,
+                price = food.price,
+                img = food.img,
+                amount = amount
+            )
+        )
+    }
+
+    private fun getFoodPosition(itemId: Int) = _orderMenuList.indexOfFirst { it.id == itemId }
+
+    fun saveTheReceivedMenuList(data: List<MenuDTO>) {
+        _menuList.clear()
+        data.forEach { _menuList.add(it) }
+    }
 }
