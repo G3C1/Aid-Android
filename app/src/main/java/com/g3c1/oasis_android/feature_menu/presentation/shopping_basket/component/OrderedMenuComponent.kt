@@ -79,14 +79,24 @@ fun OrderedMenuComponent(
                         onClick = { viewModel.decreaseFoodAmount(data.id) },
                         modifier = Modifier.size(28.dp)
                     ) {
-                        Text(text = "-", fontSize = 23.sp, textAlign = TextAlign.Center)
+                        Text(
+                            text = "-",
+                            fontSize = 18.sp,
+                            textAlign = TextAlign.Center,
+                            modifier = Modifier.fillMaxSize()
+                        )
                     }
                     Text(text = "${data.amount}개", fontSize = 13.sp)
                     IconButton(
                         onClick = { viewModel.increaseOnlyOneAmount(data.id) },
                         modifier = Modifier.size(28.dp)
                     ) {
-                        Text(text = "+", fontSize = 16.sp, textAlign = TextAlign.Center)
+                        Text(
+                            text = "+",
+                            fontSize = 18.sp,
+                            textAlign = TextAlign.Center,
+                            modifier = Modifier.fillMaxSize()
+                        )
                     }
                 }
                 Spacer(modifier = Modifier.width(31.dp))
