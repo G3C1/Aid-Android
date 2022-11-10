@@ -26,7 +26,7 @@ fun StoreSelectButton(onClick: () -> Unit) {
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
         Button(
-            onClick = { onClick() },
+            onClick = onClick,
             modifier = Modifier
                 .fillMaxWidth(0.95f)
                 .fillMaxHeight(0.075f),
