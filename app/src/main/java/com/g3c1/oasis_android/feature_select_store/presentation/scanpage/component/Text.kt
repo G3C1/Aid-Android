@@ -15,7 +15,7 @@ import com.g3c1.oasis_android.ui.theme.Font
 import com.g3c1.oasis_android.ui.theme.Orange
 
 @Composable
-fun DefalutText(text: String, fontSize: TextUnit, fontWeight: FontWeight, color: Color) {
+fun PretendardText(text: String, fontSize: TextUnit, fontWeight: FontWeight, color: Color) {
     Text(
         text = text, style = TextStyle(
             fontSize = fontSize,

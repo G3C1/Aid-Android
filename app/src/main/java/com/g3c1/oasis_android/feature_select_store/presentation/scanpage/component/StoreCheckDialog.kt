@@ -42,13 +42,13 @@ fun StoreCheckDialog(
                     verticalAlignment = Alignment.Top,
                     horizontalArrangement = Arrangement.Start
                 ) {
-                    DefalutText(
+                    PretendardText(
                         text = storeName,
                         fontSize = 14.sp,
                         fontWeight = FontWeight.Bold,
                         color = Color.Black
                     )
-                    DefalutText(
+                    PretendardText(
                         text = "이(가) 맞나요?",
                         fontSize = 14.sp,
                         fontWeight = FontWeight.Normal,

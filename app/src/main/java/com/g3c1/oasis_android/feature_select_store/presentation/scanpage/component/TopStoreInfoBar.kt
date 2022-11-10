@@ -35,13 +35,13 @@ fun TopStoreInfoBar(storeName: String, storeIntroduce: String, storeLogoUrl: Str
             StoreLogo(url = storeLogoUrl)
             Spacer(modifier = Modifier.size(10.dp))
             Column {
-                DefalutText(
+                PretendardText(
                     text = storeName,
                     fontSize = 16.sp,
                     fontWeight = FontWeight.Bold,
                     color = Color.Black
                 )
-                DefalutText(
+                PretendardText(
                     text = storeIntroduce,
                     fontSize = 14.sp,
                     fontWeight = FontWeight.Normal,
