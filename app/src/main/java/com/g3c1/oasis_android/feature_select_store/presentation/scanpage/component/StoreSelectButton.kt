@@ -36,13 +36,11 @@ fun StoreSelectButton(onClick: () -> Unit) {
             ),
             shape = RoundedCornerShape(12.dp)
         ) {
-            Text(
-                text = "확인", style = TextStyle(
-                    fontFamily = Font.pretendard,
-                    fontWeight = FontWeight.Bold,
-                    color = Color.White,
-                    fontSize = 18.sp
-                )
+            DefalutText(
+                text = "확인",
+                fontSize = 18.sp,
+                fontWeight = FontWeight.Bold,
+                color = Color.White
             )
         }
     }

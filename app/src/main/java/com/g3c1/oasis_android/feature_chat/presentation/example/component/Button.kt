@@ -23,7 +23,7 @@ import com.g3c1.oasis_android.ui.theme.Orange
 @Composable
 fun Menu(onClick: () -> Unit) {
     Button(
-        onClick = { onClick() },
+        onClick = onClick,
         modifier = Modifier.padding(start = 13.dp, end = 13.dp, top = 5.dp, bottom = 5.dp),
         colors = ButtonDefaults.buttonColors(
             backgroundColor = Orange,
@@ -45,7 +45,7 @@ fun Menu(onClick: () -> Unit) {
 @Composable
 fun SendBtn(onClick: () -> Unit) {
     Button(
-        onClick = { onClick() },
+        onClick = onClick,
         modifier = Modifier
             .width(50.dp)
             .height(50.dp),
