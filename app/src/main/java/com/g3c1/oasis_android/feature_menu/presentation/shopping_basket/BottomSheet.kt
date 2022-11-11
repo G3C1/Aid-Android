@@ -1,6 +1,8 @@
 package com.g3c1.oasis_android.feature_menu.presentation.shopping_basket
 
+import android.app.Activity
 import android.util.Log
+import androidx.compose.foundation.Canvas
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
@@ -11,6 +13,7 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
@@ -21,6 +24,7 @@ import com.g3c1.oasis_android.feature_menu.presentation.menu.navigation.MenuNavi
 import com.g3c1.oasis_android.feature_menu.presentation.shopping_basket.component.OrderedMenuComponent
 import com.g3c1.oasis_android.feature_menu.presentation.vm.MenuViewModel
 import com.g3c1.oasis_android.ui.theme.Font
+import com.g3c1.oasis_android.ui.theme.Gray5
 import kotlinx.coroutines.launch
 
 @OptIn(ExperimentalMaterialApi::class)
@@ -32,6 +36,7 @@ fun BottomSheet(viewModel: MenuViewModel) {
     val bottomSheetScaffoldState = rememberBottomSheetScaffoldState(
         bottomSheetState = sheetState
     )
+    val currentActivity = LocalContext.current as Activity
     val list = remember { viewModel.menuList }
     BottomSheetScaffold(
         scaffoldState = bottomSheetScaffoldState,
@@ -70,13 +75,24 @@ fun BottomSheet(viewModel: MenuViewModel) {
                         )
                     }
                 }
+                Canvas(
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .weight(1f)
+                ) {
+                    drawRect(
+                        color = Gray5,
+                        size = size
+                    )
+                }
+
             }
         },
         sheetPeekHeight = 0.dp
     ) {
         Column(modifier = Modifier.fillMaxSize()) {
             TopBar(
-                clickBackButton = {},
+                clickBackButton = { currentActivity.finish() },
                 clickShoppingBasketButton = {
                     scope.launch {
                         if (bottomSheetScaffoldState.bottomSheetState.isCollapsed) {

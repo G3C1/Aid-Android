@@ -106,6 +106,9 @@ fun OrderedMenuComponent(
             }
         }
 
+        if(viewModel.orderMenuList.isNotEmpty()) {
+
+        }
         Canvas(
             modifier = Modifier
                 .fillMaxWidth()
