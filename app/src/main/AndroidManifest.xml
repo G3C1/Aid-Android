@@ -15,7 +15,7 @@
         android:theme="@style/Theme.OasisAndroid"
         android:usesCleartextTraffic="true">
         <activity
-            android:name=".feature_select_store.presentation.scanpage.QrScanActivity"
+            android:name=".feature_select_store.presentation.scanpage.StoreSelectActivity"
             android:exported="false"
             android:label="@string/title_activity_qr_scan"
             android:theme="@style/Theme.OasisAndroid">

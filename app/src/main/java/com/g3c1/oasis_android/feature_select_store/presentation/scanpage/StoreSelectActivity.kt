@@ -16,7 +16,7 @@ import com.g3c1.oasis_android.feature_select_store.presentation.scanpage.compone
 import com.g3c1.oasis_android.feature_select_store.presentation.scanpage.component.StoreCheckDialog
 import com.g3c1.oasis_android.feature_select_store.presentation.util.QrCodeAnalyer
 
-class QrScanActivity : ComponentActivity() {
+class StoreSelectActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContent {
