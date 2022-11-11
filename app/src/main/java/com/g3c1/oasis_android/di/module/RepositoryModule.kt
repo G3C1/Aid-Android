@@ -4,9 +4,11 @@ import com.g3c1.oasis_android.feature_menu.data.data_source_impl.MenuDataSourceI
 import com.g3c1.oasis_android.feature_menu.domain.repository.MenuRepository
 import com.g3c1.oasis_android.feature_menu.domain.repository_impl.MenuRepositoryImpl
 import com.g3c1.oasis_android.feature_seat.data.data_source_impl.SeatDataSourceImpl
-import com.g3c1.oasis_android.feature_seat.data.data_soure.SeatDataSource
 import com.g3c1.oasis_android.feature_seat.domain.repository.SeatRepository
 import com.g3c1.oasis_android.feature_seat.domain.repository_impl.SeatRepositoryImpl
+import com.g3c1.oasis_android.feature_select_store.data.datasourceimpl.StoreDataSourceImpl
+import com.g3c1.oasis_android.feature_select_store.data.repositoryimpl.StoreRepositoryImpl
+import com.g3c1.oasis_android.feature_select_store.domain.repository.StoreRepository
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -26,4 +28,10 @@ object RepositoryModule {
     @Singleton
     fun provideMenuRepository(dataSource: MenuDataSourceImpl): MenuRepository =
         MenuRepositoryImpl(dataSource)
+
+
+    @Provides
+    @Singleton
+    fun provideStoreRepository(dataSource: StoreDataSourceImpl): StoreRepository =
+        StoreRepositoryImpl(dataSource)
 }
