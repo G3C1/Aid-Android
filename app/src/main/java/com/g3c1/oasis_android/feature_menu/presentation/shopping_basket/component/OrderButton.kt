@@ -6,6 +6,7 @@ import androidx.compose.material.Button
 import androidx.compose.material.ButtonDefaults
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontWeight
@@ -28,19 +29,22 @@ fun OrderButton(price: Int, visibility: Boolean, onClick: () -> Unit, modifier: 
                 contentColor = Color.White
             )
         ) {
-            Text(
-                text = "주문",
-                fontFamily = Font.pretendard,
-                fontWeight = FontWeight.ExtraBold,
-                fontSize = 18.sp
-            )
-            Spacer(modifier = Modifier.width(100.dp))
-            Text(
-                text = "${price}원",
-                fontFamily = Font.pretendard,
-                fontWeight = FontWeight.ExtraBold,
-                fontSize = 14.sp
-            )
+            Box(modifier = Modifier.fillMaxSize()) {
+                Text(
+                    text = "주문",
+                    fontFamily = Font.pretendard,
+                    fontWeight = FontWeight.ExtraBold,
+                    fontSize = 18.sp,
+                    modifier = Modifier.align(Alignment.Center)
+                )
+                Text(
+                    text = "총액 : ${price}원",
+                    fontFamily = Font.pretendard,
+                    fontWeight = FontWeight.ExtraBold,
+                    fontSize = 14.sp,
+                    modifier = Modifier.align(Alignment.CenterEnd)
+                )
+            }
         }
     }
 }
