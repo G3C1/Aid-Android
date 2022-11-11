@@ -68,7 +68,6 @@ fun BottomSheet(viewModel: MenuViewModel) {
                     LazyColumn(
                         modifier = Modifier
                             .fillMaxWidth()
-                            .height(72.dp),
                     ) {
                         items(orderMenuList.size) {
                             OrderedMenuComponent(
