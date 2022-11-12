@@ -100,7 +100,9 @@ fun OrderedMenuComponent(
                     }
                 }
                 Spacer(modifier = Modifier.width(31.dp))
-                Text(text = "삭제", fontSize = 14.sp, fontFamily = Font.pretendard)
+                IconButton(onClick = { viewModel.removeItemInOrderList(itemId = data.id) }) {
+                    Text(text = "삭제", fontSize = 14.sp, fontFamily = Font.pretendard)
+                }
             }
         }
 
