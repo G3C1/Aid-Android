@@ -6,6 +6,7 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.painterResource
+import coil.compose.rememberImagePainter
 import com.g3c1.oasis_android.R
 
 @Composable
@@ -19,7 +20,7 @@ fun QrImageFrame() {
 @Composable
 fun StoreLogo(url: String) {
     Image(
-        painterResource(id = R.drawable.aide),
+        painter = rememberImagePainter(url),
         contentDescription = "StoreLogo",
         modifier = Modifier
             .fillMaxHeight(0.8f)
