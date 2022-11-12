@@ -84,4 +84,7 @@ dependencies {
     implementation(Dependency.AndroidX.CAMERA_LIFECYCLE)
     implementation(Dependency.AndroidX.CAMERA_VIEW)
     implementation(Dependency.Google.ZXING)
+
+    implementation(Dependency.AndroidX.DATASTORE)
+    implementation(Dependency.AndroidX.DATASTORE_CORE)
 }

@@ -36,7 +36,8 @@ class StoreSelectActivity : ComponentActivity() {
             var code by remember { mutableStateOf("") }
             var visible by remember { mutableStateOf(false) }
             if (code != "") {
-                getSumarizedStoreInfo(code.toInt())
+                storeSelectViewModel.setSearialNumber(code.toInt())
+                getSumarizedStoreInfo()
             }
             Box(
                 modifier = Modifier
@@ -63,9 +64,9 @@ class StoreSelectActivity : ComponentActivity() {
         }
     }
 
-    private fun getSumarizedStoreInfo(searialNumber: Int) {
+    private fun getSumarizedStoreInfo() {
         lifecycleScope.launch {
-            storeSelectViewModel.getSumarizedStoreInfo(searialNumber = searialNumber)
+            storeSelectViewModel.getSumarizedStoreInfo()
             storeSelectViewModel.mStoreData.collect {
                 when (it) {
                     is ApiState.Success -> {

@@ -5,5 +5,5 @@ import com.g3c1.oasis_android.remote.util.ApiState
 import kotlinx.coroutines.flow.Flow
 
 interface StoreDataSource {
-    suspend fun getSummarizedStoreInfo(serialNumber: Int): Flow<ApiState<SummarizedStoreInfoDTO>>
+    suspend fun getSummarizedStoreInfo(): Flow<ApiState<SummarizedStoreInfoDTO>>
 }

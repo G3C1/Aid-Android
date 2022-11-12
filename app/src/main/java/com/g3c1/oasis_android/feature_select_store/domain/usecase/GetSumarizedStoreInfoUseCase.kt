@@ -6,6 +6,6 @@ import javax.inject.Inject
 class GetSumarizedStoreInfoUseCase @Inject constructor(
     private val repository: StoreRepository
 ) {
-    suspend fun getSumarizedStoreInfo(searialNumber: Int) =
-        repository.getSummarizedStoreInfo(serialNumber = searialNumber)
+    suspend fun getSumarizedStoreInfo() =
+        repository.getSummarizedStoreInfo()
 }

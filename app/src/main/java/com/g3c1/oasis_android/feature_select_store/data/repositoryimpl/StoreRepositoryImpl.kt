@@ -10,7 +10,7 @@ import javax.inject.Inject
 class StoreRepositoryImpl @Inject constructor(
     private val dataSource: StoreDataSource
 ) : StoreRepository {
-    override suspend fun getSummarizedStoreInfo(serialNumber: Int): Flow<ApiState<SummarizedStoreInfoDTO>> {
-        return dataSource.getSummarizedStoreInfo(serialNumber)
+    override suspend fun getSummarizedStoreInfo(): Flow<ApiState<SummarizedStoreInfoDTO>> {
+        return dataSource.getSummarizedStoreInfo()
     }
 }
