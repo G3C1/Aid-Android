@@ -21,7 +21,7 @@ class StoreDataSourceImpl @Inject constructor(
 
         return flow {
             try {
-                val response = api.getStore(serialNumber = searialNumber)
+                val response = api.getStore(serialNumber = searialNumber.toLong())
                 if (response.isSuccessful) {
                     response.body()?.let {
                         emit(ApiState.Success(it))

@@ -6,6 +6,7 @@ import com.g3c1.oasis_android.di.OasisApp
 import com.g3c1.oasis_android.feature_select_store.data.dto.SummarizedStoreInfoDTO
 import com.g3c1.oasis_android.feature_select_store.domain.usecase.GetSumarizedStoreInfoUseCase
 import com.g3c1.oasis_android.remote.util.ApiState
+import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -13,6 +14,7 @@ import kotlinx.coroutines.flow.catch
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
+@HiltViewModel
 class SelectStoreViewModel @Inject constructor(
     private val getSumarizedStoreInfoUseCase: GetSumarizedStoreInfoUseCase
 ) : ViewModel() {

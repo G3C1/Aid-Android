@@ -20,8 +20,10 @@ import com.g3c1.oasis_android.feature_select_store.presentation.scanpage.compone
 import com.g3c1.oasis_android.feature_select_store.presentation.util.QrCodeAnalyer
 import com.g3c1.oasis_android.feature_select_store.presentation.vm.SelectStoreViewModel
 import com.g3c1.oasis_android.remote.util.ApiState
+import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
 
+@AndroidEntryPoint
 class StoreSelectActivity : ComponentActivity() {
 
     private val storeSelectViewModel by viewModels<SelectStoreViewModel>()
@@ -71,9 +73,12 @@ class StoreSelectActivity : ComponentActivity() {
                 when (it) {
                     is ApiState.Success -> {
                         apiSuccess.value = true
+                        storeName.value = it.data!!.name
+                        storeImg.value = it.data.img
+                        storeDescription.value = it.data.description
                     }
                     is ApiState.Error -> {
-                        Log.e("TAG", it.message.toString())
+                        Log.e("StoreAPI - error", it.message.toString())
                         storeSelectViewModel.mStoreData.value = ApiState.Loading()
                     }
                     is ApiState.Loading -> {}

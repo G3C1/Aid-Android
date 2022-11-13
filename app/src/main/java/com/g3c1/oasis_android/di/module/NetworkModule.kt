@@ -2,6 +2,7 @@ package com.g3c1.oasis_android.di.module
 
 import com.g3c1.oasis_android.remote.api.FoodApi
 import com.g3c1.oasis_android.remote.api.SeatApi
+import com.g3c1.oasis_android.remote.api.StoreApi
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -37,7 +38,7 @@ object NetworkModule {
         gsonConverterFactory: GsonConverterFactory
     ): Retrofit {
         return Retrofit.Builder()
-            .baseUrl(FakeUrl.BASE_URL)
+            .baseUrl(BaseUrl.BASE_URL)
             .client(okHttpClient)
             .client(provideOkhttpClient())
             .addConverterFactory(gsonConverterFactory)
@@ -62,5 +63,10 @@ object NetworkModule {
         return retrofit.create(FoodApi::class.java)
     }
 
+    @Provides
+    @Singleton
+    fun provideStoreService(retrofit: Retrofit): StoreApi {
+        return retrofit.create(StoreApi::class.java)
+    }
 
 }

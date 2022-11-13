@@ -87,4 +87,5 @@ dependencies {
 
     implementation(Dependency.AndroidX.DATASTORE)
     implementation(Dependency.AndroidX.DATASTORE_CORE)
+    implementation(Dependency.AndroidX.DATASTORE_CORE)
 }
