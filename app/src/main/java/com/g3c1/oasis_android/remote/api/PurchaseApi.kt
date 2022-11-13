@@ -7,5 +7,5 @@ import retrofit2.http.POST
 interface PurchaseApi {
 
     @POST("purchase/")
-    suspend fun sendsTheOrderedFoodListToTheServer(): Response<OrderedTableInfoDTO>
+    suspend fun sendsTheOrderedFoodListToTheServer(body: OrderedTableInfoDTO): Response<Void>
 }
