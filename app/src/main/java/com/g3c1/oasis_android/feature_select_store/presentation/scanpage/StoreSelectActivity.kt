@@ -1,5 +1,6 @@
 package com.g3c1.oasis_android.feature_select_store.presentation.scanpage
 
+import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import androidx.activity.ComponentActivity
@@ -13,6 +14,7 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.lifecycle.lifecycleScope
+import com.g3c1.oasis_android.feature_seat.presentation.SeatActivity
 import com.g3c1.oasis_android.feature_select_store.presentation.scanpage.component.AnimatiedStoreSelectButton
 import com.g3c1.oasis_android.feature_select_store.presentation.scanpage.component.AnimatiedTopStoreInfoBar
 import com.g3c1.oasis_android.feature_select_store.presentation.scanpage.component.QrScanScreen
@@ -55,7 +57,14 @@ class StoreSelectActivity : ComponentActivity() {
                     visible = visible,
                     { visible = false },
                     storeName = storeName.value,
-                    okRequest = { })
+                    okRequest = {
+                        startActivity(
+                            Intent(
+                                this@StoreSelectActivity,
+                                SeatActivity::class.java
+                            )
+                        )
+                    })
                 AnimatiedTopStoreInfoBar(
                     visible = apiSuccess.value,
                     storeName = storeName.value,

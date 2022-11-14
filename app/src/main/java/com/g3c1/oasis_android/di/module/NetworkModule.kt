@@ -1,6 +1,7 @@
 package com.g3c1.oasis_android.di.module
 
 import com.g3c1.oasis_android.remote.api.FoodApi
+import com.g3c1.oasis_android.remote.api.PurchaseApi
 import com.g3c1.oasis_android.remote.api.SeatApi
 import com.g3c1.oasis_android.remote.api.StoreApi
 import dagger.Module
@@ -65,8 +66,13 @@ object NetworkModule {
 
     @Provides
     @Singleton
+    fun providePurchase(retrofit: Retrofit): PurchaseApi {
+        return retrofit.create(PurchaseApi::class.java)
+    }
+
+    @Provides
+    @Singleton
     fun provideStoreService(retrofit: Retrofit): StoreApi {
         return retrofit.create(StoreApi::class.java)
     }
-
 }

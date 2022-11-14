@@ -2,11 +2,14 @@ package com.g3c1.oasis_android.feature_menu.presentation.vm
 
 import android.util.Log
 import androidx.compose.runtime.mutableStateListOf
-import androidx.lifecycle.*
+import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
 import com.g3c1.oasis_android.feature_menu.data.dto.FoodDTO
 import com.g3c1.oasis_android.feature_menu.data.dto.MenuDTO
 import com.g3c1.oasis_android.feature_menu.data.dto.OrderFoodDTO
+import com.g3c1.oasis_android.feature_menu.data.dto.OrderedTableInfoDTO
 import com.g3c1.oasis_android.feature_menu.domain.use_case.GetMenuListUseCase
+import com.g3c1.oasis_android.feature_menu.domain.use_case.SendsTheOrderedFoodListUseCase
 import com.g3c1.oasis_android.remote.util.ApiState
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -17,29 +20,34 @@ import javax.inject.Inject
 
 @HiltViewModel
 class MenuViewModel @Inject constructor(
-    private val getMenuListUseCase: GetMenuListUseCase
+    private val getMenuListUseCase: GetMenuListUseCase,
+    private val sendsTheOrderedFoodListUseCase: SendsTheOrderedFoodListUseCase
 ) : ViewModel() {
 
     private val mAllMenuList = mutableStateListOf<FoodDTO>()
 
     val mMenuList: MutableStateFlow<ApiState<List<MenuDTO>>> = MutableStateFlow(ApiState.Loading())
 
-    private val _menuList = mutableStateListOf<MenuDTO>(
-        MenuDTO(
-            id = 1,
-            category = "테스트",
-            foodList = listOf(
-                FoodDTO(
-                    id = 1,
-                    name = "김현승",
-                    img = "https://avatars.githubusercontent.com/u/80810303?v=4",
-                    description = "오잇",
-                    servings = 99,
-                    price = 500
-                )
+    val sendsTheOrderedTableState: MutableStateFlow<ApiState<Void>> =
+        MutableStateFlow(ApiState.Loading())
+
+    private val dummyMenu = MenuDTO(
+        id = 1,
+        category = "테스트",
+        foodList = listOf(
+            FoodDTO(
+                id = 1,
+                name = "김현승",
+                img = "https://avatars.githubusercontent.com/u/80810303?v=4",
+                description = "오잇",
+                servings = 99,
+                price = 500
             )
         )
     )
+
+    private val _menuList = mutableStateListOf<MenuDTO>()
+
     val menuList: List<MenuDTO> = _menuList
 
     private val _orderMenuList = mutableStateListOf<OrderFoodDTO>()
@@ -48,7 +56,7 @@ class MenuViewModel @Inject constructor(
     fun getMenuList() = viewModelScope.launch {
         mMenuList.value = ApiState.Loading()
         getMenuListUseCase.getMenuListUseCase().catch { error ->
-            mMenuList.value = ApiState.Error("${error.message}")
+            mMenuList.value = ApiState.Error("${error.message}", status = 500)
         }.collect { value ->
             mMenuList.value = value
         }
@@ -119,6 +127,17 @@ class MenuViewModel @Inject constructor(
 
     fun removeItemInOrderList(itemId: Int) {
         _orderMenuList.removeAt(getFoodPosition(itemId = itemId))
+    }
+
+    fun sendsTheOrderedFoodList(body: OrderedTableInfoDTO) = viewModelScope.launch {
+        Log.d("TAG", "sendsTheOrderedFoodList: $body")
+        sendsTheOrderedTableState.value = ApiState.Loading()
+        sendsTheOrderedFoodListUseCase.sendsTheOrderedFoodListUseCase(body = body).catch { error ->
+            sendsTheOrderedTableState.value = ApiState.Error("${error.message}", status = 500)
+        }.collect { value ->
+            sendsTheOrderedTableState.value = value
+            Log.d("TAG", "sendsTheOrderedFoodListStatus: ${value.status}")
+        }
     }
 
 }

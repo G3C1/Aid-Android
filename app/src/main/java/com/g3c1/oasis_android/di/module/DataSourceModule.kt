@@ -1,9 +1,11 @@
 package com.g3c1.oasis_android.di.module
 
 import com.g3c1.oasis_android.feature_menu.data.data_source_impl.MenuDataSourceImpl
+import com.g3c1.oasis_android.feature_menu.data.data_source_impl.PurchaseDataSourceImpl
 import com.g3c1.oasis_android.feature_seat.data.data_source_impl.SeatDataSourceImpl
 import com.g3c1.oasis_android.feature_select_store.data.datasourceimpl.StoreDataSourceImpl
 import com.g3c1.oasis_android.remote.api.FoodApi
+import com.g3c1.oasis_android.remote.api.PurchaseApi
 import com.g3c1.oasis_android.remote.api.SeatApi
 import com.g3c1.oasis_android.remote.api.StoreApi
 import dagger.Module
@@ -23,6 +25,10 @@ object DataSourceModule {
     @Provides
     @Singleton
     fun provideMenuDataSource(service: FoodApi) = MenuDataSourceImpl(service = service)
+
+    @Provides
+    @Singleton
+    fun providePurchaseDataSource(service: PurchaseApi) = PurchaseDataSourceImpl(service = service)
 
     @Provides
     @Singleton

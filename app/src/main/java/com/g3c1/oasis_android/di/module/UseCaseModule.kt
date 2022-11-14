@@ -1,7 +1,9 @@
 package com.g3c1.oasis_android.di.module
 
 import com.g3c1.oasis_android.feature_menu.domain.repository.MenuRepository
+import com.g3c1.oasis_android.feature_menu.domain.repository.PurchaseRepository
 import com.g3c1.oasis_android.feature_menu.domain.use_case.GetMenuListUseCase
+import com.g3c1.oasis_android.feature_menu.domain.use_case.SendsTheOrderedFoodListUseCase
 import com.g3c1.oasis_android.feature_seat.domain.repository.SeatRepository
 import com.g3c1.oasis_android.feature_seat.domain.use_case.GetSeatDataUseCase
 import com.g3c1.oasis_android.feature_seat.domain.use_case.PatchSeatDataUseCase
@@ -31,6 +33,11 @@ object UseCaseModule {
     @Singleton
     fun provideGetUseCase(repository: MenuRepository): GetMenuListUseCase =
         GetMenuListUseCase(repository)
+
+    @Provides
+    @Singleton
+    fun provideSendsTheOrderedFoodList(repository: PurchaseRepository): SendsTheOrderedFoodListUseCase =
+        SendsTheOrderedFoodListUseCase(repository)
 
     @Provides
     @Singleton

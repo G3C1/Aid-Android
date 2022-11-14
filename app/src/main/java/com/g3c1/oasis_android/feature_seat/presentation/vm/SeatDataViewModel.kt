@@ -9,7 +9,6 @@ import com.g3c1.oasis_android.remote.util.ApiState
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.catch
-import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
@@ -25,7 +24,7 @@ class SeatDataViewModel @Inject constructor(
     fun getSeatDataList() = viewModelScope.launch {
         mSeatDataList.value = ApiState.Loading()
         getSeatDataUseCase.getSeatDataUseCase().catch { error ->
-            mSeatDataList.value = ApiState.Error("${error.message}")
+            mSeatDataList.value = ApiState.Error("${error.message}", status = 503)
         }.collect { value ->
             mSeatDataList.value = value
         }
@@ -34,7 +33,7 @@ class SeatDataViewModel @Inject constructor(
     fun patchSeatData(seatId: Int) = viewModelScope.launch {
         mPatchSeatDataResult.value = ApiState.Loading()
         patchSeatData.patchSeatDataUseCase(seatId).catch { error ->
-            mPatchSeatDataResult.value = ApiState.Error("${error.message}")
+            mPatchSeatDataResult.value = ApiState.Error("${error.message}", status = 503)
         }.collect { value ->
             mPatchSeatDataResult.value = value
         }

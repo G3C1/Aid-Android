@@ -23,13 +23,13 @@ class MenuActivity : ComponentActivity() {
     @OptIn(ExperimentalMaterialApi::class)
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-//        getMenuList()
-        menuViewModel.insertAllMenuListItems(menuViewModel.menuList)
+        getMenuList()
         setContent {
             BottomSheet(
-                viewModel = viewModel(LocalContext.current as MenuActivity),
+                viewModel = viewModel(LocalContext.current as MenuActivity)
             )
         }
+//        menuViewModel.insertAllMenuListItems(menuViewModel.menuList)
     }
 
     private fun getMenuList() {
@@ -39,8 +39,8 @@ class MenuActivity : ComponentActivity() {
                 when (response) {
                     is ApiState.Success -> {
                         Log.d("TAG", response.data.toString())
-                        menuViewModel.insertAllMenuListItems(response.data!!)
                         menuViewModel.mMenuList.value = ApiState.Loading()
+                        menuViewModel.insertAllMenuListItems(response.data!!)
                         menuViewModel.saveTheReceivedMenuList(response.data)
                     }
                     is ApiState.Error -> {

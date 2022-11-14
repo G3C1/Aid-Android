@@ -24,17 +24,22 @@ class StoreDataSourceImpl @Inject constructor(
                 val response = api.getStore(serialNumber = searialNumber.toLong())
                 if (response.isSuccessful) {
                     response.body()?.let {
-                        emit(ApiState.Success(it))
+                        emit(ApiState.Success(it, status = response.code()))
                     }
                 } else {
                     try {
-                        emit(ApiState.Error(response.errorBody()!!.string()))
+                        emit(
+                            ApiState.Error(
+                                response.errorBody()!!.string(),
+                                status = response.code()
+                            )
+                        )
                     } catch (e: IOException) {
                         e.printStackTrace()
                     }
                 }
             } catch (e: Exception) {
-                emit(ApiState.Error(e.message ?: ""))
+                e.printStackTrace()
             } as Unit
         }.flowOn(Dispatchers.IO)
     }

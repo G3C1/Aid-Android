@@ -25,7 +25,7 @@ class SelectStoreViewModel @Inject constructor(
         mStoreData.value = ApiState.Loading()
         getSumarizedStoreInfoUseCase.getSumarizedStoreInfo()
             .catch { error ->
-                mStoreData.value = ApiState.Error("${error.message}")
+                mStoreData.value = ApiState.Error("${error.message}", status = 404)
             }.collect { value ->
                 mStoreData.value = value
             }
