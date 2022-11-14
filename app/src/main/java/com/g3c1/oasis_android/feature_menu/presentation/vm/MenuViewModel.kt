@@ -28,7 +28,7 @@ class MenuViewModel @Inject constructor(
 
     val mMenuList: MutableStateFlow<ApiState<List<MenuDTO>>> = MutableStateFlow(ApiState.Loading())
 
-    val sendsTheOrderedTableState: MutableStateFlow<ApiState<Void>> = MutableStateFlow(ApiState.Loading())
+    val sendsTheOrderedTableState: MutableStateFlow<ApiState<Unit>> = MutableStateFlow(ApiState.Loading())
 
     private val dummyMenu = MenuDTO(
         id = 1,
@@ -137,6 +137,10 @@ class MenuViewModel @Inject constructor(
             sendsTheOrderedTableState.value = value
             Log.d("TAG", "sendsTheOrderedFoodListStatus: ${value.status}")
         }
+    }
+
+    fun removeAllOfOrderList() {
+        _orderMenuList.clear()
     }
 
 }

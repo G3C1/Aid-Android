@@ -10,7 +10,7 @@ import javax.inject.Inject
 class PurchaseRepositoryImpl @Inject constructor(
     private val dataSource: PurchaseDataSource
 ): PurchaseRepository {
-    override suspend fun sendsTheOrderedFoodList(body: OrderedTableInfoDTO): Flow<ApiState<Void>> {
+    override suspend fun sendsTheOrderedFoodList(body: OrderedTableInfoDTO): Flow<ApiState<Unit>> {
         return dataSource.sendsTheOrderedFoodList(body = body)
     }
 

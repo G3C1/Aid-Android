@@ -5,5 +5,5 @@ import com.g3c1.oasis_android.remote.util.ApiState
 import kotlinx.coroutines.flow.Flow
 
 interface PurchaseRepository {
-    suspend fun sendsTheOrderedFoodList(body: OrderedTableInfoDTO): Flow<ApiState<Void>>
+    suspend fun sendsTheOrderedFoodList(body: OrderedTableInfoDTO): Flow<ApiState<Unit>>
 }

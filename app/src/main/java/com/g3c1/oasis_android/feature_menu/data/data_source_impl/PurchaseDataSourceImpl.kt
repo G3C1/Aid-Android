@@ -13,7 +13,7 @@ class PurchaseDataSourceImpl @Inject constructor(
     private val service: PurchaseApi
 ) : PurchaseDataSource {
 
-    override suspend fun sendsTheOrderedFoodList(body: OrderedTableInfoDTO): Flow<ApiState<Void>> {
+    override suspend fun sendsTheOrderedFoodList(body: OrderedTableInfoDTO): Flow<ApiState<Unit>> {
         return flow {
             try {
                 val response = service.sendsTheOrderedFoodListToTheServer(body = body)

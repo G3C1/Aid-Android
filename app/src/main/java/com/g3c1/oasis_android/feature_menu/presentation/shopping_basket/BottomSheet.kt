@@ -2,6 +2,7 @@ package com.g3c1.oasis_android.feature_menu.presentation.shopping_basket
 
 import android.app.Activity
 import android.util.Log
+import android.widget.Toast
 import androidx.compose.foundation.Canvas
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.*
@@ -41,6 +42,7 @@ fun BottomSheet(viewModel: MenuViewModel) {
     )
     val currentActivity = LocalContext.current as Activity
     val list = remember { viewModel.menuList }
+
     BottomSheetScaffold(
         scaffoldState = bottomSheetScaffoldState,
         sheetShape = RoundedCornerShape(topEnd = 30.dp, topStart = 30.dp),
