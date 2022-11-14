@@ -19,11 +19,11 @@ class MenuDataSourceImpl @Inject constructor(
                 val response = service.getMenuList()
                 if (response.isSuccessful) {
                     response.body()?.let {
-                        emit(ApiState.Success(it))
+                        emit(ApiState.Success(it, response.code()))
                     }
                 } else {
                     try {
-                        emit(ApiState.Error(response.errorBody()!!.string()))
+                        emit(ApiState.Error(response.errorBody()!!.string(), status = response.code()))
                     } catch (e: IOException) {
                         e.printStackTrace()
                     }

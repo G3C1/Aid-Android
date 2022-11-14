@@ -20,17 +20,17 @@ class SeatDataSourceImpl @Inject constructor(
                 val response = service.getSeatData()
                 if (response.isSuccessful) {
                     response.body()?.let {
-                        emit(ApiState.Success(it))
+                        emit(ApiState.Success(it, status = response.code()))
                     }
                 } else {
                     try {
-                        emit(ApiState.Error(response.errorBody()!!.string()))
+                        emit(ApiState.Error(response.errorBody()!!.string(), status = 502))
                     } catch (e: IOException) {
                         e.printStackTrace()
                     }
                 }
             } catch (e: Exception) {
-                emit(ApiState.Error(e.message ?: ""))
+                emit(ApiState.Error(e.message ?: "", status = 501))
             } as Unit
         }.flowOn(Dispatchers.IO)
     }
@@ -41,17 +41,17 @@ class SeatDataSourceImpl @Inject constructor(
                 val response = service.patchSeatData(seatId)
                 if (response.isSuccessful) {
                     response.body()?.let {
-                        emit(ApiState.Success(it))
+                        emit(ApiState.Success(it, status = response.code()))
                     }
                 } else {
                     try {
-                        emit(ApiState.Error(response.errorBody()!!.string()))
+                        emit(ApiState.Error(response.errorBody()!!.string(), status = 502))
                     } catch (e: IOException) {
                         e.printStackTrace()
                     }
                 }
             } catch(e: Exception){
-                emit(ApiState.Error(e.message ?: ""))
+                emit(ApiState.Error(e.message ?: "", status = 501))
             } as Unit
         }.flowOn(Dispatchers.IO)    }
 

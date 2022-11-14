@@ -19,6 +19,8 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.g3c1.oasis_android.R
+import com.g3c1.oasis_android.feature_menu.data.dto.OrderInfoDTO
+import com.g3c1.oasis_android.feature_menu.data.dto.OrderedTableInfoDTO
 import com.g3c1.oasis_android.feature_menu.presentation.menu.component.TopBar
 import com.g3c1.oasis_android.feature_menu.presentation.menu.navigation.MenuNavigation
 import com.g3c1.oasis_android.feature_menu.presentation.shopping_basket.component.OrderButton
@@ -90,7 +92,19 @@ fun BottomSheet(viewModel: MenuViewModel) {
                 OrderButton(
                     price = viewModel.orderMenuList.sumOf { it.amount * it.price },
                     visibility = viewModel.orderMenuList.isNotEmpty(),
-                    onClick = {  },
+                    onClick = {
+                        scope.launch {
+                            viewModel.sendsTheOrderedFoodList(body = OrderedTableInfoDTO(
+                                seatId = 1,
+                                foodList = viewModel.orderMenuList.map {
+                                    OrderInfoDTO(
+                                        foodId = it.id,
+                                        foodCount = it.amount
+                                    )
+                                }
+                            ))
+                        }
+                    },
                     modifier = Modifier.align(Alignment.BottomCenter)
                 )
             }

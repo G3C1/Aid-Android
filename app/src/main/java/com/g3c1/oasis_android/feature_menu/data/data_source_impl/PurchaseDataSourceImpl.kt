@@ -18,12 +18,12 @@ class PurchaseDataSourceImpl @Inject constructor(
             try {
                 val response = service.sendsTheOrderedFoodListToTheServer(body = body)
                 if (response.isSuccessful) {
-                    response.body()!!.let {
-                        emit(ApiState.Success(it))
+                    response.body()?.let {
+                        emit(ApiState.Success(it, response.code()))
                     }
                 } else {
                     try {
-                        emit(ApiState.Error(response.errorBody()!!.toString()))
+                        emit(ApiState.Error(response.errorBody().toString(), status = response.code()))
                     } catch (e: IOException) {
                         e.printStackTrace()
                     }
