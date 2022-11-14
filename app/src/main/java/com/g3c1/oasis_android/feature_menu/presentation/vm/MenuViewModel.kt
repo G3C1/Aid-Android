@@ -6,23 +6,29 @@ import androidx.lifecycle.*
 import com.g3c1.oasis_android.feature_menu.data.dto.FoodDTO
 import com.g3c1.oasis_android.feature_menu.data.dto.MenuDTO
 import com.g3c1.oasis_android.feature_menu.data.dto.OrderFoodDTO
+import com.g3c1.oasis_android.feature_menu.data.dto.OrderedTableInfoDTO
 import com.g3c1.oasis_android.feature_menu.domain.use_case.GetMenuListUseCase
+import com.g3c1.oasis_android.feature_menu.domain.use_case.SendsTheOrderedFoodListUseCase
 import com.g3c1.oasis_android.remote.util.ApiState
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.catch
 import kotlinx.coroutines.launch
+import okhttp3.MultipartBody
 import javax.inject.Inject
 
 
 @HiltViewModel
 class MenuViewModel @Inject constructor(
-    private val getMenuListUseCase: GetMenuListUseCase
+    private val getMenuListUseCase: GetMenuListUseCase,
+    private val sendsTheOrderedFoodListUseCase: SendsTheOrderedFoodListUseCase
 ) : ViewModel() {
 
     private val mAllMenuList = mutableStateListOf<FoodDTO>()
 
     val mMenuList: MutableStateFlow<ApiState<List<MenuDTO>>> = MutableStateFlow(ApiState.Loading())
+
+    val sendsTheOrderedTableState: MutableStateFlow<ApiState<Void>> = MutableStateFlow(ApiState.Loading())
 
     private val dummyMenu = MenuDTO(
         id = 1,
@@ -49,7 +55,7 @@ class MenuViewModel @Inject constructor(
     fun getMenuList() = viewModelScope.launch {
         mMenuList.value = ApiState.Loading()
         getMenuListUseCase.getMenuListUseCase().catch { error ->
-            mMenuList.value = ApiState.Error("${error.message}")
+            mMenuList.value = ApiState.Error("${error.message}", status = 500)
         }.collect { value ->
             mMenuList.value = value
         }
@@ -120,6 +126,17 @@ class MenuViewModel @Inject constructor(
 
     fun removeItemInOrderList(itemId: Int) {
         _orderMenuList.removeAt(getFoodPosition(itemId = itemId))
+    }
+
+    fun sendsTheOrderedFoodList(body: OrderedTableInfoDTO) = viewModelScope.launch {
+        Log.d("TAG", "sendsTheOrderedFoodList: $body")
+        sendsTheOrderedTableState.value = ApiState.Loading()
+        sendsTheOrderedFoodListUseCase.sendsTheOrderedFoodListUseCase(body = body).catch { error ->
+            sendsTheOrderedTableState.value = ApiState.Error("${error.message}", status = 500)
+        }.collect { value ->
+            sendsTheOrderedTableState.value = value
+            Log.d("TAG", "sendsTheOrderedFoodListStatus: ${value.status}")
+        }
     }
 
 }
