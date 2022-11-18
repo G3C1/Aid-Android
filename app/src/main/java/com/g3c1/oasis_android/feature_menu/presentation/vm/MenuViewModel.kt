@@ -16,6 +16,7 @@ import kotlinx.coroutines.flow.catch
 import kotlinx.coroutines.launch
 import okhttp3.MultipartBody
 import javax.inject.Inject
+import kotlin.math.absoluteValue
 
 
 @HiltViewModel
