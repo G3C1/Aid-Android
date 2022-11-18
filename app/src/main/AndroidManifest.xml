@@ -15,13 +15,18 @@
         android:theme="@style/Theme.OasisAndroid"
         android:usesCleartextTraffic="true">
         <activity
-            android:name=".feature_select_store.presentation.scanpage.QrScanActivity"
-            android:exported="false"
+            android:name=".feature_select_store.presentation.scanpage.StoreSelectActivity"
+            android:exported="true"
             android:label="@string/title_activity_qr_scan"
             android:theme="@style/Theme.OasisAndroid">
             <meta-data
                 android:name="android.app.lib_name"
                 android:value="" />
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
         </activity>
         <activity
             android:name=".MainActivity"
@@ -35,11 +40,6 @@
         <activity
             android:name=".feature_chat.presentation.ChatActivity"
             android:exported="true">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
         </activity>
         <activity
             android:name=".feature_menu.presentation.MenuActivity"
