@@ -6,6 +6,6 @@ import retrofit2.http.GET
 
 interface FoodApi {
 
-    @GET("food/")
+    @GET("v1/food/")
     suspend fun getMenuList(): Response<List<MenuDTO>>
 }
