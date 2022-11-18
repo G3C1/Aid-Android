@@ -7,6 +7,8 @@ import com.g3c1.oasis_android.feature_menu.domain.use_case.SendsTheOrderedFoodLi
 import com.g3c1.oasis_android.feature_seat.domain.repository.SeatRepository
 import com.g3c1.oasis_android.feature_seat.domain.use_case.GetSeatDataUseCase
 import com.g3c1.oasis_android.feature_seat.domain.use_case.PatchSeatDataUseCase
+import com.g3c1.oasis_android.feature_select_store.domain.repository.StoreRepository
+import com.g3c1.oasis_android.feature_select_store.domain.usecase.GetSumarizedStoreInfoUseCase
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -37,4 +39,8 @@ object UseCaseModule {
     fun provideSendsTheOrderedFoodList(repository: PurchaseRepository): SendsTheOrderedFoodListUseCase =
         SendsTheOrderedFoodListUseCase(repository)
 
+    @Provides
+    @Singleton
+    fun provideGetSumarizedStoreInfoUseCase(repository: StoreRepository): GetSumarizedStoreInfoUseCase =
+        GetSumarizedStoreInfoUseCase(repository)
 }

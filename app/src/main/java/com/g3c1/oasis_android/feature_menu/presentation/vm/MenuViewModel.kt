@@ -2,7 +2,8 @@ package com.g3c1.oasis_android.feature_menu.presentation.vm
 
 import android.util.Log
 import androidx.compose.runtime.mutableStateListOf
-import androidx.lifecycle.*
+import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
 import com.g3c1.oasis_android.feature_menu.data.dto.FoodDTO
 import com.g3c1.oasis_android.feature_menu.data.dto.MenuDTO
 import com.g3c1.oasis_android.feature_menu.data.dto.OrderFoodDTO
@@ -14,7 +15,6 @@ import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.catch
 import kotlinx.coroutines.launch
-import okhttp3.MultipartBody
 import javax.inject.Inject
 import kotlin.math.absoluteValue
 
@@ -30,6 +30,7 @@ class MenuViewModel @Inject constructor(
     val mMenuList: MutableStateFlow<ApiState<List<MenuDTO>>> = MutableStateFlow(ApiState.Loading())
 
     val sendsTheOrderedTableState: MutableStateFlow<ApiState<Unit>> = MutableStateFlow(ApiState.Loading())
+
 
     private val dummyMenu = MenuDTO(
         id = 1,

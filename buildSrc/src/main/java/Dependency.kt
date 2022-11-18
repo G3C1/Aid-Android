@@ -38,6 +38,9 @@ object Dependency {
         const val CAMERA = "androidx.camera:camera-camera2:1.1.0"
         const val CAMERA_LIFECYCLE = "androidx.camera:camera-lifecycle:1.1.0"
         const val CAMERA_VIEW = "androidx.camera:camera-view:1.1.0"
+
+        const val DATASTORE = "androidx.datastore:datastore-preferences:1.0.0"
+        const val DATASTORE_CORE = "androidx.datastore:datastore-preferences-core:1.0.0"
     }
 
     object Compose {
