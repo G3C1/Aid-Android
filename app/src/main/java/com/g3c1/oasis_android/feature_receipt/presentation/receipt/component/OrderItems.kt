@@ -15,10 +15,11 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import coil.compose.rememberImagePainter
 import com.g3c1.oasis_android.R
+import com.g3c1.oasis_android.feature_receipt.data.dto.RemoteOrderedMenuInfo
 import com.g3c1.oasis_android.ui.theme.Font
 
 @Composable
-fun OrderItems(item: item) {
+fun OrderItems(item: RemoteOrderedMenuInfo) {
     Box(
         modifier = Modifier
             .fillMaxWidth()
@@ -44,27 +45,30 @@ fun OrderItems(item: item) {
             ) {
                 Text(
                     text = item.foodName,
-                    textAlign = TextAlign.Center,
                     fontFamily = Font.pretendard,
                     fontWeight = FontWeight.SemiBold,
-                    fontSize = 20.sp
+                    textAlign = TextAlign.Start,
+                    fontSize = 15.sp
                 )
                 Text(
                     text = "${item.price}원",
-                    textAlign = TextAlign.Center,
                     fontFamily = Font.pretendard,
                     fontWeight = FontWeight.Normal,
-                    fontSize = 20.sp
+                    textAlign = TextAlign.Start,
+                    fontSize = 15.sp
                 )
             }
         }
 
         Text(
-            text = item.servings * item.foodCount,
+            text = "${item.servings * item.foodCount}인분",
             textAlign = TextAlign.Center,
             fontFamily = Font.pretendard,
             fontWeight = FontWeight.SemiBold,
-            fontSize = 20.sp
+            fontSize = 15.sp,
+            modifier = Modifier
+                .align(Alignment.CenterEnd)
+                .padding(end = 20.dp)
         )
 
     }

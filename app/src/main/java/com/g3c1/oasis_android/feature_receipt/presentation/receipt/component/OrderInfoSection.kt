@@ -5,11 +5,10 @@ import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import coil.compose.rememberImagePainter
-import com.g3c1.oasis_android.R
+import com.g3c1.oasis_android.feature_receipt.data.dto.RemoteOrderedMenuInfo
 
 @Composable
-fun OrderInfoSection(list: List<>) {
+fun OrderInfoSection(list: List<RemoteOrderedMenuInfo>) {
     LazyColumn(
         horizontalAlignment = Alignment.CenterHorizontally,
         modifier = Modifier.fillMaxWidth()
