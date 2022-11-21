@@ -35,9 +35,9 @@ fun ReceiptScreen() {
             )
         )
         ReceiptTopBar(whenUserClickGoingBack = {})
-        WaitingNumberSection(waitingNumber = "12")
+        WaitingNumberSection(waitingNumber = dummyData.sequence.toString())
         HorizontalDivider(height = 20f)
-        TotalPriceSection(totalPrice = 120000)
+        TotalPriceSection(totalPrice = dummyData.foodList.sumOf { it.price * it.foodCount })
         OrderInfoSection(list = dummyData.foodList)
     }
 }
