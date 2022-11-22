@@ -3,6 +3,7 @@ package com.g3c1.oasis_android.feature_receipt.presentation.vm
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.g3c1.oasis_android.feature_receipt.data.dto.RemoteOrderInfoDTO
+import com.g3c1.oasis_android.feature_receipt.data.dto.RemoteOrderedMenuInfoDTO
 import com.g3c1.oasis_android.feature_receipt.domain.usecase.GetOrderedListByMeUseCase
 import com.g3c1.oasis_android.remote.util.ApiState
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -16,15 +17,31 @@ class ReceiptViewModel @Inject constructor(
     private val getOrderedListByMeUseCase: GetOrderedListByMeUseCase
 ) : ViewModel() {
 
-    private val orderedList: MutableStateFlow<ApiState<RemoteOrderInfoDTO>> =
+    private val _orderedList: MutableStateFlow<ApiState<RemoteOrderInfoDTO>> =
         MutableStateFlow(ApiState.Loading())
 
+    var orderedList =
+        RemoteOrderInfoDTO(
+            sequence = 0,
+            foodList = listOf(
+                RemoteOrderedMenuInfoDTO(
+                    foodName = "",
+                    foodImg = "",
+                    price = 0,
+                    servings = 0,
+                    foodCount = 0
+                )
+            )
+        )
+
+
     fun getOrderedListByMe() = viewModelScope.launch {
-        orderedList.value = ApiState.Loading()
+        _orderedList.value = ApiState.Loading()
         getOrderedListByMeUseCase.getOrderedListByMeUseCase().catch { error ->
-            orderedList.value = ApiState.Error("${error.message}", status = 500)
+            _orderedList.value = ApiState.Error("${error.message}", status = 500)
         }.collect { value ->
-            orderedList.value = value
+            _orderedList.value = value
+            orderedList = value.data!!
         }
     }
 }

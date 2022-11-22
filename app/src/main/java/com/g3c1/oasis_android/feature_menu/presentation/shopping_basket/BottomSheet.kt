@@ -42,12 +42,13 @@ fun BottomSheet(viewModel: MenuViewModel) {
     )
     val currentActivity = LocalContext.current as Activity
     val list = remember { viewModel.menuList }
+    val orderMenuList = remember { viewModel.orderMenuList }
+
 
     BottomSheetScaffold(
         scaffoldState = bottomSheetScaffoldState,
         sheetShape = RoundedCornerShape(topEnd = 30.dp, topStart = 30.dp),
         sheetContent = {
-            val orderMenuList = remember { viewModel.orderMenuList }
             Log.d("TAG", "BottomSheet: orderMenuList = $orderMenuList")
             Box(modifier = Modifier.fillMaxSize()) {
                 Column(
