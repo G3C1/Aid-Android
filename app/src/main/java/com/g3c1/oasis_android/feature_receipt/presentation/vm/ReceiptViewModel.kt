@@ -19,9 +19,9 @@ class ReceiptViewModel @Inject constructor(
     private val orderedList: MutableStateFlow<ApiState<RemoteOrderInfoDTO>> =
         MutableStateFlow(ApiState.Loading())
 
-    fun getOrderedListByMe(seatId: Int) = viewModelScope.launch {
+    fun getOrderedListByMe() = viewModelScope.launch {
         orderedList.value = ApiState.Loading()
-        getOrderedListByMeUseCase.getOrderedListByMeUseCase(seatId).catch { error ->
+        getOrderedListByMeUseCase.getOrderedListByMeUseCase().catch { error ->
             orderedList.value = ApiState.Error("${error.message}", status = 500)
         }.collect { value ->
             orderedList.value = value

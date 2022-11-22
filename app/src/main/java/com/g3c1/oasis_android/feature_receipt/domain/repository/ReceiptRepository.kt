@@ -6,5 +6,5 @@ import kotlinx.coroutines.flow.Flow
 
 interface ReceiptRepository {
 
-    suspend fun getOrderedListByMe(seatId: Int): Flow<ApiState<RemoteOrderInfoDTO>>
+    suspend fun getOrderedListByMe(): Flow<ApiState<RemoteOrderInfoDTO>>
 }

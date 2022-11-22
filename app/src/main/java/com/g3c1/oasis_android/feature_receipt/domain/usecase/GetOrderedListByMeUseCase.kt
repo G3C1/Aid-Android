@@ -6,5 +6,5 @@ import javax.inject.Inject
 class GetOrderedListByMeUseCase @Inject constructor(
     private val receiptRepository: ReceiptRepository
 ) {
-    suspend fun getOrderedListByMeUseCase(seatId: Int) = receiptRepository.getOrderedListByMe(seatId)
+    suspend fun getOrderedListByMeUseCase() = receiptRepository.getOrderedListByMe()
 }

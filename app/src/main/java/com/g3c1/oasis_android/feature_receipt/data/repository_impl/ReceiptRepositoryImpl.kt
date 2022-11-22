@@ -7,5 +7,5 @@ import javax.inject.Inject
 class ReceiptRepositoryImpl @Inject constructor(
     private val datasource: ReceiptDataSource
 ) : ReceiptRepository {
-    override suspend fun getOrderedListByMe(seatId: Int) = datasource.getOrderedListByMe(seatId)
+    override suspend fun getOrderedListByMe() = datasource.getOrderedListByMe()
 }

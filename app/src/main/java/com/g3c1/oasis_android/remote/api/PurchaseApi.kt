@@ -14,5 +14,5 @@ interface PurchaseApi {
     suspend fun sendsTheOrderedFoodListToTheServer(@Body body: OrderedTableInfoDTO): Response<Unit>
 
     @GET("v2/purchase/{seatId}")
-    suspend fun getMyOrderInfo(@Path("seatId") seatId: Int): Response<RemoteOrderInfoDTO>
+    suspend fun getMyOrderInfo(@Path("seatId") seatId: Long): Response<RemoteOrderInfoDTO>
 }

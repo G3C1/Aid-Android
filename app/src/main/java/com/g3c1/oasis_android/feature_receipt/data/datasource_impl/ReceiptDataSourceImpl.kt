@@ -1,10 +1,12 @@
 package com.g3c1.oasis_android.feature_receipt.data.datasource_impl
 
+import com.g3c1.oasis_android.di.OasisApp
 import com.g3c1.oasis_android.feature_receipt.data.dto.RemoteOrderInfoDTO
 import com.g3c1.oasis_android.feature_receipt.domain.datasource.ReceiptDataSource
 import com.g3c1.oasis_android.remote.api.PurchaseApi
 import com.g3c1.oasis_android.remote.util.ApiState
 import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.flow.flow
 import java.io.IOException
 import javax.inject.Inject
@@ -12,10 +14,12 @@ import javax.inject.Inject
 class ReceiptDataSourceImpl @Inject constructor(
     private val service: PurchaseApi
 ) : ReceiptDataSource {
-    override suspend fun getOrderedListByMe(seatId: Int): Flow<ApiState<RemoteOrderInfoDTO>> {
+    override suspend fun getOrderedListByMe(): Flow<ApiState<RemoteOrderInfoDTO>> {
+
+        val searialNumber = OasisApp.getInstance().getSearialNumberManager().searialNumber.first()
         return flow {
             try {
-                val response = service.getMyOrderInfo(seatId)
+                val response = service.getMyOrderInfo(searialNumber.toLong())
                 if (response.isSuccessful) {
                     response.body()?.let {
                         emit(ApiState.Success(it, response.code()))
