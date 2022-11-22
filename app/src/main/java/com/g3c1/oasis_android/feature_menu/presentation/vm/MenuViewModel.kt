@@ -29,7 +29,8 @@ class MenuViewModel @Inject constructor(
 
     val mMenuList: MutableStateFlow<ApiState<List<MenuDTO>>> = MutableStateFlow(ApiState.Loading())
 
-    val sendsTheOrderedTableState: MutableStateFlow<ApiState<Unit>> = MutableStateFlow(ApiState.Loading())
+    val sendsTheOrderedTableState: MutableStateFlow<ApiState<Unit>> =
+        MutableStateFlow(ApiState.Loading())
 
     private val dummyMenu = MenuDTO(
         id = 1,
@@ -91,7 +92,7 @@ class MenuViewModel @Inject constructor(
 
     fun decreaseFoodAmount(itemId: Int) {
         val (id, name, img, price, amount) = _orderMenuList[getFoodPosition(itemId = itemId)]
-        if(amount > 1) {
+        if (amount > 1) {
             _orderMenuList[getFoodPosition(itemId = itemId)] =
                 OrderFoodDTO(id = id, name = name, img = img, price = price, amount = amount - 1)
 
