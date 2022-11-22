@@ -4,6 +4,8 @@ import com.g3c1.oasis_android.feature_menu.domain.repository.MenuRepository
 import com.g3c1.oasis_android.feature_menu.domain.repository.PurchaseRepository
 import com.g3c1.oasis_android.feature_menu.domain.use_case.GetMenuListUseCase
 import com.g3c1.oasis_android.feature_menu.domain.use_case.SendsTheOrderedFoodListUseCase
+import com.g3c1.oasis_android.feature_receipt.domain.repository.ReceiptRepository
+import com.g3c1.oasis_android.feature_receipt.domain.usecase.GetOrderedListByMeUseCase
 import com.g3c1.oasis_android.feature_seat.domain.repository.SeatRepository
 import com.g3c1.oasis_android.feature_seat.domain.use_case.GetSeatDataUseCase
 import com.g3c1.oasis_android.feature_seat.domain.use_case.PatchSeatDataUseCase
@@ -43,4 +45,9 @@ object UseCaseModule {
     @Singleton
     fun provideGetSumarizedStoreInfoUseCase(repository: StoreRepository): GetSumarizedStoreInfoUseCase =
         GetSumarizedStoreInfoUseCase(repository)
+
+    @Provides
+    @Singleton
+    fun provideGetOrderedListByMe(repository: ReceiptRepository): GetOrderedListByMeUseCase =
+        GetOrderedListByMeUseCase(repository)
 }
