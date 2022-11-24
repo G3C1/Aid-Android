@@ -9,7 +9,7 @@ import retrofit2.http.Path
 interface SeatApi {
 
     @PATCH("v1/seat/{seatId}")
-    suspend fun patchSeatData(@Path("seatId")seatId: Int): Response<Unit>
+    suspend fun patchSeatData(@Path("seatId")seatId: Long): Response<Unit>
 
     @GET("v2/seat/{serialNumber}")
     suspend fun getSeatData(@Path("serialNumber") serialNumber: Long): Response<List<SeatDTO>>

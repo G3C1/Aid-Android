@@ -15,7 +15,7 @@ class SeatRepositoryImpl @Inject constructor(
         return dataSource.getSeatInfo()
     }
 
-    override suspend fun patchSeatDataRepository(seatId: Int): Flow<ApiState<Unit>> {
+    override suspend fun patchSeatDataRepository(seatId: Long): Flow<ApiState<Unit>> {
         return dataSource.patchSeatData(seatId)
     }
 }

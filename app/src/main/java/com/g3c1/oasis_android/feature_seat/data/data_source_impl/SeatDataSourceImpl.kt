@@ -39,7 +39,7 @@ class SeatDataSourceImpl @Inject constructor(
         }.flowOn(Dispatchers.IO)
     }
 
-    override suspend fun patchSeatData(seatId: Int): Flow<ApiState<Unit>> {
+    override suspend fun patchSeatData(seatId: Long): Flow<ApiState<Unit>> {
         return flow {
             try {
                 val response = service.patchSeatData(seatId)

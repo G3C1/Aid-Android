@@ -30,7 +30,7 @@ class SeatDataViewModel @Inject constructor(
         }
     }
 
-    fun patchSeatData(seatId: Int) = viewModelScope.launch {
+    fun patchSeatData(seatId: Long) = viewModelScope.launch {
         mPatchSeatDataResult.value = ApiState.Loading()
         patchSeatData.patchSeatDataUseCase(seatId).catch { error ->
             mPatchSeatDataResult.value = ApiState.Error("${error.message}", status = 503)

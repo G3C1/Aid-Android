@@ -7,5 +7,5 @@ import kotlinx.coroutines.flow.Flow
 interface SeatRepository {
     suspend fun getSeatDataRepository(): Flow<ApiState<List<SeatDTO>>>
 
-    suspend fun patchSeatDataRepository(seatId: Int): Flow<ApiState<Unit>>
+    suspend fun patchSeatDataRepository(seatId: Long): Flow<ApiState<Unit>>
 }

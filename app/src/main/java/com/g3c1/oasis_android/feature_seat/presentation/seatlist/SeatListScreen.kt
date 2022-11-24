@@ -3,6 +3,7 @@ package com.g3c1.oasis_android.feature_seat.presentation.seatlist
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.selection.selectable
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.Text
@@ -50,18 +51,18 @@ fun SeatListScreen(seatDataList: List<SeatDTO>, viewModel: SeatDataViewModel, sc
                 .fillMaxWidth()
                 .height(56.dp)
         )
-        Column {
-            seatDataList.forEach { item ->
-                val color = if (!item.enabled) Gray else Orange
+        LazyColumn {
+            items(seatDataList.size) { it ->
+                val color = if (!seatDataList[it].enabled) Gray else Orange
                 val textColor =
-                    if (!item.enabled) Gray2 else if (item.enabled && isSelectedItem(item.seatId)) Orange else Color.White
+                    if (!seatDataList[it].enabled) Gray2 else if (seatDataList[it].enabled && isSelectedItem(seatDataList[it].seatId)) Orange else Color.White
                 Column(
                     Modifier
-                        .size(if (item.severalPeople >= 4) 160.dp else 90.dp)
+                        .size(if (seatDataList[it].severalPeople >= 4) 160.dp else 90.dp)
                         .selectable(
-                            selected = isSelectedItem(item.seatId),
-                            onClick = { onChangeState(item.seatId); },
-                            enabled = item.enabled,
+                            selected = isSelectedItem(seatDataList[it].seatId),
+                            onClick = { onChangeState(seatDataList[it].seatId) },
+                            enabled = seatDataList[it].enabled,
                             role = Role.RadioButton,
                         )
                         .padding(8.dp)
@@ -73,20 +74,20 @@ fun SeatListScreen(seatDataList: List<SeatDTO>, viewModel: SeatDataViewModel, sc
                             color = color,
                             width = 3.dp
                         )
-                        .background(if (item.enabled && isSelectedItem(item.seatId)) Color.White else color),
+                        .background(if (seatDataList[it].enabled && isSelectedItem(seatDataList[it].seatId)) Color.White else color),
                     horizontalAlignment = Alignment.CenterHorizontally,
                     verticalArrangement = Arrangement.Center,
 
                     ) {
                     Text(
-                        text = "${item.seatNumber}번",
+                        text = "${seatDataList[it].seatNumber}번",
                         color = textColor,
                         fontSize = 16.sp,
                         fontFamily = Font.pretendard,
                         fontWeight = FontWeight.SemiBold
                     )
                     Text(
-                        text = "${item.severalPeople}인용",
+                        text = "${seatDataList[it].severalPeople}인용",
                         color = textColor,
                         fontSize = 16.sp,
                         fontFamily = Font.pretendard,
@@ -132,7 +133,7 @@ fun SeatListScreen(seatDataList: List<SeatDTO>, viewModel: SeatDataViewModel, sc
         ) {
             SeatSubmitButton(onClick = {
                 scope.launch {
-                    viewModel.patchSeatData(selectedValue.value!!)
+                    viewModel.patchSeatData(selectedValue.value!!.toLong())
                 }
             }, visibility = selectedValue.value != null)
         }
