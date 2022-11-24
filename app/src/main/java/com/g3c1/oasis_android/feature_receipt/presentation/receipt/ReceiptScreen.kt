@@ -1,15 +1,18 @@
 package com.g3c1.oasis_android.feature_receipt.presentation.receipt
 
+import android.app.Activity
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.LocalContext
 import com.g3c1.oasis_android.feature_receipt.data.dto.RemoteOrderInfoDTO
 import com.g3c1.oasis_android.feature_receipt.data.dto.RemoteOrderedMenuInfoDTO
 import com.g3c1.oasis_android.feature_receipt.presentation.receipt.component.*
 import com.g3c1.oasis_android.feature_receipt.presentation.vm.ReceiptViewModel
+import kotlinx.coroutines.coroutineScope
 
 @Composable
 fun ReceiptScreen(receiptViewModel: ReceiptViewModel) {
@@ -17,6 +20,7 @@ fun ReceiptScreen(receiptViewModel: ReceiptViewModel) {
         modifier = Modifier.fillMaxSize(),
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
+        val currentActivity = LocalContext.current as Activity
 //        val dummyData = RemoteOrderInfoDTO(
 //            sequence = 1,
 //            foodList = listOf(
@@ -42,7 +46,9 @@ fun ReceiptScreen(receiptViewModel: ReceiptViewModel) {
             remember { receiptViewModel.orderedList.foodList.sumOf { it.price * it.foodCount } }
         val list = remember { receiptViewModel.orderedList.foodList }
 
-        ReceiptTopBar(whenUserClickGoingBack = {})
+        ReceiptTopBar(whenUserClickGoingBack = {
+            currentActivity.finish()
+        })
         WaitingNumberSection(waitingNumber = sequence.toString())
         HorizontalDivider(height = 20f)
         TotalPriceSection(totalPrice = totalPrice)
