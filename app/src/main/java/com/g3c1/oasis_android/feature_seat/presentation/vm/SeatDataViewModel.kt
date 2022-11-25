@@ -1,5 +1,7 @@
 package com.g3c1.oasis_android.feature_seat.presentation.vm
 
+import android.util.Log
+import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.g3c1.oasis_android.feature_seat.data.dto.SeatDTO
@@ -18,6 +20,7 @@ class SeatDataViewModel @Inject constructor(
     private val patchSeatData: PatchSeatDataUseCase
 ): ViewModel() {
 
+    val selectedSeatId = mutableStateOf(0)
     val mSeatDataList: MutableStateFlow<ApiState<List<SeatDTO>>> = MutableStateFlow(ApiState.Loading())
     val mPatchSeatDataResult: MutableStateFlow<ApiState<Unit>> = MutableStateFlow(ApiState.Loading())
 
@@ -31,11 +34,13 @@ class SeatDataViewModel @Inject constructor(
     }
 
     fun patchSeatData(seatId: Long) = viewModelScope.launch {
+        selectedSeatId.value - seatId
         mPatchSeatDataResult.value = ApiState.Loading()
         patchSeatData.patchSeatDataUseCase(seatId).catch { error ->
             mPatchSeatDataResult.value = ApiState.Error("${error.message}", status = 503)
         }.collect { value ->
             mPatchSeatDataResult.value = value
+            Log.d("TAG", "patchSeaTDataResult: ${value.status}")
         }
     }
 }

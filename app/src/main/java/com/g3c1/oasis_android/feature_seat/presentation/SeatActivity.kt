@@ -1,5 +1,6 @@
 package com.g3c1.oasis_android.feature_seat.presentation
 
+import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import android.widget.Toast
@@ -17,12 +18,13 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.lifecycleScope
 import com.g3c1.oasis_android.R
+import com.g3c1.oasis_android.di.OasisApp
+import com.g3c1.oasis_android.feature_chat.presentation.ChatActivity
 import com.g3c1.oasis_android.feature_seat.presentation.seatlist.SeatListScreen
 import com.g3c1.oasis_android.feature_seat.presentation.vm.SeatDataViewModel
 import com.g3c1.oasis_android.remote.util.ApiState
 import com.g3c1.oasis_android.ui.theme.Orange
 import dagger.hilt.android.AndroidEntryPoint
-import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
 
 @AndroidEntryPoint
@@ -46,8 +48,11 @@ class SeatActivity : ComponentActivity() {
                 )
             }
         }
-        patchSeatData()
+        observeState()
+    }
 
+    private fun observeState() {
+        patchSeatData()
     }
 
     private fun getSeatDataList() {
@@ -59,7 +64,11 @@ class SeatActivity : ComponentActivity() {
                         Log.d("TAG", it.data.toString())
                         seatViewModel.mSeatDataList.value = ApiState.Loading()
                         setContent {
-                            SeatListScreen(it.data!!, viewModel = seatViewModel, scope = rememberCoroutineScope())
+                            SeatListScreen(
+                                it.data!!,
+                                viewModel = seatViewModel,
+                                scope = rememberCoroutineScope()
+                            )
                         }
                     }
                     is ApiState.Error -> {
@@ -79,6 +88,10 @@ class SeatActivity : ComponentActivity() {
                     is ApiState.Success -> {
                         Toast.makeText(applicationContext, "자리 선택이 완료되었습니다.", Toast.LENGTH_SHORT)
                             .show()
+                        OasisApp.getInstance().getSearialNumberManager()
+                            .setSearialNumber(seatViewModel.selectedSeatId.value)
+                        startActivity(Intent(this@SeatActivity, ChatActivity::class.java))
+                        finish()
                     }
                     is ApiState.Error -> {
                         Log.e("TAG", it.message.toString())

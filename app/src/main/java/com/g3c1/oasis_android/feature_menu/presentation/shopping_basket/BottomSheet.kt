@@ -20,6 +20,7 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.g3c1.oasis_android.R
+import com.g3c1.oasis_android.di.OasisApp
 import com.g3c1.oasis_android.feature_menu.data.dto.OrderInfoDTO
 import com.g3c1.oasis_android.feature_menu.data.dto.OrderedTableInfoDTO
 import com.g3c1.oasis_android.feature_menu.presentation.menu.component.TopBar
@@ -29,6 +30,7 @@ import com.g3c1.oasis_android.feature_menu.presentation.shopping_basket.componen
 import com.g3c1.oasis_android.feature_menu.presentation.vm.MenuViewModel
 import com.g3c1.oasis_android.ui.theme.Font
 import com.g3c1.oasis_android.ui.theme.Gray5
+import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.launch
 
 @OptIn(ExperimentalMaterialApi::class)
@@ -98,7 +100,7 @@ fun BottomSheet(viewModel: MenuViewModel) {
                     onClick = {
                         scope.launch {
                             viewModel.sendsTheOrderedFoodList(body = OrderedTableInfoDTO(
-                                seatId = 1,
+                                seatId = OasisApp.getInstance().getSearialNumberManager().searialNumber.first(),
                                 foodList = viewModel.orderMenuList.map {
                                     OrderInfoDTO(
                                         foodId = it.id,

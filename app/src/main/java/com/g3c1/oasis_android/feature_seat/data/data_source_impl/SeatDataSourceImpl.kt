@@ -45,18 +45,18 @@ class SeatDataSourceImpl @Inject constructor(
                 val response = service.patchSeatData(seatId)
                 if (response.isSuccessful) {
                     response.body()?.let {
-                        emit(ApiState.Success(it, status = response.code()))
+                        emit(ApiState.Success(data = it, status = response.code()))
                     }
                 } else {
                     try {
-                        emit(ApiState.Error(response.errorBody()!!.string(), status = 502))
+                        emit(ApiState.Error(response.errorBody().toString(), status = response.code()))
                     } catch (e: IOException) {
                         e.printStackTrace()
                     }
                 }
-            } catch(e: Exception){
-                emit(ApiState.Error(e.message ?: "", status = 501))
-            } as Unit
-        }.flowOn(Dispatchers.IO)    }
-
+            } catch (e: Exception) {
+                e.printStackTrace()
+            }
+        }
+    }
 }

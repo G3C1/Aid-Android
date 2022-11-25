@@ -35,101 +35,103 @@ fun SeatListScreen(seatDataList: List<SeatDTO>, viewModel: SeatDataViewModel, sc
     val selectedValue = remember { mutableStateOf<Int?>(null) }
     val isSelectedItem: (Int) -> Boolean = { selectedValue.value == it }
     val onChangeState: (Int) -> Unit = { selectedValue.value = it }
+    Box(modifier = Modifier.fillMaxSize()) {
+        Column(Modifier.fillMaxSize()) {
+            Spacer(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .height(30.dp)
+            )
+            Text(
+                text = "자리선택",
+                fontSize = 30.sp,
+                color = Orange,
+                textAlign = TextAlign.Center,
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .height(56.dp)
+            )
+            LazyColumn {
+                items(seatDataList.size) { it ->
+                    val color = if (!seatDataList[it].enabled) Gray else Orange
+                    val textColor =
+                        if (!seatDataList[it].enabled) Gray2 else if (seatDataList[it].enabled && isSelectedItem(seatDataList[it].seatId)) Orange else Color.White
+                    Column(
+                        Modifier
+                            .size(if (seatDataList[it].severalPeople >= 4) 160.dp else 90.dp)
+                            .selectable(
+                                selected = isSelectedItem(seatDataList[it].seatId),
+                                onClick = { onChangeState(seatDataList[it].seatId) },
+                                enabled = seatDataList[it].enabled,
+                                role = Role.RadioButton,
+                            )
+                            .padding(8.dp)
+                            .clip(
+                                shape = RoundedCornerShape(30f),
+                            )
+                            .border(
+                                shape = RoundedCornerShape(30f),
+                                color = color,
+                                width = 3.dp
+                            )
+                            .background(if (seatDataList[it].enabled && isSelectedItem(seatDataList[it].seatId)) Color.White else color),
+                        horizontalAlignment = Alignment.CenterHorizontally,
+                        verticalArrangement = Arrangement.Center,
 
-    Column(Modifier.fillMaxSize()) {
-        Spacer(
-            modifier = Modifier
-                .fillMaxWidth()
-                .height(30.dp)
-        )
-        Text(
-            text = "자리선택",
-            fontSize = 30.sp,
-            color = Orange,
-            textAlign = TextAlign.Center,
-            modifier = Modifier
-                .fillMaxWidth()
-                .height(56.dp)
-        )
-        LazyColumn {
-            items(seatDataList.size) { it ->
-                val color = if (!seatDataList[it].enabled) Gray else Orange
-                val textColor =
-                    if (!seatDataList[it].enabled) Gray2 else if (seatDataList[it].enabled && isSelectedItem(seatDataList[it].seatId)) Orange else Color.White
-                Column(
-                    Modifier
-                        .size(if (seatDataList[it].severalPeople >= 4) 160.dp else 90.dp)
-                        .selectable(
-                            selected = isSelectedItem(seatDataList[it].seatId),
-                            onClick = { onChangeState(seatDataList[it].seatId) },
-                            enabled = seatDataList[it].enabled,
-                            role = Role.RadioButton,
+                        ) {
+                        Text(
+                            text = "${seatDataList[it].seatNumber}번",
+                            color = textColor,
+                            fontSize = 16.sp,
+                            fontFamily = Font.pretendard,
+                            fontWeight = FontWeight.SemiBold
                         )
-                        .padding(8.dp)
-                        .clip(
-                            shape = RoundedCornerShape(30f),
+                        Text(
+                            text = "${seatDataList[it].severalPeople}인용",
+                            color = textColor,
+                            fontSize = 16.sp,
+                            fontFamily = Font.pretendard,
+                            fontWeight = FontWeight.SemiBold
                         )
-                        .border(
-                            shape = RoundedCornerShape(30f),
-                            color = color,
-                            width = 3.dp
-                        )
-                        .background(if (seatDataList[it].enabled && isSelectedItem(seatDataList[it].seatId)) Color.White else color),
-                    horizontalAlignment = Alignment.CenterHorizontally,
-                    verticalArrangement = Arrangement.Center,
-
-                    ) {
-                    Text(
-                        text = "${seatDataList[it].seatNumber}번",
-                        color = textColor,
-                        fontSize = 16.sp,
-                        fontFamily = Font.pretendard,
-                        fontWeight = FontWeight.SemiBold
-                    )
-                    Text(
-                        text = "${seatDataList[it].severalPeople}인용",
-                        color = textColor,
-                        fontSize = 16.sp,
-                        fontFamily = Font.pretendard,
-                        fontWeight = FontWeight.SemiBold
-                    )
+                    }
                 }
             }
-        }
-        Row(
-            modifier = Modifier
-                .height(20.dp)
-                .fillMaxWidth(),
-            verticalAlignment = Alignment.CenterVertically,
-            horizontalArrangement = Arrangement.End
-        ) {
-            Row(verticalAlignment = Alignment.CenterVertically) {
-                Column(
-                    modifier = Modifier
-                        .size(10.dp)
-                        .background(Gray)
-                        .clip(RoundedCornerShape(3f))
-                ) {}
-                Spacer(modifier = Modifier.width(4.dp))
-                Text(text = "사용중")
+            Row(
+                modifier = Modifier
+                    .height(20.dp)
+                    .fillMaxWidth(),
+                verticalAlignment = Alignment.CenterVertically,
+                horizontalArrangement = Arrangement.End
+            ) {
+                Row(verticalAlignment = Alignment.CenterVertically) {
+                    Column(
+                        modifier = Modifier
+                            .size(10.dp)
+                            .background(Gray)
+                            .clip(RoundedCornerShape(3f))
+                    ) {}
+                    Spacer(modifier = Modifier.width(4.dp))
+                    Text(text = "사용중")
+                }
+                Spacer(modifier = Modifier.width(12.dp))
+                Row(verticalAlignment = Alignment.CenterVertically) {
+                    Column(
+                        modifier = Modifier
+                            .size(10.dp)
+                            .background(Orange)
+                            .clip(RoundedCornerShape(3f))
+                    ) {}
+                    Spacer(modifier = Modifier.width(4.dp))
+                    Text(text = "빈자리")
+                }
+                Spacer(modifier = Modifier.width(8.dp))
             }
-            Spacer(modifier = Modifier.width(12.dp))
-            Row(verticalAlignment = Alignment.CenterVertically) {
-                Column(
-                    modifier = Modifier
-                        .size(10.dp)
-                        .background(Orange)
-                        .clip(RoundedCornerShape(3f))
-                ) {}
-                Spacer(modifier = Modifier.width(4.dp))
-                Text(text = "빈자리")
-            }
-            Spacer(modifier = Modifier.width(8.dp))
         }
+
         Column(
-            Modifier.fillMaxSize(),
+            Modifier.fillMaxSize().align(Alignment.BottomCenter),
             verticalArrangement = Arrangement.Bottom,
-            horizontalAlignment = Alignment.CenterHorizontally
+            horizontalAlignment = Alignment.CenterHorizontally,
         ) {
             SeatSubmitButton(onClick = {
                 scope.launch {
