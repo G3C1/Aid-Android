@@ -16,9 +16,9 @@ import javax.inject.Inject
 class SeatDataSourceImpl @Inject constructor(
     private val service: SeatApi
 ) : SeatDataSource {
+
     override suspend fun getSeatInfo(): Flow<ApiState<List<SeatDTO>>> {
         val searialNumber = OasisApp.getInstance().getSearialNumberManager().searialNumber.first()
-
         return flow {
             try {
                 val response = service.getSeatData(serialNumber = searialNumber.toLong())
@@ -45,7 +45,7 @@ class SeatDataSourceImpl @Inject constructor(
                 val response = service.patchSeatData(seatId)
                 if (response.isSuccessful) {
                     response.body()?.let {
-                        emit(ApiState.Success(data = it, status = response.code()))
+                        emit(ApiState.Success(it, response.code()))
                     }
                 } else {
                     try {
@@ -56,7 +56,7 @@ class SeatDataSourceImpl @Inject constructor(
                 }
             } catch (e: Exception) {
                 e.printStackTrace()
-            }
-        }
+            } as Unit
+        }.flowOn(Dispatchers.IO)
     }
 }

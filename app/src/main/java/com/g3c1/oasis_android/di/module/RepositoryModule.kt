@@ -8,7 +8,6 @@ import com.g3c1.oasis_android.feature_menu.domain.repository_impl.MenuRepository
 import com.g3c1.oasis_android.feature_menu.domain.repository_impl.PurchaseRepositoryImpl
 import com.g3c1.oasis_android.feature_receipt.data.datasource_impl.ReceiptDataSourceImpl
 import com.g3c1.oasis_android.feature_receipt.data.repository_impl.ReceiptRepositoryImpl
-import com.g3c1.oasis_android.feature_receipt.domain.datasource.ReceiptDataSource
 import com.g3c1.oasis_android.feature_receipt.domain.repository.ReceiptRepository
 import com.g3c1.oasis_android.feature_seat.data.data_source_impl.SeatDataSourceImpl
 import com.g3c1.oasis_android.feature_seat.domain.repository.SeatRepository

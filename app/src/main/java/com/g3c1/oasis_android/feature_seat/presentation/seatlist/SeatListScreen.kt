@@ -31,7 +31,7 @@ import kotlinx.coroutines.launch
 
 
 @Composable
-fun SeatListScreen(seatDataList: List<SeatDTO>, viewModel: SeatDataViewModel, scope: CoroutineScope) {
+fun SeatListScreen(seatDataList: List<SeatDTO>, viewModel: SeatDataViewModel, scope: CoroutineScope, onSuccess: () -> Unit) {
     val selectedValue = remember { mutableStateOf<Int?>(null) }
     val isSelectedItem: (Int) -> Boolean = { selectedValue.value == it }
     val onChangeState: (Int) -> Unit = { selectedValue.value = it }
@@ -136,6 +136,7 @@ fun SeatListScreen(seatDataList: List<SeatDTO>, viewModel: SeatDataViewModel, sc
             SeatSubmitButton(onClick = {
                 scope.launch {
                     viewModel.patchSeatData(selectedValue.value!!.toLong())
+                    onSuccess()
                 }
             }, visibility = selectedValue.value != null)
         }
