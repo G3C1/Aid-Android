@@ -1,5 +1,6 @@
 package com.g3c1.oasis_android.feature_receipt.data.datasource_impl
 
+import android.util.Log
 import com.g3c1.oasis_android.di.OasisApp
 import com.g3c1.oasis_android.feature_receipt.data.dto.RemoteOrderInfoDTO
 import com.g3c1.oasis_android.feature_receipt.domain.datasource.ReceiptDataSource
@@ -17,6 +18,7 @@ class ReceiptDataSourceImpl @Inject constructor(
     override suspend fun getOrderedListByMe(): Flow<ApiState<RemoteOrderInfoDTO>> {
 
         val seatId = OasisApp.getInstance().getDataStore().text.first()
+        Log.d("TAG", "seat Id: $seatId")
         return flow {
             try {
                 val response = service.getMyOrderInfo(seatId.toLong())

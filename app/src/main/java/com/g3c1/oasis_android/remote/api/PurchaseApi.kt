@@ -15,4 +15,6 @@ interface PurchaseApi {
 
     @GET("v2/purchase/{seatId}")
     suspend fun getMyOrderInfo(@Path("seatId") seatId: Long): Response<RemoteOrderInfoDTO>
+
+
 }

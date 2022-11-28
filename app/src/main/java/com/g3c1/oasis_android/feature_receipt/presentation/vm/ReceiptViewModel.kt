@@ -24,7 +24,7 @@ class ReceiptViewModel @Inject constructor(
     var orderedList =
         RemoteOrderInfoDTO(
             sequence = 0,
-            foodList = listOf(
+            foodInfoList = listOf(
                 RemoteOrderedMenuInfoDTO(
                     foodName = "",
                     foodImg = "",
@@ -39,6 +39,7 @@ class ReceiptViewModel @Inject constructor(
     fun getOrderedListByMe() = viewModelScope.launch {
         _orderedList.value = ApiState.Loading()
         getOrderedListByMeUseCase.getOrderedListByMeUseCase().catch { error ->
+            Log.d("GetOrderListByMe", "${error.message}")
             _orderedList.value = ApiState.Error("${error.message}", status = 500)
         }.collect { value ->
             Log.d("GetOrderListByMe", "${value.data}")
