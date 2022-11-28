@@ -100,7 +100,7 @@ fun BottomSheet(viewModel: MenuViewModel) {
                     onClick = {
                         scope.launch {
                             viewModel.sendsTheOrderedFoodList(body = OrderedTableInfoDTO(
-                                seatId = OasisApp.getInstance().getSearialNumberManager().searialNumber.first(),
+                                seatId = OasisApp.getInstance().getDataStore().text.first().toInt(),
                                 foodList = viewModel.orderMenuList.map {
                                     OrderInfoDTO(
                                         foodId = it.id,

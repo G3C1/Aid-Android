@@ -20,6 +20,7 @@ import androidx.compose.ui.unit.dp
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.viewmodel.compose.viewModel
 import com.g3c1.oasis_android.R
+import com.g3c1.oasis_android.di.OasisApp
 import com.g3c1.oasis_android.feature_chat.presentation.ChatActivity
 import com.g3c1.oasis_android.feature_seat.presentation.seatlist.SeatListScreen
 import com.g3c1.oasis_android.feature_seat.presentation.vm.SeatDataViewModel
@@ -92,7 +93,10 @@ class SeatActivity : ComponentActivity() {
                         successSeatRequest()
                     }
                     is ApiState.Error -> {
-                        Log.e("TAGSeatActivity", "SeatActivity: ${response.message.toString()}, ${response.status}")
+                        Log.e(
+                            "TAGSeatActivity",
+                            "SeatActivity: ${response.message.toString()}, ${response.status}"
+                        )
                         seatViewModel.mPatchSeatDataResult.value = ApiState.Loading()
                     }
                     is ApiState.Loading -> {}
@@ -104,9 +108,25 @@ class SeatActivity : ComponentActivity() {
     private fun successSeatRequest() {
         Toast.makeText(this, "자리 선택이 완료되었습니다.", Toast.LENGTH_SHORT).show()
         seatViewModel.mPatchSeatDataResult.value = ApiState.Loading()
+        transferThePage()
+        storageSeatIdToDataStore()
+
+    }
+
+    private fun transferThePage() {
         val intent = Intent(this@SeatActivity, ChatActivity::class.java)
-        intent.putExtra("seat", seatViewModel.list.indexOf((seatViewModel.selectedSeatId.value.toInt()) + 1).toString())
+        intent.putExtra(
+            "seat",
+            seatViewModel.list.indexOf((seatViewModel.selectedSeatId.value.toInt()) + 1).toString()
+        )
         startActivity(intent)
         finish()
+    }
+
+    private fun storageSeatIdToDataStore() {
+        lifecycleScope.launch {
+            OasisApp.getInstance().getDataStore()
+                .setText(seatViewModel.selectedSeatId.value.toString())
+        }
     }
 }
