@@ -16,10 +16,10 @@ class ReceiptDataSourceImpl @Inject constructor(
 ) : ReceiptDataSource {
     override suspend fun getOrderedListByMe(): Flow<ApiState<RemoteOrderInfoDTO>> {
 
-        val searialNumber = OasisApp.getInstance().getSearialNumberManager().searialNumber.first()
+        val seatId = OasisApp.getInstance().getDataStore().text.first()
         return flow {
             try {
-                val response = service.getMyOrderInfo(searialNumber.toLong())
+                val response = service.getMyOrderInfo(seatId.toLong())
                 if (response.isSuccessful) {
                     response.body()?.let {
                         emit(ApiState.Success(it, response.code()))

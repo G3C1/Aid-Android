@@ -1,5 +1,6 @@
 package com.g3c1.oasis_android.feature_receipt.presentation.vm
 
+import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.g3c1.oasis_android.feature_receipt.data.dto.RemoteOrderInfoDTO
@@ -40,6 +41,7 @@ class ReceiptViewModel @Inject constructor(
         getOrderedListByMeUseCase.getOrderedListByMeUseCase().catch { error ->
             _orderedList.value = ApiState.Error("${error.message}", status = 500)
         }.collect { value ->
+            Log.d("GetOrderListByMe", "${value.data}")
             _orderedList.value = value
             orderedList = value.data!!
         }
