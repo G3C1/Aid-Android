@@ -6,5 +6,5 @@ import javax.inject.Inject
 class PatchSeatDataUseCase @Inject constructor(
     private val repository: SeatRepository
 ){
-    suspend fun patchSeatDataUseCase(seatId: Int) = repository.patchSeatDataRepository(seatId)
+    suspend fun patchSeatDataUseCase(seatId: Long) = repository.patchSeatDataRepository(seatId)
 }

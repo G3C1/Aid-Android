@@ -1,9 +1,10 @@
-package com.g3c1.oasis_android.feature_menu.data.data_source_impl
+package com.g3c1.oasis_android.feature_receipt.data.datasource_impl
 
+import android.util.Log
 import com.g3c1.oasis_android.di.OasisApp
-import com.g3c1.oasis_android.feature_menu.data.data_soure.MenuDataSource
-import com.g3c1.oasis_android.feature_menu.data.dto.MenuDTO
-import com.g3c1.oasis_android.remote.api.FoodApi
+import com.g3c1.oasis_android.feature_receipt.data.dto.RemoteOrderInfoDTO
+import com.g3c1.oasis_android.feature_receipt.domain.datasource.ReceiptDataSource
+import com.g3c1.oasis_android.remote.api.PurchaseApi
 import com.g3c1.oasis_android.remote.util.ApiState
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.first
@@ -11,15 +12,16 @@ import kotlinx.coroutines.flow.flow
 import java.io.IOException
 import javax.inject.Inject
 
-class MenuDataSourceImpl @Inject constructor(
-    private val service: FoodApi
-) : MenuDataSource {
+class ReceiptDataSourceImpl @Inject constructor(
+    private val service: PurchaseApi
+) : ReceiptDataSource {
+    override suspend fun getOrderedListByMe(): Flow<ApiState<RemoteOrderInfoDTO>> {
 
-    override suspend fun getMenuList(): Flow<ApiState<List<MenuDTO>>> {
-        val serialNumber = OasisApp.getInstance().getSearialNumberManager().searialNumber.first()
+        val seatId = OasisApp.getInstance().getDataStore().text.first()
+        Log.d("TAG", "seat Id: $seatId")
         return flow {
             try {
-                val response = service.getMenuList(serialNumber.toLong())
+                val response = service.getMyOrderInfo(seatId.toLong())
                 if (response.isSuccessful) {
                     response.body()?.let {
                         emit(ApiState.Success(it, response.code()))

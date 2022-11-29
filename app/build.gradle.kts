@@ -88,4 +88,8 @@ dependencies {
     implementation(Dependency.AndroidX.DATASTORE)
     implementation(Dependency.AndroidX.DATASTORE_CORE)
     implementation(Dependency.AndroidX.DATASTORE_CORE)
+
+    implementation(Dependency.DataStore.PREFERENCES)
+    implementation(Dependency.DataStore.PREFERENCES_CORE)
+
 }

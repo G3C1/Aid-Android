@@ -33,6 +33,7 @@ class ChatActivity : ComponentActivity() {
     @RequiresApi(Build.VERSION_CODES.O)
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        val seatId = intent.getStringExtra("seat")
         observe()
         setContent {
             val text = remember {
@@ -45,7 +46,7 @@ class ChatActivity : ComponentActivity() {
                 verticalArrangement = Arrangement.Bottom,
                 horizontalAlignment = Alignment.Start
             ) {
-                TopBar(tableNum = "4")
+                TopBar(tableNum = seatId.toString())
                 CompositionLocalProvider(
                     LocalOverScrollConfiguration provides null
                 ) {

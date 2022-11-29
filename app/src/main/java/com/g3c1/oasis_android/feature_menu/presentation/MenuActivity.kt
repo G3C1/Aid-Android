@@ -48,7 +48,7 @@ class MenuActivity : ComponentActivity() {
                 if(it.status != null) {
                     if(it.status == 201) {
                         Toast.makeText(this@MenuActivity, "요청이 완료 되었습니다.", Toast.LENGTH_SHORT).show()
-                        finish()
+                        menuViewModel.removeAllOfOrderList()
                     }
                     else {
                         Toast.makeText(this@MenuActivity, "요청이 실패 되었습니다. code: ${it.status}", Toast.LENGTH_SHORT).show()

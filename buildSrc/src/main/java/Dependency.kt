@@ -119,4 +119,8 @@ object Dependency {
     object Lottie {
         const val LOTTIE = "com.airbnb.android:lottie-compose:${Versions.LOTTIE_VERSION}"
     }
+    object DataStore {
+        const val PREFERENCES = "androidx.datastore:datastore-preferences:${Versions.PREFERENCE}"
+        const val PREFERENCES_CORE = "androidx.datastore:datastore-core:${Versions.PREFERENCE}"
+    }
 }
