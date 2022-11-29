@@ -8,16 +8,19 @@ import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
+import com.g3c1.oasis_android.feature_receipt.data.dto.RemoteOrderInfoDTO
 import com.g3c1.oasis_android.feature_receipt.presentation.receipt.component.*
-import com.g3c1.oasis_android.feature_receipt.presentation.vm.ReceiptViewModel
 
 @Composable
-fun ReceiptScreen(receiptViewModel: ReceiptViewModel) {
+fun ReceiptScreen(data: RemoteOrderInfoDTO) {
     Column(
         modifier = Modifier.fillMaxSize(),
-        horizontalAlignment = Alignment.CenterHorizontally
+        horizontalAlignment = Alignment.CenterHorizontally,
     ) {
         val currentActivity = LocalContext.current as Activity
+        val sequence = data.sequence
+        val totalPrice = data.foodInfoList.sumOf { it.price * it.foodCount }
+        val list = data.foodInfoList
 //        val dummyData = RemoteOrderInfoDTO(
 //            sequence = 1,
 //            foodList = listOf(
@@ -37,11 +40,6 @@ fun ReceiptScreen(receiptViewModel: ReceiptViewModel) {
 //                )
 //            )
 //        )
-
-        val sequence = remember { receiptViewModel.orderedList.sequence }
-        val totalPrice =
-            remember { receiptViewModel.orderedList.foodInfoList.sumOf { it.price * it.foodCount } }
-        val list = remember { receiptViewModel.orderedList.foodInfoList }
 
         ReceiptTopBar(whenUserClickGoingBack = {
             currentActivity.finish()

@@ -1,6 +1,8 @@
 package com.g3c1.oasis_android.feature_receipt.presentation.vm
 
 import android.util.Log
+import androidx.compose.runtime.MutableState
+import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.g3c1.oasis_android.feature_receipt.data.dto.RemoteOrderInfoDTO
@@ -9,6 +11,7 @@ import com.g3c1.oasis_android.feature_receipt.domain.usecase.GetOrderedListByMeU
 import com.g3c1.oasis_android.remote.util.ApiState
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.catch
 import kotlinx.coroutines.launch
 import javax.inject.Inject
@@ -21,19 +24,10 @@ class ReceiptViewModel @Inject constructor(
     private val _orderedList: MutableStateFlow<ApiState<RemoteOrderInfoDTO>> =
         MutableStateFlow(ApiState.Loading())
 
-    var orderedList =
-        RemoteOrderInfoDTO(
-            sequence = 0,
-            foodInfoList = listOf(
-                RemoteOrderedMenuInfoDTO(
-                    foodName = "",
-                    foodImg = "",
-                    price = 0,
-                    servings = 0,
-                    foodCount = 0
-                )
-            )
-        )
+    val orderedList = mutableStateOf(RemoteOrderInfoDTO(
+        sequence = 0,
+        foodInfoList = listOf(RemoteOrderedMenuInfoDTO(foodName = "", foodImg = "", price = 0, servings = 0, foodCount = 0))
+    ))
 
 
     fun getOrderedListByMe() = viewModelScope.launch {
@@ -44,7 +38,7 @@ class ReceiptViewModel @Inject constructor(
         }.collect { value ->
             Log.d("GetOrderListByMe", "${value.data}")
             _orderedList.value = value
-            orderedList = value.data!!
+            orderedList.value = value.data!!
         }
     }
 }

@@ -4,8 +4,7 @@ import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.viewModels
-import androidx.compose.ui.platform.LocalContext
-import androidx.lifecycle.viewmodel.compose.viewModel
+import androidx.compose.runtime.remember
 import com.g3c1.oasis_android.feature_receipt.presentation.receipt.ReceiptScreen
 import com.g3c1.oasis_android.feature_receipt.presentation.vm.ReceiptViewModel
 import dagger.hilt.android.AndroidEntryPoint
@@ -18,9 +17,10 @@ class ReceiptActivity : ComponentActivity() {
         super.onCreate(savedInstanceState)
 
         receiptViewModel.getOrderedListByMe()
+
         setContent {
             ReceiptScreen(
-                receiptViewModel = viewModel(LocalContext.current as ReceiptActivity)
+                data = receiptViewModel.orderedList.value
             )
         }
     }
