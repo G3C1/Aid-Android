@@ -32,7 +32,7 @@ class ChatViewModel @Inject constructor(
         db.collection("android").document("chat").set(data)
 
         viewModelScope.launch {
-            delay(500)
+            delay(1500)
             isFirst = true
             db.collection("result").document("model").get()
                 .addOnSuccessListener { result ->
@@ -62,7 +62,7 @@ class ChatViewModel @Inject constructor(
                 _isTemiList.add(true)
             }
             else -> {
-                _chatList.add("잘 알아듣지 못했어요!")
+                _chatList.add(answer)
                 _isTemiList.add(true)
             }
         }
