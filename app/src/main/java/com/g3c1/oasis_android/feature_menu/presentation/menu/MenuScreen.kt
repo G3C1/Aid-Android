@@ -52,7 +52,8 @@ fun MenuScreen(
             }
         }
 
-        val afterMenuList = listOf(MenuDTO(id = 0, category = "전체", allMenuList)) + menuDataList
+        val afterMenuList =
+            listOf(MenuDTO(id = 0, category = "전체", allMenuList)) + menuDataList
 
         val menuList = remember { mutableStateOf<List<FoodDTO>>(allMenuList) }
 
