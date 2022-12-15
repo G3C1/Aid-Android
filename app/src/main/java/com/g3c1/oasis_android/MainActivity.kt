@@ -44,6 +44,7 @@ class MainActivity: ComponentActivity() {
         lifecycleScope.launch {
             delay(1500)
             startActivity(Intent(this@MainActivity, StoreSelectActivity::class.java))
+            finish()
         }
     }
 }
