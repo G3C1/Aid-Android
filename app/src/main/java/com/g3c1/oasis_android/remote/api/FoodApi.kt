@@ -7,9 +7,9 @@ import retrofit2.http.Path
 
 interface FoodApi {
 
-    @GET("v2/food/{serialNumber}")
+    @GET("v2/food/{serial_number}")
     suspend fun getMenuList(
-        @Path("serialNumber") serialNumber: Long
+        @Path("serial_number") serialNumber: Long
     ): Response<List<MenuDTO>>
 
 }
