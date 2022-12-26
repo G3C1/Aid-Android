@@ -13,8 +13,8 @@ interface PurchaseApi {
     @POST("v1/purchase/")
     suspend fun sendsTheOrderedFoodListToTheServer(@Body body: OrderedTableInfoDTO): Response<Unit>
 
-    @GET("v2/purchase/{seat_id}")
-    suspend fun getMyOrderInfo(@Path("seat_id") seatId: Long): Response<RemoteOrderInfoDTO>
+    @GET("v2/purchase/{seatId}")
+    suspend fun getMyOrderInfo(@Path("seatId") seatId: Long): Response<RemoteOrderInfoDTO>
 
 
 }

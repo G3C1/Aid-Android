@@ -6,8 +6,8 @@ import retrofit2.http.GET
 import retrofit2.http.Path
 
 interface StoreApi {
-    @GET("v2/store/{serial_number}")
+    @GET("v2/store/{serialNumber}")
     suspend fun getStore(
-        @Path("serial_number") serialNumber: Long
+        @Path("serialNumber") serialNumber: Long
     ): Response<SummarizedStoreInfoDTO>
 }
