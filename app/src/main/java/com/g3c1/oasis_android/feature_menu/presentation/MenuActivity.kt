@@ -23,7 +23,6 @@ class MenuActivity : ComponentActivity() {
     private val menuViewModel by viewModels<MenuViewModel>()
 
     @SuppressLint("StateFlowValueCalledInComposition")
-    @OptIn(ExperimentalMaterialApi::class)
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         getMenuList()

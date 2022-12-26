@@ -29,6 +29,8 @@ class ChatActivity : ComponentActivity() {
     private val viewModel by viewModels<ChatViewModel>()
     private val db = FirebaseFirestore.getInstance()
 
+
+
     @OptIn(ExperimentalFoundationApi::class)
     @RequiresApi(Build.VERSION_CODES.O)
     override fun onCreate(savedInstanceState: Bundle?) {
