@@ -32,6 +32,21 @@ class MenuViewModel @Inject constructor(
     val sendsTheOrderedTableState: MutableStateFlow<ApiState<Unit>> =
         MutableStateFlow(ApiState.Loading())
 
+    private val dummyMenu = MenuDTO(
+        id = 1,
+        category = "테스트",
+        foodList = listOf(
+            FoodDTO(
+                id = 1,
+                name = "김현승",
+                img = "https://avatars.githubusercontent.com/u/80810303?v=4",
+                description = "오잇",
+                servings = 99,
+                price = 500
+            )
+        )
+    )
+
     private val _menuList = mutableStateListOf<MenuDTO>()
 
     val menuList: List<MenuDTO> = _menuList
