@@ -3,7 +3,6 @@ package com.g3c1.oasis_android.feature_seat.presentation.seatlist
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.*
-import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.selection.selectable
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.Text
@@ -14,6 +13,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.semantics.Role
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
@@ -31,10 +31,19 @@ import kotlinx.coroutines.launch
 
 
 @Composable
-fun SeatListScreen(seatDataList: List<SeatDTO>, viewModel: SeatDataViewModel, scope: CoroutineScope, onSuccess: () -> Unit) {
+fun SeatListScreen(
+    seatDataList: List<SeatDTO>,
+    viewModel: SeatDataViewModel,
+    scope: CoroutineScope,
+    onSuccess: () -> Unit,
+    displaySize: Array<Int>
+) {
     val selectedValue = remember { mutableStateOf<Int?>(null) }
     val isSelectedItem: (Int) -> Boolean = { selectedValue.value == it }
     val onChangeState: (Int) -> Unit = { selectedValue.value = it }
+    val (displaySizeWidth, displaySizeHeight) = displaySize
+    val localScreenDensity = LocalDensity.current
+
     Box(modifier = Modifier.fillMaxSize()) {
         Column(Modifier.fillMaxSize()) {
             Spacer(
@@ -51,55 +60,62 @@ fun SeatListScreen(seatDataList: List<SeatDTO>, viewModel: SeatDataViewModel, sc
                     .fillMaxWidth()
                     .height(56.dp)
             )
-            LazyColumn {
-                items(seatDataList.size) { it ->
-                    val color = if (!seatDataList[it].enabled) Gray else Orange
-                    val textColor =
-                        if (!seatDataList[it].enabled) Gray2 else if (seatDataList[it].enabled && isSelectedItem(seatDataList[it].seatId)) Orange else Color.White
-                    Column(
-                        Modifier
-                            .size(if (seatDataList[it].severalPeople >= 4) 160.dp else 90.dp)
-                            .selectable(
-                                selected = isSelectedItem(seatDataList[it].seatId),
-                                onClick = { onChangeState(seatDataList[it].seatId) },
-                                enabled = seatDataList[it].enabled,
-                                role = Role.RadioButton,
-                            )
-                            .padding(8.dp)
-                            .clip(
-                                shape = RoundedCornerShape(30f),
-                            )
-                            .border(
-                                shape = RoundedCornerShape(30f),
-                                color = color,
-                                width = 3.dp
-                            )
-                            .background(if (seatDataList[it].enabled && isSelectedItem(seatDataList[it].seatId)) Color.White else color),
-                        horizontalAlignment = Alignment.CenterHorizontally,
-                        verticalArrangement = Arrangement.Center,
 
-                        ) {
-                        Text(
-                            text = "${seatDataList[it].seatNumber}번",
-                            color = textColor,
-                            fontSize = 16.sp,
-                            fontFamily = Font.pretendard,
-                            fontWeight = FontWeight.SemiBold
-                        )
-                        Text(
-                            text = "${seatDataList[it].severalPeople}인용",
-                            color = textColor,
-                            fontSize = 16.sp,
-                            fontFamily = Font.pretendard,
-                            fontWeight = FontWeight.SemiBold
-                        )
+            Box(modifier = Modifier.weight(1f).fillMaxWidth().padding(start = 8.dp, end = 8.dp)) {
+                seatDataList.forEach {
+                    Box(modifier = Modifier.offset((it.x * (displaySizeWidth / localScreenDensity.density)).dp, (it.y * (displaySizeHeight / localScreenDensity.density - 200)).dp)) {
+                        val color = if (!it.enabled) Gray else Orange
+                        val textColor =
+                            if (!it.enabled) Gray2 else if (it.enabled && isSelectedItem(
+                                    it.seatId
+                                )
+                            ) Orange else Color.White
+                        Column(
+                            Modifier
+                                .height(if (it.severalPeople >= 4) 160.dp else 90.dp)
+                                .width(if (it.severalPeople >= 2) 160.dp else 90.dp)
+                                .selectable(
+                                    selected = isSelectedItem(it.seatId),
+                                    onClick = { onChangeState(it.seatId) },
+                                    enabled = it.enabled,
+                                    role = Role.RadioButton,
+                                )
+                                .padding(8.dp)
+                                .clip(
+                                    shape = RoundedCornerShape(30f),
+                                )
+                                .border(
+                                    shape = RoundedCornerShape(30f),
+                                    color = color,
+                                    width = 3.dp
+                                )
+                                .background(if (it.enabled && isSelectedItem(it.seatId)) Color.White else color),
+                            horizontalAlignment = Alignment.CenterHorizontally,
+                            verticalArrangement = Arrangement.Center,
+
+                            ) {
+                            Text(
+                                text = "${it.seatNumber}번",
+                                color = textColor,
+                                fontSize = 16.sp,
+                                fontFamily = Font.pretendard,
+                                fontWeight = FontWeight.SemiBold
+                            )
+                            Text(
+                                text = "${it.severalPeople}인용",
+                                color = textColor,
+                                fontSize = 16.sp,
+                                fontFamily = Font.pretendard,
+                                fontWeight = FontWeight.SemiBold
+                            )
+                        }
                     }
                 }
             }
             Row(
                 modifier = Modifier
-                    .height(20.dp)
-                    .fillMaxWidth(),
+                    .fillMaxWidth()
+                    .padding(bottom = 80.dp),
                 verticalAlignment = Alignment.CenterVertically,
                 horizontalArrangement = Arrangement.End
             ) {
@@ -129,7 +145,9 @@ fun SeatListScreen(seatDataList: List<SeatDTO>, viewModel: SeatDataViewModel, sc
         }
 
         Column(
-            Modifier.fillMaxSize().align(Alignment.BottomCenter),
+            Modifier
+                .fillMaxSize()
+                .align(Alignment.BottomCenter),
             verticalArrangement = Arrangement.Bottom,
             horizontalAlignment = Alignment.CenterHorizontally,
         ) {
