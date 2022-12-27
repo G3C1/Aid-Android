@@ -64,7 +64,7 @@ fun SeatListScreen(
 
             Box(modifier = Modifier.weight(1f)) {
                 seatDataList.forEach {
-                    Box(modifier = Modifier.offset((it.x * (displaySizeWidth - 210) / d.density).dp, (it.y * (displaySizeHeight - 624) / d.density).dp)) {
+                    Box(modifier = Modifier.offset((it.x * (displaySizeWidth - 50 * d.density) / d.density).dp, (it.y * (displaySizeHeight - 210 * d.density) / d.density).dp)) {
                         val color = if (!it.enabled) Gray else Orange
                         val textColor =
                             if (!it.enabled) Gray2 else if (it.enabled && isSelectedItem(
@@ -73,7 +73,8 @@ fun SeatListScreen(
                             ) Orange else Color.White
                         Column(
                             Modifier
-                                .size(if (it.severalPeople >= 4) 160.dp else 90.dp)
+                                .height(if (it.severalPeople >= 4) 160.dp else 90.dp)
+                                .width(if (it.severalPeople >= 2) 160.dp else 90.dp)
                                 .selectable(
                                     selected = isSelectedItem(it.seatId),
                                     onClick = { onChangeState(it.seatId) },
