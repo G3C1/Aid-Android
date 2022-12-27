@@ -2,6 +2,7 @@ package com.g3c1.oasis_android.feature_receipt.data.datasource_impl
 
 import android.util.Log
 import com.g3c1.oasis_android.di.OasisApp
+import com.g3c1.oasis_android.feature_menu.data.dto.OrderCheckDTO
 import com.g3c1.oasis_android.feature_receipt.data.dto.RemoteOrderInfoDTO
 import com.g3c1.oasis_android.feature_receipt.domain.datasource.ReceiptDataSource
 import com.g3c1.oasis_android.remote.api.PurchaseApi
@@ -18,10 +19,11 @@ class ReceiptDataSourceImpl @Inject constructor(
     override suspend fun getOrderedListByMe(): Flow<ApiState<RemoteOrderInfoDTO>> {
 
         val seatId = OasisApp.getInstance().getDataStore().text.first()
+        val serialNumber = OasisApp.getInstance().getSearialNumberManager().searialNumber.first()
         Log.d("TAG", "seat Id: $seatId")
         return flow {
             try {
-                val response = service.getMyOrderInfo(seatId.toLong())
+                val response = service.getMyOrderInfo(OrderCheckDTO(seatId = seatId.toLong(), serialNumber = serialNumber.toLong()))
                 if (response.isSuccessful) {
                     response.body()?.let {
                         emit(ApiState.Success(it, response.code()))
