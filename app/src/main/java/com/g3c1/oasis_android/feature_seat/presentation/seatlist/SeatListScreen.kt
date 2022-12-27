@@ -36,12 +36,15 @@ fun SeatListScreen(
     seatDataList: List<SeatDTO>,
     viewModel: SeatDataViewModel,
     scope: CoroutineScope,
-    onSuccess: () -> Unit
+    onSuccess: () -> Unit,
+    displaySize: Array<Int>
 ) {
     val selectedValue = remember { mutableStateOf<Int?>(null) }
     val isSelectedItem: (Int) -> Boolean = { selectedValue.value == it }
     val onChangeState: (Int) -> Unit = { selectedValue.value = it }
+    val (displaySizeWidth, displaySizeHeight) = displaySize
     val d = LocalDensity.current
+
     Box(modifier = Modifier.fillMaxSize()) {
         Column(Modifier.fillMaxSize()) {
             Spacer(
@@ -61,7 +64,7 @@ fun SeatListScreen(
 
             Box(modifier = Modifier.weight(1f)) {
                 seatDataList.forEach {
-                    Box(modifier = Modifier.offset((it.x / d.density).dp, (it.y / d.density).dp)) {
+                    Box(modifier = Modifier.offset((it.x * (displaySizeWidth - 210) / d.density).dp, (it.y * (displaySizeHeight - 624) / d.density).dp)) {
                         val color = if (!it.enabled) Gray else Orange
                         val textColor =
                             if (!it.enabled) Gray2 else if (it.enabled && isSelectedItem(
