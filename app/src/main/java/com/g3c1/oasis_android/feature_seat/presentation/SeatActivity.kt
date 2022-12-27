@@ -34,7 +34,7 @@ import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
 
 @AndroidEntryPoint
-class SeatActivity : ComponentActivity() {
+class SeatActivity: ComponentActivity() {
 
     private val seatViewModel by viewModels<SeatDataViewModel>()
     private lateinit var displaySize: Array<Int>

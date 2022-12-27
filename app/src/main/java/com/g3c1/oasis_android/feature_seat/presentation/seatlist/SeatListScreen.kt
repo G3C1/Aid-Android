@@ -3,7 +3,6 @@ package com.g3c1.oasis_android.feature_seat.presentation.seatlist
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.*
-import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.selection.selectable
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.Text
@@ -43,7 +42,7 @@ fun SeatListScreen(
     val isSelectedItem: (Int) -> Boolean = { selectedValue.value == it }
     val onChangeState: (Int) -> Unit = { selectedValue.value = it }
     val (displaySizeWidth, displaySizeHeight) = displaySize
-    val d = LocalDensity.current
+    val localScreenDensity = LocalDensity.current
 
     Box(modifier = Modifier.fillMaxSize()) {
         Column(Modifier.fillMaxSize()) {
@@ -64,7 +63,7 @@ fun SeatListScreen(
 
             Box(modifier = Modifier.weight(1f).fillMaxWidth().padding(start = 8.dp, end = 8.dp)) {
                 seatDataList.forEach {
-                    Box(modifier = Modifier.offset((it.x * (displaySizeWidth / d.density)).dp, (it.y * (displaySizeHeight / d.density - 200)).dp)) {
+                    Box(modifier = Modifier.offset((it.x * (displaySizeWidth / localScreenDensity.density)).dp, (it.y * (displaySizeHeight / localScreenDensity.density - 200)).dp)) {
                         val color = if (!it.enabled) Gray else Orange
                         val textColor =
                             if (!it.enabled) Gray2 else if (it.enabled && isSelectedItem(
