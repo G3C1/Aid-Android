@@ -62,9 +62,9 @@ fun SeatListScreen(
                     .height(56.dp)
             )
 
-            Box(modifier = Modifier.weight(1f)) {
+            Box(modifier = Modifier.weight(1f).fillMaxWidth().padding(start = 10.dp, end = 10.dp)) {
                 seatDataList.forEach {
-                    Box(modifier = Modifier.offset((it.x * (displaySizeWidth - 50 * d.density) / d.density).dp, (it.y * (displaySizeHeight - 210 * d.density) / d.density).dp)) {
+                    Box(modifier = Modifier.offset((it.x * (displaySizeWidth / d.density - 150)).dp, (it.y * (displaySizeHeight / d.density - 200)).dp)) {
                         val color = if (!it.enabled) Gray else Orange
                         val textColor =
                             if (!it.enabled) Gray2 else if (it.enabled && isSelectedItem(
