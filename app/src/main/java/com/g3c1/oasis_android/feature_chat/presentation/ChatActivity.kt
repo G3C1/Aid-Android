@@ -3,6 +3,7 @@ package com.g3c1.oasis_android.feature_chat.presentation
 import android.content.Intent
 import android.os.Build
 import android.os.Bundle
+import android.widget.Toast
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.viewModels
@@ -28,7 +29,7 @@ class ChatActivity : ComponentActivity() {
 
     private val viewModel by viewModels<ChatViewModel>()
     private val db = FirebaseFirestore.getInstance()
-
+    private var backButtonWait: Long = 0
 
 
     @OptIn(ExperimentalFoundationApi::class)
@@ -101,6 +102,16 @@ class ChatActivity : ComponentActivity() {
             if (it == "0") {
                 startActivity(Intent(this, MenuActivity::class.java))
             }
+        }
+    }
+
+    override fun onBackPressed() {
+        if (System.currentTimeMillis() - backButtonWait >= 2000) {
+            backButtonWait = System.currentTimeMillis()
+            Toast.makeText(this, "뒤로 가기 버튼을 한 번 더 누르면 종료됩니다.", Toast.LENGTH_SHORT).show()
+        } else {
+            super.onBackPressed()
+            finish()
         }
     }
 }
