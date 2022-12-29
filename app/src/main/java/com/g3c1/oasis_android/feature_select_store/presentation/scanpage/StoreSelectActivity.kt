@@ -64,6 +64,7 @@ class StoreSelectActivity : ComponentActivity() {
                                 SeatActivity::class.java
                             )
                         )
+                        finish()
                     })
                 AnimatiedTopStoreInfoBar(
                     visible = apiSuccess.value,
