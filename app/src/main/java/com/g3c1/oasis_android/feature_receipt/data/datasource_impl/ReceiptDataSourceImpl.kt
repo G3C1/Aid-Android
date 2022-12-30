@@ -21,7 +21,7 @@ class ReceiptDataSourceImpl @Inject constructor(
         val serialNumber = OasisApp.getInstance().getSearialNumberManager().searialNumber.first()
         return flow {
             try {
-                val response = service.getMyOrderInfo(OrderCheckDTO(seatId = seatId.toLong(), serialNumber = serialNumber.toLong()))
+                val response = service.getMyOrderInfo(seatId = seatId.toLong(), serialNumber = serialNumber.toLong())
                 if (response.isSuccessful) {
                     response.body()?.let {
                         emit(ApiState.Success(it, response.code()))
