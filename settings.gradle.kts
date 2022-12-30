@@ -13,4 +13,4 @@ dependencyResolutionManagement {
     }
 }
 rootProject.name = "Oasis-Android"
-include ':app'
+include(":app")

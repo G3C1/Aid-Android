@@ -1,7 +1,7 @@
 import org.gradle.api.JavaVersion
 
 object Versions {
-    const val GRADLE_ANDROID = "7.0.4"
+    const val GRADLE_ANDROID = "7.1.3"
     const val GRADLE_KOTLIN = "1.6.10"
 
     val JAVA_VERSION = JavaVersion.VERSION_1_8
@@ -29,7 +29,7 @@ object Versions {
     const val MATERIAL = "1.3.0"
     const val GMS_PLAY_SERVICE_BASE = "18.0.1"
     const val GMS_PLAY_SERVICE_AUTH = "20.2.0"
-    const val GMS_GOOGLE_SERVICE = "4.3.10"
+    const val GMS_GOOGLE_SERVICE = "4.3.13"
     const val LIVEDATA = "2.4.1"
 
     const val MOSHI = "1.13.0"
