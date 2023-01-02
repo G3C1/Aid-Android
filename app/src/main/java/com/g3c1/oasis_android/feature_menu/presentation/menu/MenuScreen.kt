@@ -129,6 +129,7 @@ fun MenuScreen(
 
                 Spacer(modifier = Modifier.height(16.dp))
                 Row(modifier = Modifier.clickable {
+                    navController.navigate(Screen.DetailScreen.withArgs(itemList.id.toString()))
                     Log.d("TAG", "MenuScreen_: ${itemList.id}")
                 }) {
                     ThumbNail(painter = painter)
