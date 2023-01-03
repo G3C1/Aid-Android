@@ -6,6 +6,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.g3c1.oasis_android.feature_chat.data.data_soure.ChatListDTO
 import com.g3c1.oasis_android.feature_chat.presentation.util.FireStoreDTO
 import com.google.firebase.firestore.FirebaseFirestore
 import kotlinx.coroutines.delay
@@ -17,9 +18,6 @@ class ChatViewModel @Inject constructor(
 ) : ViewModel() {
     private val TAG = "ChatViewModel"
 
-    private val _chatList = mutableStateListOf("안녕하세요 저는 ai 챗봇 AiD에요. 저에게 가게에 대해 궁금하신거를 문의하면 답변해드려요.")
-    val chatList: MutableList<String> get() = _chatList
-
     private val _isTemiList = mutableStateListOf(true)
     val isTemiList: MutableList<Boolean> get() = _isTemiList
 
@@ -27,6 +25,14 @@ class ChatViewModel @Inject constructor(
     val temiAns: LiveData<String> get() = _temiAns
 
     private var isFirst = true
+
+    private val _chatList = mutableStateListOf(
+        ChatListDTO(
+            "안녕하세요 저는 ai 챗봇 AiD에요. 저에게 가게에 대해 궁금하신거를 문의하면 답변해드려요.",
+            true
+        )
+    )
+    val chatList: MutableList<ChatListDTO> = _chatList
 
     fun chattingManager(db: FirebaseFirestore, data: FireStoreDTO) {
         db.collection("android").document("chat").set(data)
@@ -48,8 +54,11 @@ class ChatViewModel @Inject constructor(
     }
 
     private fun whenRobotResponse(answer: String) {
-        _chatList.add(answer)
-        _isTemiList.add(true)
+        _chatList.add(ChatListDTO(answer, false))
+    }
+
+    fun whenUserSendMessage(message: String) {
+        _chatList.add(ChatListDTO(message, true))
     }
 
     private fun temiChatManager(answer: String) {

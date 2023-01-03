@@ -55,7 +55,7 @@ class ChatActivity : ComponentActivity() {
                     LocalOverScrollConfiguration provides null
                 ) {
                     ChatList(
-                        chatList = viewModel.chatList, isTemi = viewModel.isTemiList
+                        chatList = viewModel.chatList,
                     )
                 }
                 Column {
@@ -64,8 +64,7 @@ class ChatActivity : ComponentActivity() {
                             val data = FireStoreDTO(
                                 sentence = "#메뉴판", valid = true
                             )
-                            viewModel.chatList.add("#메뉴판")
-                            viewModel.isTemiList.add(false)
+                            viewModel.whenUserSendMessage("#메뉴판")
                             viewModel.chattingManager(db = db, data)
                         })
                     }
@@ -85,8 +84,7 @@ class ChatActivity : ComponentActivity() {
                                 sentence = text.value, valid = true
                             )
                             if (text.value != "") {
-                                viewModel.chatList.add(text.value)
-                                viewModel.isTemiList.add(false)
+                                viewModel.whenUserSendMessage(text.value)
                                 text.value = ""
                             }
                             viewModel.chattingManager(db = db, data)
