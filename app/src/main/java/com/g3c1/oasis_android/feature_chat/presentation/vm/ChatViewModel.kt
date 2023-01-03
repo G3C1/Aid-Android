@@ -18,9 +18,6 @@ class ChatViewModel @Inject constructor(
 ) : ViewModel() {
     private val TAG = "ChatViewModel"
 
-    private val _isTemiList = mutableStateListOf(true)
-    val isTemiList: MutableList<Boolean> get() = _isTemiList
-
     private val _temiAns = MutableLiveData<String>()
     val temiAns: LiveData<String> get() = _temiAns
 
