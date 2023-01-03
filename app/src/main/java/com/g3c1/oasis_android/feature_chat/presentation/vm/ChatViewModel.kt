@@ -47,25 +47,27 @@ class ChatViewModel @Inject constructor(
         }
     }
 
+    private fun whenRobotResponse(answer: String) {
+        _chatList.add(answer)
+        _isTemiList.add(true)
+    }
+
     private fun temiChatManager(answer: String) {
-        when (answer) {
+        val request: String = when (answer) {
             "0" -> {
-                _chatList.add("메뉴 페이지로 이동할게요!")
-                _isTemiList.add(true)
+                "메뉴 페이지로 이동할게요"
             }
             "1" -> {
-                _chatList.add("화장실은 000에 있어요!")
-                _isTemiList.add(true)
+                "화장실은 000에 있어요!"
             }
             "2" -> {
-                _chatList.add("직원을 호출 할게요!")
-                _isTemiList.add(true)
+                "직원을 호출 할게요!"
             }
             else -> {
-                _chatList.add(answer)
-                _isTemiList.add(true)
+                answer
             }
         }
+        whenRobotResponse(request)
         _temiAns.value = answer
     }
 }
