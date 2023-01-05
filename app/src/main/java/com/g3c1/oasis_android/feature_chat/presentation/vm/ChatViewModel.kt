@@ -35,7 +35,7 @@ class ChatViewModel @Inject constructor(
         db.collection("android").document("chat").set(data)
 
         viewModelScope.launch {
-            delay(1500)
+            delay(2000)
             isFirst = true
             db.collection("result").document("model").get()
                 .addOnSuccessListener { result ->
