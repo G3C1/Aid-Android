@@ -63,16 +63,15 @@ class ChatActivity : ComponentActivity() {
                     Row {
                         LazyRow {
                             items(frequentlyAskedQuestion.size) {
-
+                                Menu(onClick = {
+                                    val data = FireStoreDTO(
+                                        sentence = "#${frequentlyAskedQuestion[it]}", valid = true
+                                    )
+                                    viewModel.whenUserSendMessage("#${frequentlyAskedQuestion[it]}")
+                                    viewModel.chattingManager(db = db, data)
+                                }, question = frequentlyAskedQuestion[it])
                             }
                         }
-                        Menu(onClick = {
-                            val data = FireStoreDTO(
-                                sentence = "#메뉴판", valid = true
-                            )
-                            viewModel.whenUserSendMessage("#메뉴판")
-                            viewModel.chattingManager(db = db, data)
-                        })
                     }
                     Row(
                         modifier = Modifier
