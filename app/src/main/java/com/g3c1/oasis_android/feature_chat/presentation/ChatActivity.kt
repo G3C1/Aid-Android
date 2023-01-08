@@ -31,6 +31,7 @@ class ChatActivity : ComponentActivity() {
     private val viewModel by viewModels<ChatViewModel>()
     private val db = FirebaseFirestore.getInstance()
     private var backButtonWait: Long = 0
+    private val frequentlyAskedQuestion = mutableListOf("메뉴판 보여줘", "화장실 위치 어디야?", "직원 호출해줘")
 
 
     @OptIn(ExperimentalFoundationApi::class)
@@ -60,6 +61,11 @@ class ChatActivity : ComponentActivity() {
                 }
                 Column {
                     Row {
+                        LazyRow {
+                            items(frequentlyAskedQuestion.size) {
+
+                            }
+                        }
                         Menu(onClick = {
                             val data = FireStoreDTO(
                                 sentence = "#메뉴판", valid = true
