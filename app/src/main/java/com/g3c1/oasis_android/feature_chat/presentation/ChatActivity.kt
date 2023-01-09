@@ -12,6 +12,7 @@ import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.background
 import androidx.compose.foundation.gestures.LocalOverScrollConfiguration
 import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.lazy.LazyRow
 import androidx.compose.runtime.CompositionLocalProvider
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
@@ -30,6 +31,7 @@ class ChatActivity : ComponentActivity() {
     private val viewModel by viewModels<ChatViewModel>()
     private val db = FirebaseFirestore.getInstance()
     private var backButtonWait: Long = 0
+    private val frequentlyAskedQuestion = mutableListOf("메뉴판 보여줘", "화장실 위치 어디야?", "직원 호출해줘")
 
 
     @OptIn(ExperimentalFoundationApi::class)
@@ -54,19 +56,22 @@ class ChatActivity : ComponentActivity() {
                     LocalOverScrollConfiguration provides null
                 ) {
                     ChatList(
-                        chatList = viewModel.chatList, isTemi = viewModel.isTemiList
+                        chatList = viewModel.chatList,
                     )
                 }
                 Column {
                     Row {
-                        Menu(onClick = {
-                            val data = FireStoreDTO(
-                                sentence = "#메뉴판", valid = true
-                            )
-                            viewModel.chatList.add("#메뉴판")
-                            viewModel.isTemiList.add(false)
-                            viewModel.chattingManager(db = db, data)
-                        })
+                        LazyRow {
+                            items(frequentlyAskedQuestion.size) {
+                                Menu(onClick = {
+                                    val data = FireStoreDTO(
+                                        sentence = "#${frequentlyAskedQuestion[it]}", valid = true
+                                    )
+                                    viewModel.whenUserSendMessage("#${frequentlyAskedQuestion[it]}")
+                                    viewModel.chattingManager(db = db, data)
+                                }, question = frequentlyAskedQuestion[it])
+                            }
+                        }
                     }
                     Row(
                         modifier = Modifier
@@ -84,8 +89,7 @@ class ChatActivity : ComponentActivity() {
                                 sentence = text.value, valid = true
                             )
                             if (text.value != "") {
-                                viewModel.chatList.add(text.value)
-                                viewModel.isTemiList.add(false)
+                                viewModel.whenUserSendMessage(text.value)
                                 text.value = ""
                             }
                             viewModel.chattingManager(db = db, data)
