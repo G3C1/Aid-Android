@@ -26,7 +26,7 @@ class ChatViewModel @Inject constructor(
     private val _chatList = mutableStateListOf(
         ChatListDTO(
             "안녕하세요 저는 ai 챗봇 AiD에요. 저에게 가게에 대해 궁금하신거를 문의하면 답변해드려요.",
-            true
+            false
         )
     )
     val chatList: MutableList<ChatListDTO> = _chatList
