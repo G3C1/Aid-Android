@@ -25,8 +25,8 @@ class ChatViewModel @Inject constructor(
 
     private val _chatList = mutableStateListOf(
         ChatListDTO(
-            "안녕하세요 저는 ai 챗봇 AiD에요. 저에게 가게에 대해 궁금하신거를 문의하면 답변해드려요.",
-            true
+            message = "안녕하세요 저는 ai 챗봇 AiD에요. 저에게 가게에 대해 궁금하신거를 문의하면 답변해드려요.",
+            isFromUser = false
         )
     )
     val chatList: MutableList<ChatListDTO> = _chatList
@@ -51,11 +51,11 @@ class ChatViewModel @Inject constructor(
     }
 
     private fun whenRobotResponse(answer: String) {
-        _chatList.add(ChatListDTO(answer, false))
+        _chatList.add(ChatListDTO(message = answer, isFromUser = false))
     }
 
     fun whenUserSendMessage(message: String) {
-        _chatList.add(ChatListDTO(message, true))
+        _chatList.add(ChatListDTO(message = message, isFromUser = true))
     }
 
     private fun temiChatManager(answer: String) {
