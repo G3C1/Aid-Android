@@ -6,6 +6,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.g3c1.oasis_android.feature_chat.data.data_soure.ChatListDTO
 import com.g3c1.oasis_android.feature_chat.presentation.util.FireStoreDTO
 import com.google.firebase.firestore.FirebaseFirestore
 import kotlinx.coroutines.delay
@@ -17,22 +18,24 @@ class ChatViewModel @Inject constructor(
 ) : ViewModel() {
     private val TAG = "ChatViewModel"
 
-    private val _chatList = mutableStateListOf("안녕하세요 저는 ai 챗봇 AiD에요. 저에게 가게에 대해 궁금하신거를 문의하면 답변해드려요.")
-    val chatList: MutableList<String> get() = _chatList
-
-    private val _isTemiList = mutableStateListOf(true)
-    val isTemiList: MutableList<Boolean> get() = _isTemiList
-
     private val _temiAns = MutableLiveData<String>()
     val temiAns: LiveData<String> get() = _temiAns
 
     private var isFirst = true
 
+    private val _chatList = mutableStateListOf(
+        ChatListDTO(
+            "안녕하세요 저는 ai 챗봇 AiD에요. 저에게 가게에 대해 궁금하신거를 문의하면 답변해드려요.",
+            isFromUser = false
+        )
+    )
+    val chatList: MutableList<ChatListDTO> = _chatList
+
     fun chattingManager(db: FirebaseFirestore, data: FireStoreDTO) {
         db.collection("android").document("chat").set(data)
 
         viewModelScope.launch {
-            delay(1500)
+            delay(2000)
             isFirst = true
             db.collection("result").document("model").get()
                 .addOnSuccessListener { result ->
@@ -47,25 +50,30 @@ class ChatViewModel @Inject constructor(
         }
     }
 
+    private fun whenRobotResponse(answer: String) {
+        _chatList.add(ChatListDTO(answer, isFromUser = false))
+    }
+
+    fun whenUserSendMessage(message: String) {
+        _chatList.add(ChatListDTO(message, isFromUser = true))
+    }
+
     private fun temiChatManager(answer: String) {
-        when (answer) {
+        val request: String = when (answer) {
             "0" -> {
-                _chatList.add("메뉴 페이지로 이동할게요!")
-                _isTemiList.add(true)
+                "메뉴 페이지로 이동할게요"
             }
             "1" -> {
-                _chatList.add("화장실은 000에 있어요!")
-                _isTemiList.add(true)
+                "화장실은 000에 있어요!"
             }
             "2" -> {
-                _chatList.add("직원을 호출 할게요!")
-                _isTemiList.add(true)
+                "직원을 호출 할게요!"
             }
             else -> {
-                _chatList.add(answer)
-                _isTemiList.add(true)
+                answer
             }
         }
+        whenRobotResponse(request)
         _temiAns.value = answer
     }
 }

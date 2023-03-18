@@ -13,4 +13,7 @@
 .externalNativeBuild
 .cxx
 .tab
+/buildSrc/build/
+/buildSrc/.gradle/
 local.properties
+/.idea/deploymentTargetDropDown.xml

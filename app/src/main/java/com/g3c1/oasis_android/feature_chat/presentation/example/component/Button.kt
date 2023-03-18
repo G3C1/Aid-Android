@@ -21,7 +21,7 @@ import com.g3c1.oasis_android.ui.theme.Font
 import com.g3c1.oasis_android.ui.theme.Orange
 
 @Composable
-fun Menu(onClick: () -> Unit) {
+fun Menu(onClick: () -> Unit, question: String) {
     Button(
         onClick = onClick,
         modifier = Modifier.padding(start = 13.dp, end = 13.dp, top = 5.dp, bottom = 5.dp),
@@ -32,7 +32,7 @@ fun Menu(onClick: () -> Unit) {
         shape = RoundedCornerShape(12.dp)
     ) {
         Text(
-            text = "#메뉴판", style = TextStyle(
+            text = "#$question", style = TextStyle(
                 fontFamily = Font.pretendard,
                 fontWeight = FontWeight.SemiBold,
                 color = Color.White,
