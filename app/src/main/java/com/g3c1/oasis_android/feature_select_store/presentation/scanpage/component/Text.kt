@@ -1,6 +1,7 @@
 package com.g3c1.oasis_android.feature_select_store.presentation.scanpage.component
 
 import androidx.compose.foundation.clickable
+import androidx.compose.foundation.interaction.MutableInteractionSource
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
@@ -13,6 +14,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.g3c1.oasis_android.ui.theme.Font
 import com.g3c1.oasis_android.ui.theme.Orange
+
 
 @Composable
 fun PretendardText(text: String, fontSize: TextUnit, fontWeight: FontWeight, color: Color) {
@@ -29,7 +31,10 @@ fun PretendardText(text: String, fontSize: TextUnit, fontWeight: FontWeight, col
 @Composable
 fun DialogText(text: String, onClick: () -> Unit) {
     Text(modifier = Modifier
-        .clickable {
+        .clickable(
+            indication = null,
+            interactionSource = MutableInteractionSource()
+        ) {
             onClick()
         }
         .padding(10.dp), text = text, style = TextStyle(
