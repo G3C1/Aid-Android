@@ -37,7 +37,7 @@ fun FoodDetailScreen(
     menuList: List<MenuDTO>
 ) {
 
-    val count = remember { mutableStateOf(1)}
+    val count = remember { mutableStateOf(1) }
     val allMenuList = mutableListOf<FoodDTO>()
     val scope = rememberCoroutineScope()
 
@@ -82,20 +82,35 @@ fun FoodDetailScreen(
                 fontWeight = FontWeight.Normal,
                 fontSize = 14.sp
             )
-            Row(modifier = Modifier
-                .fillMaxWidth()
-                .height(60.dp),
+            Box(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .height(60.dp)
+            ) {
+                Text(
+                    text = "${data.servings}인분",
+                    fontFamily = Font.pretendard,
+                    fontSize = 16.sp,
+                    modifier = Modifier.align(
+                        Alignment.CenterStart
+                    )
+                )
+                Text(
+                    text = "${data.price}원",
+                    fontFamily = Font.pretendard,
+                    fontSize = 16.sp,
+                    modifier = Modifier.align(
+                        Alignment.CenterEnd
+                    )
+                )
+            }
+            Row(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .height(60.dp),
                 verticalAlignment = Alignment.CenterVertically
             ) {
-                Text(text = "${data.servings}인분", fontFamily = Font.pretendard, fontSize = 16.sp)
-                Spacer(modifier = Modifier.width(290.dp))
-                Text(text = "${data.price}원", fontFamily = Font.pretendard, fontSize = 16.sp)
-            }
-            Row(modifier = Modifier
-                .fillMaxWidth()
-                .height(60.dp),
-            verticalAlignment = Alignment.CenterVertically) {
-                IconButton(onClick = { if(count.value > 1) count.value = count.value - 1}) {
+                IconButton(onClick = { if (count.value > 1) count.value = count.value - 1 }) {
                     Text(text = "-")
                 }
                 Text(text = count.value.toString(), textAlign = TextAlign.Center)
@@ -110,14 +125,15 @@ fun FoodDetailScreen(
             verticalArrangement = Arrangement.Bottom,
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
-            ShoppingBasketButton (onClick = {
-                scope.launch {
-                    viewModel.checkIfFoodIsOnTheList(itemId = menuId!!, amount = count.value)
-                    navController.popBackStack()
-                }
-            },
-            visibility = true,
-            count.value * data.price
+            ShoppingBasketButton(
+                onClick = {
+                    scope.launch {
+                        viewModel.checkIfFoodIsOnTheList(itemId = menuId!!, amount = count.value)
+                        navController.popBackStack()
+                    }
+                },
+                visibility = true,
+                count.value * data.price
             )
         }
     }
