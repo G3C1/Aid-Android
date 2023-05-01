@@ -91,6 +91,7 @@ fun FoodDetailScreen(
                     text = "${data.servings}인분",
                     fontFamily = Font.pretendard,
                     fontSize = 16.sp,
+                    fontWeight = FontWeight.Medium,
                     modifier = Modifier.align(
                         Alignment.CenterStart
                     )
@@ -99,6 +100,7 @@ fun FoodDetailScreen(
                     text = "${data.price}원",
                     fontFamily = Font.pretendard,
                     fontSize = 16.sp,
+                    fontWeight = FontWeight.Medium,
                     modifier = Modifier.align(
                         Alignment.CenterEnd
                     )
