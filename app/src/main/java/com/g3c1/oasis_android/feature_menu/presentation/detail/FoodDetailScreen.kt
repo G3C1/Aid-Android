@@ -1,6 +1,7 @@
 package com.g3c1.oasis_android.feature_menu.presentation.detail
 
 import androidx.compose.foundation.Image
+import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.IconButton
@@ -26,6 +27,7 @@ import com.g3c1.oasis_android.feature_menu.data.dto.MenuDTO
 import com.g3c1.oasis_android.feature_menu.presentation.shopping_basket.component.ShoppingBasketButton
 import com.g3c1.oasis_android.feature_menu.presentation.vm.MenuViewModel
 import com.g3c1.oasis_android.ui.theme.Font
+import com.g3c1.oasis_android.ui.theme.LightGray
 import kotlinx.coroutines.launch
 
 @OptIn(ExperimentalCoilApi::class)
@@ -106,6 +108,12 @@ fun FoodDetailScreen(
                     )
                 )
             }
+            Box(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .height(2.dp)
+                    .background(LightGray)
+            )
             Row(
                 modifier = Modifier
                     .fillMaxWidth()
