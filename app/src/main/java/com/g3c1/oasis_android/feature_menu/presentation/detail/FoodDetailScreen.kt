@@ -2,10 +2,13 @@ package com.g3c1.oasis_android.feature_menu.presentation.detail
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
+import androidx.compose.foundation.interaction.MutableInteractionSource
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.material.IconButton
+import androidx.compose.material.Icon
 import androidx.compose.material.Text
+import androidx.compose.material.ripple.rememberRipple
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
@@ -14,6 +17,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
@@ -114,18 +118,44 @@ fun FoodDetailScreen(
                     .height(2.dp)
                     .background(LightGray)
             )
-            Row(
+            Box(
                 modifier = Modifier
-                    .fillMaxWidth()
-                    .height(60.dp),
-                verticalAlignment = Alignment.CenterVertically
+                    .clip(RoundedCornerShape(18.dp))
+                    .background(LightGray)
             ) {
-                IconButton(onClick = { if (count.value > 1) count.value = count.value - 1 }) {
-                    Text(text = "-")
-                }
-                Text(text = count.value.toString(), textAlign = TextAlign.Center)
-                IconButton(onClick = { count.value = count.value + 1 }) {
-                    Text(text = "+")
+                Row(
+                    verticalAlignment = Alignment.CenterVertically
+                ) {
+                    Icon(
+                        painter = painterResource(id = R.drawable.minus_btn_ic),
+                        contentDescription = "minus btn icon",
+                        modifier = Modifier
+                            .clickable(
+                                interactionSource = MutableInteractionSource(),
+                                indication = rememberRipple(
+                                    radius = 10.dp
+                                )
+                            ) { if (count.value > 1) count.value = count.value - 1 }
+                            .padding(10.dp)
+                    )
+                    Text(
+                        text = "${count.value}개",
+                        textAlign = TextAlign.Center,
+                        fontFamily = Font.pretendard,
+                        fontWeight = FontWeight.Medium
+                    )
+                    Icon(
+                        painter = painterResource(id = R.drawable.plus_btn_ic),
+                        contentDescription = "plus btn icon",
+                        modifier = Modifier
+                            .clickable(
+                                interactionSource = MutableInteractionSource(),
+                                indication = rememberRipple(
+                                    radius = 10.dp
+                                )
+                            ) { count.value = count.value + 1 }
+                            .padding(10.dp)
+                    )
                 }
             }
         }

@@ -38,9 +38,9 @@ class StoreSelectActivity : ComponentActivity() {
         super.onCreate(savedInstanceState)
         setContent {
             var code by remember { mutableStateOf("") }
-            var visible by remember { mutableStateOf(false) }
-            if (code != "") {
-                storeSelectViewModel.setSearialNumber(code.toInt())
+            var visible by remember { mutableStateOf(true) }
+            if (code == "") {
+                storeSelectViewModel.setSearialNumber(2)
                 getSumarizedStoreInfo()
             }
             Box(
