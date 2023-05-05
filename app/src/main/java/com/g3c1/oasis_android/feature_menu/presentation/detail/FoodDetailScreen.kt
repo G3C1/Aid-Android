@@ -120,44 +120,66 @@ fun FoodDetailScreen(
             )
             Box(
                 modifier = Modifier
-                    .clip(RoundedCornerShape(18.dp))
-                    .background(LightGray)
+                    .fillMaxWidth()
+                    .height(60.dp)
             ) {
-                Row(
-                    verticalAlignment = Alignment.CenterVertically
+                Text(
+                    text = "수량",
+                    fontFamily = Font.pretendard,
+                    fontSize = 16.sp,
+                    fontWeight = FontWeight.Medium,
+                    modifier = Modifier.align(
+                        Alignment.CenterStart
+                    )
+                )
+                Box(
+                    modifier = Modifier
+                        .align(Alignment.CenterEnd)
+                        .clip(RoundedCornerShape(18.dp))
+                        .background(LightGray)
                 ) {
-                    Icon(
-                        painter = painterResource(id = R.drawable.minus_btn_ic),
-                        contentDescription = "minus btn icon",
-                        modifier = Modifier
-                            .clickable(
-                                interactionSource = MutableInteractionSource(),
-                                indication = rememberRipple(
-                                    radius = 10.dp
-                                )
-                            ) { if (count.value > 1) count.value = count.value - 1 }
-                            .padding(10.dp)
-                    )
-                    Text(
-                        text = "${count.value}개",
-                        textAlign = TextAlign.Center,
-                        fontFamily = Font.pretendard,
-                        fontWeight = FontWeight.Medium
-                    )
-                    Icon(
-                        painter = painterResource(id = R.drawable.plus_btn_ic),
-                        contentDescription = "plus btn icon",
-                        modifier = Modifier
-                            .clickable(
-                                interactionSource = MutableInteractionSource(),
-                                indication = rememberRipple(
-                                    radius = 10.dp
-                                )
-                            ) { count.value = count.value + 1 }
-                            .padding(10.dp)
-                    )
+                    Row(
+                        verticalAlignment = Alignment.CenterVertically
+                    ) {
+                        Icon(
+                            painter = painterResource(id = R.drawable.minus_btn_ic),
+                            contentDescription = "minus btn icon",
+                            modifier = Modifier
+                                .clickable(
+                                    interactionSource = MutableInteractionSource(),
+                                    indication = rememberRipple(
+                                        radius = 10.dp
+                                    )
+                                ) { if (count.value > 1) count.value = count.value - 1 }
+                                .padding(10.dp)
+                        )
+                        Text(
+                            text = "${count.value}개",
+                            textAlign = TextAlign.Center,
+                            fontFamily = Font.pretendard,
+                            fontWeight = FontWeight.Medium
+                        )
+                        Icon(
+                            painter = painterResource(id = R.drawable.plus_btn_ic),
+                            contentDescription = "plus btn icon",
+                            modifier = Modifier
+                                .clickable(
+                                    interactionSource = MutableInteractionSource(),
+                                    indication = rememberRipple(
+                                        radius = 10.dp
+                                    )
+                                ) { count.value = count.value + 1 }
+                                .padding(10.dp)
+                        )
+                    }
                 }
             }
+            Box(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .height(2.dp)
+                    .background(LightGray)
+            )
         }
 
         Column(
