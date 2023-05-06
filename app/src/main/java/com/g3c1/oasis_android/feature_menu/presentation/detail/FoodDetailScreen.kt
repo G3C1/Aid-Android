@@ -6,6 +6,8 @@ import androidx.compose.foundation.clickable
 import androidx.compose.foundation.interaction.MutableInteractionSource
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.material.BottomSheetScaffoldState
+import androidx.compose.material.ExperimentalMaterialApi
 import androidx.compose.material.Icon
 import androidx.compose.material.Text
 import androidx.compose.material.ripple.rememberRipple
@@ -28,19 +30,21 @@ import coil.compose.rememberImagePainter
 import com.g3c1.oasis_android.R
 import com.g3c1.oasis_android.feature_menu.data.dto.FoodDTO
 import com.g3c1.oasis_android.feature_menu.data.dto.MenuDTO
+import com.g3c1.oasis_android.feature_menu.presentation.menu.component.TopBar
 import com.g3c1.oasis_android.feature_menu.presentation.shopping_basket.component.ShoppingBasketButton
 import com.g3c1.oasis_android.feature_menu.presentation.vm.MenuViewModel
 import com.g3c1.oasis_android.ui.theme.Font
 import com.g3c1.oasis_android.ui.theme.LightGray
 import kotlinx.coroutines.launch
 
-@OptIn(ExperimentalCoilApi::class)
+@OptIn(ExperimentalCoilApi::class, ExperimentalMaterialApi::class)
 @Composable
 fun FoodDetailScreen(
     navController: NavController,
     viewModel: MenuViewModel,
     menuId: Int?,
-    menuList: List<MenuDTO>
+    menuList: List<MenuDTO>,
+    bottomSheetScaffoldState: BottomSheetScaffoldState
 ) {
 
     val count = remember { mutableStateOf(1) }
@@ -57,6 +61,21 @@ fun FoodDetailScreen(
     val painter = rememberImagePainter(data = data.img, builder = {
         R.drawable.ic_cart
     })
+
+    TopBar(
+        clickBackButton = { navController.popBackStack() },
+        clickShoppingBasketButton = {
+            scope.launch {
+                if (bottomSheetScaffoldState.bottomSheetState.isCollapsed) {
+                    bottomSheetScaffoldState.bottomSheetState.expand()
+                } else {
+                    bottomSheetScaffoldState.bottomSheetState.collapse()
+                }
+            }
+        },
+        text = "메뉴판"
+    )
+    Spacer(modifier = Modifier.height(20.dp))
 
     Column(modifier = Modifier.fillMaxSize()) {
         Spacer(modifier = Modifier.height(8.dp))

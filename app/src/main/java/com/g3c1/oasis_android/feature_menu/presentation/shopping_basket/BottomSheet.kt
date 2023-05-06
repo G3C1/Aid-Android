@@ -1,8 +1,6 @@
 package com.g3c1.oasis_android.feature_menu.presentation.shopping_basket
 
-import android.app.Activity
 import android.util.Log
-import android.widget.Toast
 import androidx.compose.foundation.Canvas
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.*
@@ -14,7 +12,6 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
@@ -23,7 +20,6 @@ import com.g3c1.oasis_android.R
 import com.g3c1.oasis_android.di.OasisApp
 import com.g3c1.oasis_android.feature_menu.data.dto.OrderInfoDTO
 import com.g3c1.oasis_android.feature_menu.data.dto.OrderedTableInfoDTO
-import com.g3c1.oasis_android.feature_menu.presentation.menu.component.TopBar
 import com.g3c1.oasis_android.feature_menu.presentation.menu.navigation.MenuNavigation
 import com.g3c1.oasis_android.feature_menu.presentation.shopping_basket.component.OrderButton
 import com.g3c1.oasis_android.feature_menu.presentation.shopping_basket.component.OrderedMenuComponent
@@ -42,7 +38,6 @@ fun BottomSheet(viewModel: MenuViewModel) {
     val bottomSheetScaffoldState = rememberBottomSheetScaffoldState(
         bottomSheetState = sheetState
     )
-    val currentActivity = LocalContext.current as Activity
     val list = remember { viewModel.menuList }
     val orderMenuList = remember { viewModel.orderMenuList }
 
@@ -121,21 +116,7 @@ fun BottomSheet(viewModel: MenuViewModel) {
         sheetPeekHeight = 0.dp
     ) {
         Column(modifier = Modifier.fillMaxSize()) {
-            TopBar(
-                clickBackButton = { currentActivity.finish() },
-                clickShoppingBasketButton = {
-                    scope.launch {
-                        if (bottomSheetScaffoldState.bottomSheetState.isCollapsed) {
-                            bottomSheetScaffoldState.bottomSheetState.expand()
-                        } else {
-                            bottomSheetScaffoldState.bottomSheetState.collapse()
-                        }
-                    }
-                },
-                text = "메뉴판"
-            )
-            Spacer(modifier = Modifier.height(20.dp))
-            MenuNavigation(viewModel = viewModel, menuDataList = list)
+            MenuNavigation(viewModel = viewModel, menuDataList = list, bottomSheetScaffoldState = bottomSheetScaffoldState)
         }
     }
 
