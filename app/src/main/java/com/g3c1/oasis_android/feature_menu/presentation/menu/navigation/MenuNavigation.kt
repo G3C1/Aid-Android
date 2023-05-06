@@ -18,7 +18,11 @@ fun MenuNavigation(viewModel: MenuViewModel, menuDataList: List<MenuDTO>) {
 
     NavHost(navController = navController, startDestination = Screen.MenuScreen.route) {
         composable(Screen.MenuScreen.route) {
-            MenuScreen(navController = navController, viewModel = viewModel, menuDataList = menuDataList)
+            MenuScreen(
+                navController = navController,
+                viewModel = viewModel,
+                menuDataList = menuDataList
+            )
         }
         composable(
             route = Screen.DetailScreen.route + "/{menuId}",
