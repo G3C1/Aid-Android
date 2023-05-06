@@ -1,5 +1,6 @@
 package com.g3c1.oasis_android.di.module
 
+import com.g3c1.oasis_android.BuildConfig
 import com.g3c1.oasis_android.remote.api.FoodApi
 import com.g3c1.oasis_android.remote.api.PurchaseApi
 import com.g3c1.oasis_android.remote.api.SeatApi
@@ -39,7 +40,7 @@ object NetworkModule {
         gsonConverterFactory: GsonConverterFactory
     ): Retrofit {
         return Retrofit.Builder()
-            .baseUrl(FakeUrl.BASE_URL)
+            .baseUrl(BuildConfig.BASE_URL)
             .client(okHttpClient)
             .client(provideOkhttpClient())
             .addConverterFactory(gsonConverterFactory)
