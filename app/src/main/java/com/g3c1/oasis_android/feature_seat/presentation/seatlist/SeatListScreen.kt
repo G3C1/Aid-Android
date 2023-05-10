@@ -67,7 +67,7 @@ fun SeatListScreen(
                         val color = if (!it.enabled) Gray else Orange
                         val textColor =
                             if (!it.enabled) Gray2 else if (it.enabled && isSelectedItem(
-                                    it.seatId
+                                    it.seatId.toInt()
                                 )
                             ) Orange else Color.White
                         Column(
@@ -75,8 +75,8 @@ fun SeatListScreen(
                                 .height(if (it.severalPeople >= 4) 160.dp else 90.dp)
                                 .width(if (it.severalPeople >= 2) 160.dp else 90.dp)
                                 .selectable(
-                                    selected = isSelectedItem(it.seatId),
-                                    onClick = { onChangeState(it.seatId) },
+                                    selected = isSelectedItem(it.seatId.toInt()),
+                                    onClick = { onChangeState(it.seatId.toInt()) },
                                     enabled = it.enabled,
                                     role = Role.RadioButton,
                                 )
@@ -89,7 +89,7 @@ fun SeatListScreen(
                                     color = color,
                                     width = 3.dp
                                 )
-                                .background(if (it.enabled && isSelectedItem(it.seatId)) Color.White else color),
+                                .background(if (it.enabled && isSelectedItem(it.seatId.toInt())) Color.White else color),
                             horizontalAlignment = Alignment.CenterHorizontally,
                             verticalArrangement = Arrangement.Center,
 
