@@ -34,7 +34,7 @@ import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
 
 @AndroidEntryPoint
-class SeatActivity: ComponentActivity() {
+class SeatActivity : ComponentActivity() {
 
     private val seatViewModel by viewModels<SeatDataViewModel>()
     private lateinit var displaySize: Array<Int>
@@ -87,16 +87,15 @@ class SeatActivity: ComponentActivity() {
 
     private fun getSeatDataList() {
         lifecycleScope.launch {
+            seatViewModel.mSeatDataList.value = ApiState.Loading()
             seatViewModel.getSeatDataList()
             seatViewModel.mSeatDataList.collect { it ->
                 when (it) {
                     is ApiState.Success -> {
                         Log.d("TAG", it.data.toString())
-                        seatViewModel.mSeatDataList.value = ApiState.Loading()
-                        seatViewModel.list = it.data!!.map { it.seatId }
                         setContent {
                             SeatListScreen(
-                                it.data,
+                                it.data!!,
                                 viewModel = viewModel(LocalContext.current as SeatActivity),
                                 scope = rememberCoroutineScope(),
                                 onSuccess = { successSeatRequest() },
@@ -136,7 +135,6 @@ class SeatActivity: ComponentActivity() {
 
     private fun successSeatRequest() {
         Toast.makeText(this, "자리 선택이 완료되었습니다.", Toast.LENGTH_SHORT).show()
-        seatViewModel.mPatchSeatDataResult.value = ApiState.Loading()
         transferThePage()
         storageSeatIdToDataStore()
 
@@ -146,8 +144,9 @@ class SeatActivity: ComponentActivity() {
         val intent = Intent(this@SeatActivity, ChatActivity::class.java)
         intent.putExtra(
             "seat",
-            seatViewModel.list.indexOf((seatViewModel.selectedSeatId.value.toInt()) + 1).toString()
+            seatViewModel.mSeatDataList.value.data!!.first { it.seatId == seatViewModel.selectedSeatId.value }.seatNumber.toString()
         )
+        seatViewModel.mPatchSeatDataResult.value = ApiState.Loading()
         startActivity(intent)
         finish()
     }
